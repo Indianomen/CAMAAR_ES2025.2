@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  administrator_ID: 1
+  template_ID: 1
+  turma_ID: 1
+
+two:
+  administrator_ID: 1
+  template_ID: 1
+  turma_ID: 1

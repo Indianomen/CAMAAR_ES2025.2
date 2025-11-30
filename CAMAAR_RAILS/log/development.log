@@ -1,0 +1,46 @@
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY) /*application='CamaarRails'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='CamaarRails'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='CamaarRails'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-11-26 14:26:37.752733', '2025-11-26 14:26:37.752735') RETURNING "key" /*application='CamaarRails'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='CamaarRails'*/[0m
+Migrating to CreateTemplates (20251126142508)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='CamaarRails'*/[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "templates" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "administrator_ID" integer, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='CamaarRails'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251126142508') RETURNING "version" /*application='CamaarRails'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='CamaarRails'*/[0m
+Migrating to CreateForms (20251126142538)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='CamaarRails'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "forms" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "administrator_ID" integer, "template_ID" integer, "turma_ID" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='CamaarRails'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251126142538') RETURNING "version" /*application='CamaarRails'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='CamaarRails'*/[0m
+Migrating to CreateQuestions (20251126142551)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='CamaarRails'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "questions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "form_ID" integer, "template_ID" integer, "texto" varchar, "resposta" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='CamaarRails'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251126142551') RETURNING "version" /*application='CamaarRails'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='CamaarRails'*/[0m
+Migrating to CreateCourses (20251126142600)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='CamaarRails'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "courses" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "code" varchar, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='CamaarRails'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251126142600') RETURNING "version" /*application='CamaarRails'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='CamaarRails'*/[0m
+Migrating to CreateClassesses (20251126142607)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='CamaarRails'*/[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "classesses" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "professor_ID" integer, "disciplina_ID" integer, "form_ID" integer, "semestre" varchar, "time" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='CamaarRails'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251126142607') RETURNING "version" /*application='CamaarRails'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='CamaarRails'*/[0m
+Migrating to CreateStudents (20251126142619)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='CamaarRails'*/[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "students" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "registered" boolean, "senha" varchar, "nome" varchar, "curso" varchar, "matricula" varchar, "departamento" varchar, "formacao" varchar, "usuario" varchar, "email" varchar, "ocupacao" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='CamaarRails'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251126142619') RETURNING "version" /*application='CamaarRails'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='CamaarRails'*/[0m
+Migrating to CreateProfessors (20251126142626)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='CamaarRails'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "professors" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "senha" varchar, "nome" varchar, "departamento" varchar, "formacao" varchar, "usuario" varchar, "email" varchar, "ocupacao" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='CamaarRails'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251126142626') RETURNING "version" /*application='CamaarRails'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='CamaarRails'*/[0m
+Migrating to CreateAdmins (20251126142631)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='CamaarRails'*/[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "admins" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "senha" varchar, "nome" varchar, "departamento" varchar, "formacao" varchar, "usuario" varchar, "email" varchar, "ocupacao" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='CamaarRails'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251126142631') RETURNING "version" /*application='CamaarRails'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='CamaarRails'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='CamaarRails'*/[0m
