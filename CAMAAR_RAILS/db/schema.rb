@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_26_142631) do
+ActiveRecord::Schema[8.0].define(version: 2025_12_05_230420) do
   create_table "admins", force: :cascade do |t|
     t.string "senha"
     t.string "nome"
@@ -21,6 +21,22 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_26_142631) do
     t.string "ocupacao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "alunos_formularios", id: false, force: :cascade do |t|
+    t.integer "aluno_id"
+    t.integer "formulario_id"
+    t.index ["aluno_id", "formulario_id"], name: "index_alunos_formularios_on_aluno_id_and_formulario_id", unique: true
+    t.index ["aluno_id"], name: "index_alunos_formularios_on_aluno_id"
+    t.index ["formulario_id"], name: "index_alunos_formularios_on_formulario_id"
+  end
+
+  create_table "alunos_turmas", id: false, force: :cascade do |t|
+    t.integer "aluno_id"
+    t.integer "turma_id"
+    t.index ["aluno_id", "turma_id"], name: "index_alunos_turmas_on_aluno_id_and_turma_id", unique: true
+    t.index ["aluno_id"], name: "index_alunos_turmas_on_aluno_id"
+    t.index ["turma_id"], name: "index_alunos_turmas_on_turma_id"
   end
 
   create_table "classesses", force: :cascade do |t|

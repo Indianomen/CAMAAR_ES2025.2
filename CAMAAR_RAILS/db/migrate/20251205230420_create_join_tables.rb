@@ -1,4 +1,4 @@
-class CreateJoinTables < ActiveRecord::Migration[8.0]
+class CreateJoinTables < ActiveRecord::Migration[7.0]
   def change
     create_table :alunos_turmas, id: false do |t|
       t.belongs_to :aluno
