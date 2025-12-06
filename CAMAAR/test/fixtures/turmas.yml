@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  professor: one
+  disciplina: one
+  formulario: one
+  semestre: MyString
+  horario: MyString
+
+two:
+  professor: two
+  disciplina: two
+  formulario: two
+  semestre: MyString
+  horario: MyString

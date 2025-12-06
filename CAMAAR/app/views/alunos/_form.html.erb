@@ -1,0 +1,67 @@
+<%= form_with(model: aluno) do |form| %>
+  <% if aluno.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(aluno.errors.count, "error") %> prohibited this aluno from being saved:</h2>
+
+      <ul>
+        <% aluno.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :nome, style: "display: block" %>
+    <%= form.text_field :nome %>
+  </div>
+
+  <div>
+    <%= form.label :curso, style: "display: block" %>
+    <%= form.text_field :curso %>
+  </div>
+
+  <div>
+    <%= form.label :matricula, style: "display: block" %>
+    <%= form.text_field :matricula %>
+  </div>
+
+  <div>
+    <%= form.label :departamento, style: "display: block" %>
+    <%= form.text_field :departamento %>
+  </div>
+
+  <div>
+    <%= form.label :formacao, style: "display: block" %>
+    <%= form.text_field :formacao %>
+  </div>
+
+  <div>
+    <%= form.label :usuario, style: "display: block" %>
+    <%= form.text_field :usuario %>
+  </div>
+
+  <div>
+    <%= form.label :email, style: "display: block" %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div>
+    <%= form.label :ocupacao, style: "display: block" %>
+    <%= form.text_field :ocupacao %>
+  </div>
+
+  <div>
+    <%= form.label :registered, style: "display: block" %>
+    <%= form.checkbox :registered %>
+  </div>
+
+  <div>
+    <%= form.label :password_digest, style: "display: block" %>
+    <%= form.text_field :password_digest %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
