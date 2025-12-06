@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  template: one
+  formulario: one
+  texto: MyString
+  resposta: MyString
+
+two:
+  template: two
+  formulario: two
+  texto: MyString
+  resposta: MyString
