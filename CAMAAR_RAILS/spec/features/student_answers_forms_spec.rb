@@ -4,9 +4,9 @@ RSpec.feature "StudentAnswersForms", type: :feature do
   pending "add some scenarios (or delete) #{__FILE__}"
 end
 RSpec.describe "Student answers forms", type: :feature do
-  let(:aluno) { create(:aluno) }
-  let(:formulario) { create(:formulario) }
-  let(:pergunta) { create(:pergunta, formulario: formulario) }
+  let(:student) { create(:student) }
+  let(:form) { create(:form) }
+  let(:question) { create(:pergunta, formulario: formulario) }
   
   before do
     login_as(aluno)
