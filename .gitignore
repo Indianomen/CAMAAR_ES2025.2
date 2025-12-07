@@ -1,25 +1,25 @@
-*.rbc
-capybara-*.html
-.rspec
-/db/*.sqlite3
-/db/*.sqlite3-journal
-/db/*.sqlite3-[0-9]*
-/public/system
-/coverage/
-/spec/tmp
-*.orig
-rerun.txt
-pickle-email-*.html
+CAMAAR/*.rbc
+CAMAAR/capybara-*.html
+CAMAAR/.rspec
+CAMAAR/db/*.sqlite3
+CAMAAR/db/*.sqlite3-journal
+CAMAAR/db/*.sqlite3-[0-9]*
+CAMAAR/public/system
+CAMAAR/coverage/
+CAMAAR/spec/tmp
+CAMAAR/*.orig
+CAMAAR/rerun.txt
+CAMAAR/pickle-email-*.html
 
 # Ignore all logfiles and tempfiles.
-/log/*
-/tmp/*
-!/log/.keep
-!/tmp/.keep
+CAMAAR/log/*
+CAMAAR/tmp/*
+CAMAAR/!/log/.keep
+CAMAAR/!/tmp/.keep
 
 # TODO Comment out this rule if you are OK with secrets being uploaded to the repo
-config/initializers/secret_token.rb
-config/master.key
+CAMAAR/config/initializers/secret_token.rb
+CAMAAR/config/master.key
 
 # Only include if you have production secrets in this file, which is no longer a Rails default
 # config/secrets.yml
@@ -30,40 +30,40 @@ config/master.key
 .env*.local
 
 ## Environment normalization:
-/.bundle
-/vendor/bundle
+CAMAAR/.bundle
+CAMAAR/vendor/bundle
 
 # these should all be checked in to normalize the environment:
 # Gemfile.lock, .ruby-version, .ruby-gemset
 
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
-.rvmrc
+CAMAAR/.rvmrc
 
 # if using bower-rails ignore default bower_components path bower.json files
-/vendor/assets/bower_components
-*.bowerrc
-bower.json
+CAMAAR/vendor/assets/bower_components
+CAMAAR/*.bowerrc
+CAMAAR/bower.json
 
 # Ignore pow environment settings
-.powenv
+CAMAAR/.powenv
 
 # Ignore Byebug command history file.
-.byebug_history
+CAMAAR/.byebug_history
 
 # Ignore node_modules
-node_modules/
+CAMAAR/node_modules/
 
 # Ignore precompiled javascript packs
-/public/packs
-/public/packs-test
-/public/assets
+CAMAAR/public/packs
+CAMAAR/public/packs-test
+CAMAAR/public/assets
 
 # Ignore yarn files
-/yarn-error.log
-yarn-debug.log*
-.yarn-integrity
+CAMAAR/yarn-error.log
+CAMAAR/yarn-debug.log*
+CAMAAR/.yarn-integrity
 
 # Ignore uploaded files in development
-/storage/*
-!/storage/.keep
-/public/uploads
+CAMAAR/storage/*
+CAMAAR/!/storage/.keep
+CAMAAR/public/uploads
