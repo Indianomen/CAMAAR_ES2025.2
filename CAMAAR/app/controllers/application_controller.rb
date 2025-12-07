@@ -8,6 +8,6 @@ class ApplicationController < ActionController::Base
   def current_user
     # For now, return the first admin if exists
     # In tests, this will be mocked
-    @current_user ||= Administrador.first
+    nil
   end
 end
