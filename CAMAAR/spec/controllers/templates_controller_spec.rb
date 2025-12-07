@@ -10,13 +10,18 @@ end
 
 RSpec.describe TemplatesController, type: :controller do
   let(:admin) { create(:administrador) }
-  let(:other_admin) { create(:administrador, usuario: "outro_admin", email: "outro@admin.com") }
+  let(:other_admin) { create(:administrador, 
+                              usuario: "outro_admin", 
+                              email: "outro@admin.com",
+                              nome: "Outro Admin") }
   let(:professor) { create(:professor) }
   let(:aluno) { create(:aluno) }
   
   describe "GET #index" do
     context "as admin" do
-      before { login_as_admin(admin) }
+      before do
+        login_as_admin(admin)
+      end
       
       it "returns a success response" do
         get :index
@@ -24,9 +29,16 @@ RSpec.describe TemplatesController, type: :controller do
       end
       
       it "only shows templates created by current admin" do
-        template1 = create(:template, administrador: admin)
-        template2 = create(:template, administrador: other_admin)
-                
+        template1 = Template.create!(
+          nome: "Meu Template",
+          administrador: admin
+        )
+
+        template2 = Template.create!(
+          nome: "Template de Outro",
+          administrador: other_admin
+        )
+
         get :index
         expect(assigns(:templates)).to include(template1)
         expect(assigns(:templates)).not_to include(template2)
@@ -122,7 +134,7 @@ RSpec.describe TemplatesController, type: :controller do
     it "redirects to the templates list" do
       delete :destroy, params: { id: template.id }
       expect(response).to redirect_to(templates_url)
-      expect(flash[:notice]).to eq('Template excluído com sucesso.')
+      expect(flash[:notice]).to eq('Template was successfully destroyed.')
     end
   end
 end

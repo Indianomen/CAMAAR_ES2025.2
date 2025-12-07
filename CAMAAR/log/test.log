@@ -744,3 +744,693 @@ Completed 422 Unprocessable Content in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (
   [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
   [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
   [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:50:49.209557"], ["updated_at", "2025-12-07 01:50:49.209557"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.2ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:50:49.220527"], ["updated_at", "2025-12-07 01:50:49.220527"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by TemplatesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering templates/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/index.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 6ms (Views: 1.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.5ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:50:49.271302"], ["updated_at", "2025-12-07 01:50:49.271302"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Meu Template"], ["created_at", "2025-12-07 01:50:49.276433"], ["updated_at", "2025-12-07 01:50:49.276433"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "outro_admin"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Outro Admin"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "outro_admin"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:50:49.279092"], ["updated_at", "2025-12-07 01:50:49.279092"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 2], ["nome", "Template de Outro"], ["created_at", "2025-12-07 01:50:49.279974"], ["updated_at", "2025-12-07 01:50:49.279974"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by TemplatesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering templates/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/index.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProfessor Exists? (2.4ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mProfessor Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."usuario" = ? LIMIT ?[0m  [["usuario", "prof_test"], ["LIMIT", 1]]
+  [1m[36mProfessor Create (0.1ms)[0m  [1m[32mINSERT INTO "professors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Professor Test"], ["departamento", "Ciência da Computação"], ["formacao", "Doutorado"], ["usuario", "prof_test"], ["email", "[FILTERED]"], ["ocupacao", "Professor"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:50:49.295621"], ["updated_at", "2025-12-07 01:50:49.295621"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by TemplatesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering templates/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/index.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 2.3ms | GC: 2.2ms)
+Completed 200 OK in 5ms (Views: 5.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 4.8ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAluno Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "20230001"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."usuario" = ? LIMIT ?[0m  [["usuario", "aluno_test"], ["LIMIT", 1]]
+  [1m[36mAluno Create (0.1ms)[0m  [1m[32mINSERT INTO "alunos" ("nome", "curso", "matricula", "departamento", "formacao", "usuario", "email", "ocupacao", "registered", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Aluno Test"], ["curso", "Ciência da Computação"], ["matricula", "20230001"], ["departamento", "CC"], ["formacao", "Graduação"], ["usuario", "aluno_test"], ["email", "[FILTERED]"], ["ocupacao", "Estudante"], ["registered", 1], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:50:49.353732"], ["updated_at", "2025-12-07 01:50:49.353732"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by TemplatesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering templates/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/index.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:50:49.360191"], ["updated_at", "2025-12-07 01:50:49.360191"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTemplate Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+Processing by TemplatesController#create as HTML
+  Parameters: {"template"=>{"nome"=>"Novo Template", "perguntas_attributes"=>{"0"=>{"texto"=>"Pergunta 1?"}, "1"=>{"texto"=>"Pergunta 2?"}}}}
+  Rendering layout layouts/application.html.erb
+  Rendering templates/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/new.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 2ms (Views: 0.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTemplate Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:50:49.370102"], ["updated_at", "2025-12-07 01:50:49.370102"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by TemplatesController#create as HTML
+  Parameters: {"template"=>{"nome"=>"Novo Template", "perguntas_attributes"=>{"0"=>{"texto"=>"Pergunta 1?"}, "1"=>{"texto"=>"Pergunta 2?"}}}}
+  Rendering layout layouts/application.html.erb
+  Rendering templates/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/new.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:50:49.376729"], ["updated_at", "2025-12-07 01:50:49.376729"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by TemplatesController#create as HTML
+  Parameters: {"template"=>{"nome"=>"Novo Template", "perguntas_attributes"=>{"0"=>{"texto"=>"Pergunta 1?"}, "1"=>{"texto"=>"Pergunta 2?"}}}}
+  Rendering layout layouts/application.html.erb
+  Rendering templates/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/new.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTemplate Load (0.1ms)[0m  [1m[34mSELECT "templates".* FROM "templates" ORDER BY "templates"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:50:49.384136"], ["updated_at", "2025-12-07 01:50:49.384136"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mPergunta Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "pergunta"[0m
+Processing by TemplatesController#create as HTML
+  Parameters: {"template"=>{"nome"=>"Novo Template", "perguntas_attributes"=>{"0"=>{"texto"=>"Pergunta 1?"}, "1"=>{"texto"=>"Pergunta 2?"}}}}
+  Rendering layout layouts/application.html.erb
+  Rendering templates/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/new.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mPergunta Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "pergunta"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:50:49.393642"], ["updated_at", "2025-12-07 01:50:49.393642"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTemplate Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+Processing by TemplatesController#create as HTML
+  Parameters: {"template"=>{"nome"=>""}}
+  Rendering layout layouts/application.html.erb
+  Rendering templates/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/new.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTemplate Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:50:49.400339"], ["updated_at", "2025-12-07 01:50:49.400339"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by TemplatesController#create as HTML
+  Parameters: {"template"=>{"nome"=>""}}
+  Rendering layout layouts/application.html.erb
+  Rendering templates/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/new.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 2ms (Views: 0.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:50:49.408835"], ["updated_at", "2025-12-07 01:50:49.408835"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Template de Avaliação"], ["created_at", "2025-12-07 01:50:49.411991"], ["updated_at", "2025-12-07 01:50:49.411991"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTemplate Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+Processing by TemplatesController#destroy as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTemplate Load (0.1ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPergunta Load (0.1ms)[0m  [1m[34mSELECT "pergunta".* FROM "pergunta" WHERE "pergunta"."template_id" = ?[0m  [["template_id", 1]]
+  [1m[36mFormulario Load (0.1ms)[0m  [1m[34mSELECT "formularios".* FROM "formularios" WHERE "formularios"."template_id" = ?[0m  [["template_id", 1]]
+  [1m[36mTemplate Destroy (0.1ms)[0m  [1m[31mDELETE FROM "templates" WHERE "templates"."id" = ?[0m  [["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/templates
+Completed 303 See Other in 15ms (ActiveRecord: 0.7ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTemplate Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:50:49.431827"], ["updated_at", "2025-12-07 01:50:49.431827"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Template de Avaliação"], ["created_at", "2025-12-07 01:50:49.433850"], ["updated_at", "2025-12-07 01:50:49.433850"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by TemplatesController#destroy as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTemplate Load (0.0ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPergunta Load (0.1ms)[0m  [1m[34mSELECT "pergunta".* FROM "pergunta" WHERE "pergunta"."template_id" = ?[0m  [["template_id", 1]]
+  [1m[36mFormulario Load (0.0ms)[0m  [1m[34mSELECT "formularios".* FROM "formularios" WHERE "formularios"."template_id" = ?[0m  [["template_id", 1]]
+  [1m[36mTemplate Destroy (0.0ms)[0m  [1m[31mDELETE FROM "templates" WHERE "templates"."id" = ?[0m  [["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/templates
+Completed 303 See Other in 2ms (ActiveRecord: 0.2ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:51:51.442635"], ["updated_at", "2025-12-07 01:51:51.442635"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:51:51.451864"], ["updated_at", "2025-12-07 01:51:51.451864"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by TemplatesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering templates/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/index.html.erb within layouts/application (Duration: 0.3ms | GC: 0.2ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.6ms | GC: 0.2ms)
+Completed 200 OK in 7ms (Views: 2.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.8ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:51:51.493805"], ["updated_at", "2025-12-07 01:51:51.493805"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Meu Template"], ["created_at", "2025-12-07 01:51:51.499245"], ["updated_at", "2025-12-07 01:51:51.499245"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "outro_admin"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Outro Admin"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "outro_admin"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:51:51.501786"], ["updated_at", "2025-12-07 01:51:51.501786"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 2], ["nome", "Template de Outro"], ["created_at", "2025-12-07 01:51:51.502598"], ["updated_at", "2025-12-07 01:51:51.502598"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by TemplatesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering templates/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/index.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.2ms)
+  [1m[36mTemplate Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTemplate Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mTemplate Load (0.1ms)[0m  [1m[34mSELECT "templates".* FROM "templates" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mTemplate Load (0.0ms)[0m  [1m[34mSELECT "templates".* FROM "templates" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mTemplate Load (0.0ms)[0m  [1m[34mSELECT "templates".* FROM "templates" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mTemplate Load (0.0ms)[0m  [1m[34mSELECT "templates".* FROM "templates"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProfessor Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mProfessor Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."usuario" = ? LIMIT ?[0m  [["usuario", "prof_test"], ["LIMIT", 1]]
+  [1m[36mProfessor Create (0.1ms)[0m  [1m[32mINSERT INTO "professors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Professor Test"], ["departamento", "Ciência da Computação"], ["formacao", "Doutorado"], ["usuario", "prof_test"], ["email", "[FILTERED]"], ["ocupacao", "Professor"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:51:51.573167"], ["updated_at", "2025-12-07 01:51:51.573167"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by TemplatesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering templates/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/index.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAluno Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "20230001"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."usuario" = ? LIMIT ?[0m  [["usuario", "aluno_test"], ["LIMIT", 1]]
+  [1m[36mAluno Create (0.1ms)[0m  [1m[32mINSERT INTO "alunos" ("nome", "curso", "matricula", "departamento", "formacao", "usuario", "email", "ocupacao", "registered", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Aluno Test"], ["curso", "Ciência da Computação"], ["matricula", "20230001"], ["departamento", "CC"], ["formacao", "Graduação"], ["usuario", "aluno_test"], ["email", "[FILTERED]"], ["ocupacao", "Estudante"], ["registered", 1], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:51:51.587453"], ["updated_at", "2025-12-07 01:51:51.587453"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by TemplatesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering templates/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/index.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:51:51.594463"], ["updated_at", "2025-12-07 01:51:51.594463"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTemplate Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+Processing by TemplatesController#create as HTML
+  Parameters: {"template"=>{"nome"=>"Novo Template", "perguntas_attributes"=>{"0"=>{"texto"=>"Pergunta 1?"}, "1"=>{"texto"=>"Pergunta 2?"}}}}
+  Rendering layout layouts/application.html.erb
+  Rendering templates/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/new.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTemplate Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:51:51.603386"], ["updated_at", "2025-12-07 01:51:51.603386"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by TemplatesController#create as HTML
+  Parameters: {"template"=>{"nome"=>"Novo Template", "perguntas_attributes"=>{"0"=>{"texto"=>"Pergunta 1?"}, "1"=>{"texto"=>"Pergunta 2?"}}}}
+  Rendering layout layouts/application.html.erb
+  Rendering templates/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/new.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:51:51.610122"], ["updated_at", "2025-12-07 01:51:51.610122"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by TemplatesController#create as HTML
+  Parameters: {"template"=>{"nome"=>"Novo Template", "perguntas_attributes"=>{"0"=>{"texto"=>"Pergunta 1?"}, "1"=>{"texto"=>"Pergunta 2?"}}}}
+  Rendering layout layouts/application.html.erb
+  Rendering templates/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/new.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTemplate Load (0.1ms)[0m  [1m[34mSELECT "templates".* FROM "templates" ORDER BY "templates"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:51:51.616632"], ["updated_at", "2025-12-07 01:51:51.616632"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mPergunta Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "pergunta"[0m
+Processing by TemplatesController#create as HTML
+  Parameters: {"template"=>{"nome"=>"Novo Template", "perguntas_attributes"=>{"0"=>{"texto"=>"Pergunta 1?"}, "1"=>{"texto"=>"Pergunta 2?"}}}}
+  Rendering layout layouts/application.html.erb
+  Rendering templates/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/new.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mPergunta Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "pergunta"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:51:51.625297"], ["updated_at", "2025-12-07 01:51:51.625297"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTemplate Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+Processing by TemplatesController#create as HTML
+  Parameters: {"template"=>{"nome"=>""}}
+  Rendering layout layouts/application.html.erb
+  Rendering templates/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/new.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTemplate Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:51:51.631873"], ["updated_at", "2025-12-07 01:51:51.631873"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by TemplatesController#create as HTML
+  Parameters: {"template"=>{"nome"=>""}}
+  Rendering layout layouts/application.html.erb
+  Rendering templates/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/new.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:51:51.638893"], ["updated_at", "2025-12-07 01:51:51.638893"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Template de Avaliação"], ["created_at", "2025-12-07 01:51:51.641151"], ["updated_at", "2025-12-07 01:51:51.641151"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTemplate Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+Processing by TemplatesController#destroy as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTemplate Load (0.1ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPergunta Load (0.1ms)[0m  [1m[34mSELECT "pergunta".* FROM "pergunta" WHERE "pergunta"."template_id" = ?[0m  [["template_id", 1]]
+  [1m[36mFormulario Load (0.1ms)[0m  [1m[34mSELECT "formularios".* FROM "formularios" WHERE "formularios"."template_id" = ?[0m  [["template_id", 1]]
+  [1m[36mTemplate Destroy (0.0ms)[0m  [1m[31mDELETE FROM "templates" WHERE "templates"."id" = ?[0m  [["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/templates
+Completed 303 See Other in 10ms (ActiveRecord: 0.7ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTemplate Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:51:51.656632"], ["updated_at", "2025-12-07 01:51:51.656632"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Template de Avaliação"], ["created_at", "2025-12-07 01:51:51.658957"], ["updated_at", "2025-12-07 01:51:51.658957"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by TemplatesController#destroy as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTemplate Load (0.0ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPergunta Load (0.1ms)[0m  [1m[34mSELECT "pergunta".* FROM "pergunta" WHERE "pergunta"."template_id" = ?[0m  [["template_id", 1]]
+  [1m[36mFormulario Load (0.0ms)[0m  [1m[34mSELECT "formularios".* FROM "formularios" WHERE "formularios"."template_id" = ?[0m  [["template_id", 1]]
+  [1m[36mTemplate Destroy (0.0ms)[0m  [1m[31mDELETE FROM "templates" WHERE "templates"."id" = ?[0m  [["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/templates
+Completed 303 See Other in 2ms (ActiveRecord: 0.2ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:54:01.297803"], ["updated_at", "2025-12-07 01:54:01.297803"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:54:01.321337"], ["updated_at", "2025-12-07 01:54:01.321337"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by TemplatesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering templates/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/index.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 11ms (Views: 3.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.3ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:54:01.367533"], ["updated_at", "2025-12-07 01:54:01.367533"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTemplate Create (0.3ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Meu Template"], ["created_at", "2025-12-07 01:54:01.418734"], ["updated_at", "2025-12-07 01:54:01.418734"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "outro_admin"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Outro Admin"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "outro_admin"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:54:01.421858"], ["updated_at", "2025-12-07 01:54:01.421858"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTemplate Create (0.1ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 2], ["nome", "Template de Outro"], ["created_at", "2025-12-07 01:54:01.422634"], ["updated_at", "2025-12-07 01:54:01.422634"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by TemplatesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering templates/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/index.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTemplate Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTemplate Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mTemplate Load (0.1ms)[0m  [1m[34mSELECT "templates".* FROM "templates" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mTemplate Load (0.0ms)[0m  [1m[34mSELECT "templates".* FROM "templates" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mTemplate Load (0.0ms)[0m  [1m[34mSELECT "templates".* FROM "templates" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mTemplate Load (0.0ms)[0m  [1m[34mSELECT "templates".* FROM "templates"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProfessor Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mProfessor Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."usuario" = ? LIMIT ?[0m  [["usuario", "prof_test"], ["LIMIT", 1]]
+  [1m[36mProfessor Create (0.1ms)[0m  [1m[32mINSERT INTO "professors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Professor Test"], ["departamento", "Ciência da Computação"], ["formacao", "Doutorado"], ["usuario", "prof_test"], ["email", "[FILTERED]"], ["ocupacao", "Professor"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:54:01.437812"], ["updated_at", "2025-12-07 01:54:01.437812"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by TemplatesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering templates/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/index.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.1ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAluno Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "20230001"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."usuario" = ? LIMIT ?[0m  [["usuario", "aluno_test"], ["LIMIT", 1]]
+  [1m[36mAluno Create (0.1ms)[0m  [1m[32mINSERT INTO "alunos" ("nome", "curso", "matricula", "departamento", "formacao", "usuario", "email", "ocupacao", "registered", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Aluno Test"], ["curso", "Ciência da Computação"], ["matricula", "20230001"], ["departamento", "CC"], ["formacao", "Graduação"], ["usuario", "aluno_test"], ["email", "[FILTERED]"], ["ocupacao", "Estudante"], ["registered", 1], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:54:01.452448"], ["updated_at", "2025-12-07 01:54:01.452448"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by TemplatesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering templates/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/index.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:54:01.458542"], ["updated_at", "2025-12-07 01:54:01.458542"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTemplate Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+Processing by TemplatesController#create as HTML
+  Parameters: {"template"=>{"nome"=>"Novo Template", "perguntas_attributes"=>{"0"=>{"texto"=>"Pergunta 1?"}, "1"=>{"texto"=>"Pergunta 2?"}}}}
+  Rendering layout layouts/application.html.erb
+  Rendering templates/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/new.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 2ms (Views: 1.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTemplate Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:54:01.468850"], ["updated_at", "2025-12-07 01:54:01.468850"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by TemplatesController#create as HTML
+  Parameters: {"template"=>{"nome"=>"Novo Template", "perguntas_attributes"=>{"0"=>{"texto"=>"Pergunta 1?"}, "1"=>{"texto"=>"Pergunta 2?"}}}}
+  Rendering layout layouts/application.html.erb
+  Rendering templates/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/new.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:54:01.475769"], ["updated_at", "2025-12-07 01:54:01.475769"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by TemplatesController#create as HTML
+  Parameters: {"template"=>{"nome"=>"Novo Template", "perguntas_attributes"=>{"0"=>{"texto"=>"Pergunta 1?"}, "1"=>{"texto"=>"Pergunta 2?"}}}}
+  Rendering layout layouts/application.html.erb
+  Rendering templates/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/new.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTemplate Load (0.1ms)[0m  [1m[34mSELECT "templates".* FROM "templates" ORDER BY "templates"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:54:01.483190"], ["updated_at", "2025-12-07 01:54:01.483190"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mPergunta Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "pergunta"[0m
+Processing by TemplatesController#create as HTML
+  Parameters: {"template"=>{"nome"=>"Novo Template", "perguntas_attributes"=>{"0"=>{"texto"=>"Pergunta 1?"}, "1"=>{"texto"=>"Pergunta 2?"}}}}
+  Rendering layout layouts/application.html.erb
+  Rendering templates/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/new.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mPergunta Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "pergunta"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:54:01.493004"], ["updated_at", "2025-12-07 01:54:01.493004"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTemplate Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+Processing by TemplatesController#create as HTML
+  Parameters: {"template"=>{"nome"=>""}}
+  Rendering layout layouts/application.html.erb
+  Rendering templates/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/new.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTemplate Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:54:01.500077"], ["updated_at", "2025-12-07 01:54:01.500077"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by TemplatesController#create as HTML
+  Parameters: {"template"=>{"nome"=>""}}
+  Rendering layout layouts/application.html.erb
+  Rendering templates/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/new.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:54:01.506545"], ["updated_at", "2025-12-07 01:54:01.506545"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTemplate Create (0.1ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Template de Avaliação"], ["created_at", "2025-12-07 01:54:01.508538"], ["updated_at", "2025-12-07 01:54:01.508538"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTemplate Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+Processing by TemplatesController#destroy as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTemplate Load (0.1ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPergunta Load (0.0ms)[0m  [1m[34mSELECT "pergunta".* FROM "pergunta" WHERE "pergunta"."template_id" = ?[0m  [["template_id", 1]]
+  [1m[36mFormulario Load (0.1ms)[0m  [1m[34mSELECT "formularios".* FROM "formularios" WHERE "formularios"."template_id" = ?[0m  [["template_id", 1]]
+  [1m[36mTemplate Destroy (0.0ms)[0m  [1m[31mDELETE FROM "templates" WHERE "templates"."id" = ?[0m  [["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/templates
+Completed 303 See Other in 10ms (ActiveRecord: 0.6ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTemplate Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:54:01.523678"], ["updated_at", "2025-12-07 01:54:01.523678"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Template de Avaliação"], ["created_at", "2025-12-07 01:54:01.525986"], ["updated_at", "2025-12-07 01:54:01.525986"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by TemplatesController#destroy as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTemplate Load (0.0ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPergunta Load (0.1ms)[0m  [1m[34mSELECT "pergunta".* FROM "pergunta" WHERE "pergunta"."template_id" = ?[0m  [["template_id", 1]]
+  [1m[36mFormulario Load (0.0ms)[0m  [1m[34mSELECT "formularios".* FROM "formularios" WHERE "formularios"."template_id" = ?[0m  [["template_id", 1]]
+  [1m[36mTemplate Destroy (0.0ms)[0m  [1m[31mDELETE FROM "templates" WHERE "templates"."id" = ?[0m  [["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/templates
+Completed 303 See Other in 2ms (ActiveRecord: 0.2ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
