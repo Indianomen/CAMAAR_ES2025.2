@@ -3,7 +3,7 @@ class Administrador < ApplicationRecord
   
   # Validations
   validates :nome, presence: true
-  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :email, presence: true, uniqueness: true
   validates :usuario, presence: true, uniqueness: true
   validates :departamento, presence: true
   

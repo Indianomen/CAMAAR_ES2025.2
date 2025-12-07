@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_12_06_042251) do
+ActiveRecord::Schema[8.0].define(version: 2025_12_07_162638) do
   create_table "administradors", force: :cascade do |t|
     t.string "nome"
     t.string "departamento"
@@ -58,7 +58,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_06_042251) do
 
   create_table "pergunta", force: :cascade do |t|
     t.integer "template_id", null: false
-    t.integer "formulario_id", null: false
+    t.integer "formulario_id"
     t.string "texto"
     t.string "resposta"
     t.datetime "created_at", null: false
@@ -103,7 +103,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_06_042251) do
   add_foreign_key "formularios", "administradors"
   add_foreign_key "formularios", "templates"
   add_foreign_key "formularios", "turmas"
-  add_foreign_key "pergunta", "formularios"
+  add_foreign_key "pergunta", "formularios", on_delete: :nullify
   add_foreign_key "pergunta", "templates"
   add_foreign_key "templates", "administradors"
   add_foreign_key "turmas", "disciplinas"

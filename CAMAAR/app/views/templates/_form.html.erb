@@ -1,27 +1,90 @@
 <%= form_with(model: template) do |form| %>
   <% if template.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(template.errors.count, "error") %> prohibited this template from being saved:</h2>
-
+    <div class="alert alert-danger">
+      <h4><%= pluralize(template.errors.count, "erro") %> impediram este template de ser salvo:</h4>
       <ul>
-        <% template.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% template.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :administrador_id, style: "display: block" %>
-    <%= form.text_field :administrador_id %>
+  <div class="mb-3">
+    <%= form.label :nome, class: 'form-label' %>
+    <%= form.text_field :nome, class: 'form-control', placeholder: 'Ex: Avaliação de Disciplina 2024.1' %>
   </div>
 
-  <div>
-    <%= form.label :nome, style: "display: block" %>
-    <%= form.text_field :nome %>
+  <hr class="my-4">
+
+  <h4>Perguntas</h4>
+  <p class="text-muted">Adicione as perguntas que farão parte deste template.</p>
+
+  <div id="perguntas">
+    <%= form.fields_for :perguntas do |pergunta_form| %>
+      <% unless pergunta_form.object.marked_for_destruction? %>
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h6 class="card-title mb-0">Pergunta</h6>
+              <% if template.persisted? %>
+                <div class="form-check">
+                  <%= pergunta_form.check_box :_destroy, class: 'form-check-input' %>
+                  <%= pergunta_form.label :_destroy, 'Remover', class: 'form-check-label' %>
+                </div>
+              <% end %>
+            </div>
+            
+            <%= pergunta_form.label :texto, 'Texto da pergunta', class: 'form-label' %>
+            <%= pergunta_form.text_area :texto, class: 'form-control', rows: 3, 
+                  placeholder: 'Digite a pergunta aqui...' %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="mb-4">
+    <button type="button" id="adicionar-pergunta" class="btn btn-outline-secondary">
+      + Adicionar Pergunta
+    </button>
+  </div>
+
+  <div class="mb-3">
+    <%= form.submit template.persisted? ? 'Atualizar Template' : 'Criar Template', 
+          class: 'btn btn-primary' %>
+    <%= link_to 'Cancelar', templates_path, class: 'btn btn-secondary' %>
   </div>
 <% end %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const perguntasContainer = document.getElementById('perguntas');
+    const addButton = document.getElementById('adicionar-pergunta');
+    
+    // Calculate initial index based on existing questions
+    let questionIndex = <%= template.persisted? ? template.perguntas.size : 3 %>;
+
+    addButton.addEventListener('click', function() {
+      questionIndex++;
+      
+      const newQuestion = `
+        <div class="card mb-3">
+          <div class="card-body">
+            <h6 class="card-title">Nova Pergunta</h6>
+            <div class="mb-3">
+              <label class="form-label">Texto da pergunta</label>
+              <textarea class="form-control" 
+                        rows="3"
+                        name="template[perguntas_attributes][${questionIndex}][texto]"
+                        placeholder="Digite a pergunta aqui..."></textarea>
+              <input type="hidden" name="template[perguntas_attributes][${questionIndex}][_destroy]" value="0">
+            </div>
+          </div>
+        </div>
+      `;
+      
+      perguntasContainer.insertAdjacentHTML('beforeend', newQuestion);
+    });
+  });
+</script>

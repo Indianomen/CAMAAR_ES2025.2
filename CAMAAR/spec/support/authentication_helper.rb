@@ -16,4 +16,12 @@ module AuthenticationHelper
     allow(controller).to receive(:current_user).and_return(aluno)
     aluno
   end
+  
+  def logout
+    allow(controller).to receive(:current_user).and_return(nil)
+  end
+end
+
+RSpec.configure do |config|
+  config.include AuthenticationHelper, type: :controller
 end
