@@ -1,4 +1,5 @@
-
+#Para testes factory
+require 'factory_bot_rails'
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
@@ -44,6 +45,9 @@ RSpec.configure do |config|
   #Para o teste de criação de template
   config.include AuthenticationHelper
   
+  #Para testes com factory
+  config.include FactoryBot::Syntax::Methods
+
   config.before(:each, type: :system) do
   driven_by :selenium_chrome_headless
   end

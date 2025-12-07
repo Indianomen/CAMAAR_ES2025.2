@@ -1,9 +1,17 @@
 require 'rails_helper'
 
+RSpec.describe "FactoryBot Test", type: :model do
+  it "can create an administrador" do
+    admin = FactoryBot.create(:administrador)
+    expect(admin).to be_persisted
+    expect(admin.nome).to eq("Admin Test")
+  end
+end
+
 RSpec.describe TemplatesController, type: :controller do
-  let(:admin) { create(:administrador) }
-  let(:professor) { create(:professor) }
-  let(:aluno) { create(:aluno) }
+  let(:admin) { FactoryBot.create(:administrador) }
+  let(:professor) { FactoryBot.create(:professor) }
+  let(:aluno) { FactoryBot.create(:aluno) }
   
   describe "GET #index" do
     context "as admin" do

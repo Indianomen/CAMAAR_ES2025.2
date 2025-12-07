@@ -350,3 +350,18 @@ FOREIGN KEY ("professor_id")
   [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
   [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
   [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 01:34:24.624077"], ["updated_at", "2025-12-07 01:34:24.624077"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
