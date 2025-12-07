@@ -1,13 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe "FactoryBot Test", type: :model do
-  it "can create an administrador" do
-    admin = FactoryBot.create(:administrador)
-    expect(admin).to be_persisted
-    expect(admin.nome).to eq("Admin Test")
-  end
-end
-
 RSpec.describe TemplatesController, type: :controller do
   let(:admin) { create(:administrador) }
   let(:other_admin) { create(:administrador, usuario: "outro_admin", email: "outro@test.com") }
@@ -20,6 +12,10 @@ RSpec.describe TemplatesController, type: :controller do
         get :index
         expect(response).to be_successful
       end
+    end
+    
+    context "when mocking admin" do
+      before { login_as_admin(admin) }
       
       it "shows all templates" do
         template1 = create(:template, administrador: admin)
@@ -172,6 +168,10 @@ RSpec.describe TemplatesController, type: :controller do
         expect(flash[:alert]).to be_present
       end
     end
+  end
+  
+  describe "GET #edit" do
+    let!(:template) { create(:template, administrador: admin) }
     
     context "when mocking professor" do
       before { login_as_professor(professor) }

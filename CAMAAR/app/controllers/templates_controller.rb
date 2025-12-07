@@ -25,8 +25,6 @@ class TemplatesController < ApplicationController
 
   # GET /templates/1/edit
   def edit
-    # Add an empty question for adding more
-    @template.perguntas.build
   end
 
   # POST /templates
@@ -34,28 +32,39 @@ class TemplatesController < ApplicationController
     @template = Template.new(template_params)
     @template.administrador = current_user if current_user.is_a?(Administrador)
 
-    if @template.save
-      redirect_to @template, notice: 'Template criado com sucesso.'
-    else
-      flash.now[:alert] = "Não foi possível criar o template. Verifique os erros abaixo."
-      (@template.perguntas.count...3).each { @template.perguntas.build } if @template.perguntas.count < 3
-      render :new, status: :unprocessable_entity
+    respond_to do |format|
+      if @template.save
+        format.html { redirect_to @template, notice: "Template was successfully created." }
+        format.json { render :show, status: :created, location: @template }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @template.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   # PATCH/PUT /templates/1
   def update
-    if @template.update(template_params)
-      redirect_to @template, notice: 'Template atualizado com sucesso.'
-    else
-      render :edit, status: :unprocessable_entity
+    respond_to do |format|
+      if @template.update(template_params)
+        format.html { redirect_to @template, notice: "Template was successfully updated.", status: :see_other }
+        format.json { render :show, status: :ok, location: @template }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @template.errors, status: :unprocessable_entity }
+      end
     end
   end
 
+
   # DELETE /templates/1
   def destroy
-    @template.destroy
-    redirect_to templates_url, notice: 'Template excluído com sucesso.'
+    @template.destroy!
+
+    respond_to do |format|
+      format.html { redirect_to templates_path, notice: "Template was successfully destroyed.", status: :see_other }
+      format.json { head :no_content }
+    end
   end
 
   private
@@ -66,14 +75,6 @@ class TemplatesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def template_params
-      params.require(:template).permit(:nome, 
-        perguntas_attributes: [:id, :texto, :_destroy])
-    end
-    
-    # Require admin for protected actions
-    def require_admin
-      unless current_user.is_a?(Administrador)
-        redirect_to root_path, alert: 'Acesso não autorizado.'
-      end
+      params.expect(template: [ :administrador_id, :nome ])
     end
 end
