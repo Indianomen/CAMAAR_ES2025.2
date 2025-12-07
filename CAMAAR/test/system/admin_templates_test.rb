@@ -69,7 +69,7 @@ class AdminTemplatesTest < ApplicationSystemTestCase
       administrador: @admin
     )
     
-    visit templates_path
+    visit templates_path(template)
     
     accept_confirm do
       click_on "Excluir", match: :first
