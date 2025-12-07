@@ -663,3 +663,46 @@ Processing by TemplatesController#index as HTML
 Completed 200 OK in 229ms (Views: 27.0ms | ActiveRecord: 2.3ms (6 queries, 0 cached) | GC: 13.0ms)
 
 
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Camaar'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Camaar'*/[0m
+Migrating to MakeFormularioOptionalOnTurmas (20251207013544)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Camaar'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys /*application='Camaar'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application='Camaar'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application='Camaar'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application='Camaar'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aturmas" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "professor_id" integer NOT NULL, "disciplina_id" integer NOT NULL, "formulario_id" integer NOT NULL, "semestre" varchar, "horario" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Camaar'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_aturmas_on_formulario_id" ON "aturmas" ("formulario_id") /*application='Camaar'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_aturmas_on_disciplina_id" ON "aturmas" ("disciplina_id") /*application='Camaar'*/[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE INDEX "tindex_aturmas_on_professor_id" ON "aturmas" ("professor_id") /*application='Camaar'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "aturmas" ("id","professor_id","disciplina_id","formulario_id","semestre","horario","created_at","updated_at")
+                     SELECT "id","professor_id","disciplina_id","formulario_id","semestre","horario","created_at","updated_at" FROM "turmas" /*application='Camaar'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "turmas" /*application='Camaar'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "turmas" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "professor_id" integer NOT NULL, "disciplina_id" integer NOT NULL, "formulario_id" integer, "semestre" varchar, "horario" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_a808c35a58"
+FOREIGN KEY ("formulario_id")
+  REFERENCES "formularios" ("id")
+, CONSTRAINT "fk_rails_76e53910e3"
+FOREIGN KEY ("disciplina_id")
+  REFERENCES "disciplinas" ("id")
+, CONSTRAINT "fk_rails_4f2278ddee"
+FOREIGN KEY ("professor_id")
+  REFERENCES "professors" ("id")
+) /*application='Camaar'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_turmas_on_professor_id" ON "turmas" ("professor_id") /*application='Camaar'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_turmas_on_disciplina_id" ON "turmas" ("disciplina_id") /*application='Camaar'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_turmas_on_formulario_id" ON "turmas" ("formulario_id") /*application='Camaar'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "turmas" ("id","professor_id","disciplina_id","formulario_id","semestre","horario","created_at","updated_at")
+                     SELECT "id","professor_id","disciplina_id","formulario_id","semestre","horario","created_at","updated_at" FROM "aturmas" /*application='Camaar'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "aturmas" /*application='Camaar'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application='Camaar'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application='Camaar'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251207013544') RETURNING "version" /*application='Camaar'*/[0m
+  [1m[36mTRANSACTION (11.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Camaar'*/[0m
+Migrating to CreateAlunosTurmasJoinTable (20251207025901)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Camaar'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "alunos_turmas" ("aluno_id" integer NOT NULL, "turma_id" integer NOT NULL) /*application='Camaar'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_alunos_turmas_on_aluno_id_and_turma_id" ON "alunos_turmas" ("aluno_id", "turma_id") /*application='Camaar'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_alunos_turmas_on_turma_id_and_aluno_id" ON "alunos_turmas" ("turma_id", "aluno_id") /*application='Camaar'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251207025901') RETURNING "version" /*application='Camaar'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Camaar'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Camaar'*/[0m

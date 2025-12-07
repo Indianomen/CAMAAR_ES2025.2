@@ -13710,3 +13710,1410 @@ Redirected to http://test.host/
 Filter chain halted as :require_admin rendered or redirected
 Completed 302 Found in 1ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
   [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "administradors"[0m
+  [1m[35m (3.8ms)[0m  [1m[35mCREATE TABLE "administradors" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "departamento" varchar, "formacao" varchar, "usuario" varchar, "email" varchar, "ocupacao" varchar, "password_digest" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "alunos"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "alunos" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "curso" varchar, "matricula" varchar, "departamento" varchar, "formacao" varchar, "usuario" varchar, "email" varchar, "ocupacao" varchar, "registered" boolean, "password_digest" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "alunos_turmas"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "alunos_turmas" ("aluno_id" integer NOT NULL, "turma_id" integer NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_alunos_turmas_on_aluno_id_and_turma_id" ON "alunos_turmas" ("aluno_id", "turma_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_alunos_turmas_on_turma_id_and_aluno_id" ON "alunos_turmas" ("turma_id", "aluno_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "disciplinas"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "disciplinas" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "codigo" varchar, "nome" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "formularios"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "formularios" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "administrador_id" integer NOT NULL, "template_id" integer NOT NULL, "turma_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_formularios_on_administrador_id" ON "formularios" ("administrador_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_formularios_on_template_id" ON "formularios" ("template_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_formularios_on_turma_id" ON "formularios" ("turma_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "pergunta"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "pergunta" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "template_id" integer NOT NULL, "formulario_id" integer, "texto" varchar, "resposta" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_pergunta_on_formulario_id" ON "pergunta" ("formulario_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_pergunta_on_template_id" ON "pergunta" ("template_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "professors"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "professors" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "departamento" varchar, "formacao" varchar, "usuario" varchar, "email" varchar, "ocupacao" varchar, "password_digest" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "templates"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "templates" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "administrador_id" integer NOT NULL, "nome" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_templates_on_administrador_id" ON "templates" ("administrador_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "turmas"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "turmas" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "professor_id" integer NOT NULL, "disciplina_id" integer NOT NULL, "formulario_id" integer, "semestre" varchar, "horario" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_turmas_on_disciplina_id" ON "turmas" ("disciplina_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_turmas_on_formulario_id" ON "turmas" ("formulario_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_turmas_on_professor_id" ON "turmas" ("professor_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aformularios" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "administrador_id" integer NOT NULL, "template_id" integer NOT NULL, "turma_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aformularios_on_turma_id" ON "aformularios" ("turma_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aformularios_on_template_id" ON "aformularios" ("template_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aformularios_on_administrador_id" ON "aformularios" ("administrador_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "aformularios" ("id","administrador_id","template_id","turma_id","created_at","updated_at")
+                     SELECT "id","administrador_id","template_id","turma_id","created_at","updated_at" FROM "formularios"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "formularios"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "formularios" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "administrador_id" integer NOT NULL, "template_id" integer NOT NULL, "turma_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_126958d03b"
+FOREIGN KEY ("administrador_id")
+  REFERENCES "administradors" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_formularios_on_administrador_id" ON "formularios" ("administrador_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_formularios_on_template_id" ON "formularios" ("template_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_formularios_on_turma_id" ON "formularios" ("turma_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "formularios" ("id","administrador_id","template_id","turma_id","created_at","updated_at")
+                     SELECT "id","administrador_id","template_id","turma_id","created_at","updated_at" FROM "aformularios"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "aformularios"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aformularios" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "administrador_id" integer NOT NULL, "template_id" integer NOT NULL, "turma_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aformularios_on_turma_id" ON "aformularios" ("turma_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_aformularios_on_template_id" ON "aformularios" ("template_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_aformularios_on_administrador_id" ON "aformularios" ("administrador_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "aformularios" ("id","administrador_id","template_id","turma_id","created_at","updated_at")
+                     SELECT "id","administrador_id","template_id","turma_id","created_at","updated_at" FROM "formularios"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "formularios"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "formularios" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "administrador_id" integer NOT NULL, "template_id" integer NOT NULL, "turma_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_126958d03b"
+FOREIGN KEY ("administrador_id")
+  REFERENCES "administradors" ("id")
+, CONSTRAINT "fk_rails_93cfa19b36"
+FOREIGN KEY ("template_id")
+  REFERENCES "templates" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_formularios_on_administrador_id" ON "formularios" ("administrador_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_formularios_on_template_id" ON "formularios" ("template_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_formularios_on_turma_id" ON "formularios" ("turma_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "formularios" ("id","administrador_id","template_id","turma_id","created_at","updated_at")
+                     SELECT "id","administrador_id","template_id","turma_id","created_at","updated_at" FROM "aformularios"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "aformularios"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aformularios" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "administrador_id" integer NOT NULL, "template_id" integer NOT NULL, "turma_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aformularios_on_turma_id" ON "aformularios" ("turma_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aformularios_on_template_id" ON "aformularios" ("template_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aformularios_on_administrador_id" ON "aformularios" ("administrador_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "aformularios" ("id","administrador_id","template_id","turma_id","created_at","updated_at")
+                     SELECT "id","administrador_id","template_id","turma_id","created_at","updated_at" FROM "formularios"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "formularios"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "formularios" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "administrador_id" integer NOT NULL, "template_id" integer NOT NULL, "turma_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_93cfa19b36"
+FOREIGN KEY ("template_id")
+  REFERENCES "templates" ("id")
+, CONSTRAINT "fk_rails_126958d03b"
+FOREIGN KEY ("administrador_id")
+  REFERENCES "administradors" ("id")
+, CONSTRAINT "fk_rails_5a2be0c3c1"
+FOREIGN KEY ("turma_id")
+  REFERENCES "turmas" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_formularios_on_administrador_id" ON "formularios" ("administrador_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_formularios_on_template_id" ON "formularios" ("template_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_formularios_on_turma_id" ON "formularios" ("turma_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "formularios" ("id","administrador_id","template_id","turma_id","created_at","updated_at")
+                     SELECT "id","administrador_id","template_id","turma_id","created_at","updated_at" FROM "aformularios"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "aformularios"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "apergunta" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "template_id" integer NOT NULL, "formulario_id" integer, "texto" varchar, "resposta" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_apergunta_on_template_id" ON "apergunta" ("template_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_apergunta_on_formulario_id" ON "apergunta" ("formulario_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "apergunta" ("id","template_id","formulario_id","texto","resposta","created_at","updated_at")
+                     SELECT "id","template_id","formulario_id","texto","resposta","created_at","updated_at" FROM "pergunta"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "pergunta"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "pergunta" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "template_id" integer NOT NULL, "formulario_id" integer, "texto" varchar, "resposta" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_0b672234bf"
+FOREIGN KEY ("formulario_id")
+  REFERENCES "formularios" ("id")
+ ON DELETE SET NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_pergunta_on_formulario_id" ON "pergunta" ("formulario_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_pergunta_on_template_id" ON "pergunta" ("template_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "pergunta" ("id","template_id","formulario_id","texto","resposta","created_at","updated_at")
+                     SELECT "id","template_id","formulario_id","texto","resposta","created_at","updated_at" FROM "apergunta"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "apergunta"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "apergunta" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "template_id" integer NOT NULL, "formulario_id" integer, "texto" varchar, "resposta" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_apergunta_on_template_id" ON "apergunta" ("template_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_apergunta_on_formulario_id" ON "apergunta" ("formulario_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "apergunta" ("id","template_id","formulario_id","texto","resposta","created_at","updated_at")
+                     SELECT "id","template_id","formulario_id","texto","resposta","created_at","updated_at" FROM "pergunta"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "pergunta"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "pergunta" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "template_id" integer NOT NULL, "formulario_id" integer, "texto" varchar, "resposta" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_0b672234bf"
+FOREIGN KEY ("formulario_id")
+  REFERENCES "formularios" ("id")
+ ON DELETE SET NULL, CONSTRAINT "fk_rails_00b73a84ff"
+FOREIGN KEY ("template_id")
+  REFERENCES "templates" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_pergunta_on_formulario_id" ON "pergunta" ("formulario_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_pergunta_on_template_id" ON "pergunta" ("template_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "pergunta" ("id","template_id","formulario_id","texto","resposta","created_at","updated_at")
+                     SELECT "id","template_id","formulario_id","texto","resposta","created_at","updated_at" FROM "apergunta"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "apergunta"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "atemplates" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "administrador_id" integer NOT NULL, "nome" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_atemplates_on_administrador_id" ON "atemplates" ("administrador_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "atemplates" ("id","administrador_id","nome","created_at","updated_at")
+                     SELECT "id","administrador_id","nome","created_at","updated_at" FROM "templates"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "templates"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "templates" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "administrador_id" integer NOT NULL, "nome" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_ba052db6da"
+FOREIGN KEY ("administrador_id")
+  REFERENCES "administradors" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_templates_on_administrador_id" ON "templates" ("administrador_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "templates" ("id","administrador_id","nome","created_at","updated_at")
+                     SELECT "id","administrador_id","nome","created_at","updated_at" FROM "atemplates"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "atemplates"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aturmas" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "professor_id" integer NOT NULL, "disciplina_id" integer NOT NULL, "formulario_id" integer, "semestre" varchar, "horario" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aturmas_on_professor_id" ON "aturmas" ("professor_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aturmas_on_formulario_id" ON "aturmas" ("formulario_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aturmas_on_disciplina_id" ON "aturmas" ("disciplina_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "aturmas" ("id","professor_id","disciplina_id","formulario_id","semestre","horario","created_at","updated_at")
+                     SELECT "id","professor_id","disciplina_id","formulario_id","semestre","horario","created_at","updated_at" FROM "turmas"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "turmas"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "turmas" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "professor_id" integer NOT NULL, "disciplina_id" integer NOT NULL, "formulario_id" integer, "semestre" varchar, "horario" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_76e53910e3"
+FOREIGN KEY ("disciplina_id")
+  REFERENCES "disciplinas" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_turmas_on_disciplina_id" ON "turmas" ("disciplina_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_turmas_on_formulario_id" ON "turmas" ("formulario_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_turmas_on_professor_id" ON "turmas" ("professor_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "turmas" ("id","professor_id","disciplina_id","formulario_id","semestre","horario","created_at","updated_at")
+                     SELECT "id","professor_id","disciplina_id","formulario_id","semestre","horario","created_at","updated_at" FROM "aturmas"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "aturmas"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aturmas" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "professor_id" integer NOT NULL, "disciplina_id" integer NOT NULL, "formulario_id" integer, "semestre" varchar, "horario" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aturmas_on_professor_id" ON "aturmas" ("professor_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aturmas_on_formulario_id" ON "aturmas" ("formulario_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aturmas_on_disciplina_id" ON "aturmas" ("disciplina_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "aturmas" ("id","professor_id","disciplina_id","formulario_id","semestre","horario","created_at","updated_at")
+                     SELECT "id","professor_id","disciplina_id","formulario_id","semestre","horario","created_at","updated_at" FROM "turmas"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "turmas"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "turmas" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "professor_id" integer NOT NULL, "disciplina_id" integer NOT NULL, "formulario_id" integer, "semestre" varchar, "horario" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_76e53910e3"
+FOREIGN KEY ("disciplina_id")
+  REFERENCES "disciplinas" ("id")
+, CONSTRAINT "fk_rails_a808c35a58"
+FOREIGN KEY ("formulario_id")
+  REFERENCES "formularios" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_turmas_on_disciplina_id" ON "turmas" ("disciplina_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_turmas_on_formulario_id" ON "turmas" ("formulario_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_turmas_on_professor_id" ON "turmas" ("professor_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "turmas" ("id","professor_id","disciplina_id","formulario_id","semestre","horario","created_at","updated_at")
+                     SELECT "id","professor_id","disciplina_id","formulario_id","semestre","horario","created_at","updated_at" FROM "aturmas"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "aturmas"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aturmas" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "professor_id" integer NOT NULL, "disciplina_id" integer NOT NULL, "formulario_id" integer, "semestre" varchar, "horario" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_aturmas_on_professor_id" ON "aturmas" ("professor_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aturmas_on_formulario_id" ON "aturmas" ("formulario_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_aturmas_on_disciplina_id" ON "aturmas" ("disciplina_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "aturmas" ("id","professor_id","disciplina_id","formulario_id","semestre","horario","created_at","updated_at")
+                     SELECT "id","professor_id","disciplina_id","formulario_id","semestre","horario","created_at","updated_at" FROM "turmas"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "turmas"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "turmas" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "professor_id" integer NOT NULL, "disciplina_id" integer NOT NULL, "formulario_id" integer, "semestre" varchar, "horario" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_a808c35a58"
+FOREIGN KEY ("formulario_id")
+  REFERENCES "formularios" ("id")
+, CONSTRAINT "fk_rails_76e53910e3"
+FOREIGN KEY ("disciplina_id")
+  REFERENCES "disciplinas" ("id")
+, CONSTRAINT "fk_rails_4f2278ddee"
+FOREIGN KEY ("professor_id")
+  REFERENCES "professors" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_turmas_on_disciplina_id" ON "turmas" ("disciplina_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_turmas_on_formulario_id" ON "turmas" ("formulario_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_turmas_on_professor_id" ON "turmas" ("professor_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "turmas" ("id","professor_id","disciplina_id","formulario_id","semestre","horario","created_at","updated_at")
+                     SELECT "id","professor_id","disciplina_id","formulario_id","semestre","horario","created_at","updated_at" FROM "aturmas"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "aturmas"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20251207162638)[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20251207025901),
+(20251207013544),
+(20251206042251),
+(20251206042228),
+(20251206042108),
+(20251206042105),
+(20251206042101),
+(20251206042056),
+(20251206042053),
+(20251206042050),
+(20251206042044);[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'test', '2025-12-07 22:27:58.938704', '2025-12-07 22:27:58.938855') RETURNING "key"[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', '1625b551ce3158fa3bdeb248e708dd0c96d008b9', '2025-12-07 22:27:58.939573', '2025-12-07 22:27:58.939574') RETURNING "key"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "turmas"[0m
+  [1m[35m (3.7ms)[0m  [1m[31mDELETE FROM "turmas"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'turmas';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "formularios"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "formularios"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'formularios';[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "alunos_turmas"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "alunos_turmas"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'alunos_turmas';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "templates"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "templates"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'templates';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "administradors"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "administradors"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'administradors';[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "pergunta"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "pergunta"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'pergunta';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "disciplinas"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "disciplinas"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'disciplinas';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mTRUNCATE TABLE "professors"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "professors"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'professors';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "alunos"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "alunos"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'alunos';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAluno Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "alunos"[0m
+  [1m[36mProfessor Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "professors"[0m
+  [1m[36mTurma Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "turmas"[0m
+  [1m[36mDisciplina Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "disciplinas"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mDisciplina Load (0.1ms)[0m  [1m[34mSELECT "disciplinas".* FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0097"], ["LIMIT", 1]]
+  [1m[36mDisciplina Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0097"], ["LIMIT", 1]]
+  [1m[36mDisciplina Create (0.1ms)[0m  [1m[32mINSERT INTO "disciplinas" ("codigo", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["codigo", "CIC0097"], ["nome", "CIC0097"], ["created_at", "2025-12-07 22:27:59.005049"], ["updated_at", "2025-12-07 22:27:59.005049"]]
+  [1m[36mProfessor Load (0.0ms)[0m  [1m[34mSELECT "professors".* FROM "professors" WHERE "professors"."usuario" = ? LIMIT ?[0m  [["usuario", "83807519491"], ["LIMIT", 1]]
+  [1m[36mProfessor Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mProfessor Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."usuario" = ? LIMIT ?[0m  [["usuario", "83807519491"], ["LIMIT", 1]]
+  [1m[36mProfessor Create (0.1ms)[0m  [1m[32mINSERT INTO "professors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "MARISTELA TERTO DE HOLANDA"], ["departamento", "DEPTO CIÊNCIAS DA COMPUTAÇÃO"], ["formacao", "DOUTORADO"], ["usuario", "83807519491"], ["email", "[FILTERED]"], ["ocupacao", nil], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:27:59.011055"], ["updated_at", "2025-12-07 22:27:59.011055"]]
+  [1m[36mTurma Load (0.1ms)[0m  [1m[34mSELECT "turmas".* FROM "turmas" WHERE "turmas"."disciplina_id" = ? AND "turmas"."professor_id" = ? AND "turmas"."semestre" = ? LIMIT ?[0m  [["disciplina_id", 1], ["professor_id", 1], ["semestre", "2021.2"], ["LIMIT", 1]]
+  [1m[36mTurma Create (0.1ms)[0m  [1m[32mINSERT INTO "turmas" ("professor_id", "disciplina_id", "formulario_id", "semestre", "horario", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["professor_id", 1], ["disciplina_id", 1], ["formulario_id", nil], ["semestre", "2021.2"], ["horario", "N/A"], ["created_at", "2025-12-07 22:27:59.022731"], ["updated_at", "2025-12-07 22:27:59.022731"]]
+  [1m[36mAluno Load (0.1ms)[0m  [1m[34mSELECT "alunos".* FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "190084006"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "190084006"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."usuario" = ? LIMIT ?[0m  [["usuario", "190084006"], ["LIMIT", 1]]
+  [1m[36mAluno Create (0.1ms)[0m  [1m[32mINSERT INTO "alunos" ("nome", "curso", "matricula", "departamento", "formacao", "usuario", "email", "ocupacao", "registered", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Ana Clara Jordao Perna"], ["curso", "CIÊNCIA DA COMPUTAÇÃO/CIC"], ["matricula", "190084006"], ["departamento", "DEPTO CIÊNCIAS DA COMPUTAÇÃO"], ["formacao", nil], ["usuario", "190084006"], ["email", "[FILTERED]"], ["ocupacao", nil], ["registered", nil], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:27:59.028932"], ["updated_at", "2025-12-07 22:27:59.028932"]]
+  [1m[36mAluno Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" INNER JOIN "alunos_turmas" ON "alunos"."id" = "alunos_turmas"."aluno_id" WHERE "alunos_turmas"."turma_id" = ? AND "alunos"."id" = ? LIMIT ?[0m  [["turma_id", 1], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTurma::HABTM_Alunos Create (0.0ms)[0m  [1m[32mINSERT INTO "alunos_turmas" ("aluno_id", "turma_id") VALUES (?, ?)[0m  [["aluno_id", 1], ["turma_id", 1]]
+  [1m[36mAluno Load (0.0ms)[0m  [1m[34mSELECT "alunos".* FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "200033522"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "200033522"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."usuario" = ? LIMIT ?[0m  [["usuario", "200033522"], ["LIMIT", 1]]
+  [1m[36mAluno Create (1.1ms)[0m  [1m[32mINSERT INTO "alunos" ("nome", "curso", "matricula", "departamento", "formacao", "usuario", "email", "ocupacao", "registered", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Andre Carvalho de Roure"], ["curso", "CIÊNCIA DA COMPUTAÇÃO/CIC"], ["matricula", "200033522"], ["departamento", "DEPTO CIÊNCIAS DA COMPUTAÇÃO"], ["formacao", nil], ["usuario", "200033522"], ["email", "[FILTERED]"], ["ocupacao", nil], ["registered", nil], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:27:59.041442"], ["updated_at", "2025-12-07 22:27:59.041442"]]
+  [1m[36mAluno Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" INNER JOIN "alunos_turmas" ON "alunos"."id" = "alunos_turmas"."aluno_id" WHERE "alunos_turmas"."turma_id" = ? AND "alunos"."id" = ? LIMIT ?[0m  [["turma_id", 1], ["id", 2], ["LIMIT", 1]]
+  [1m[36mTurma::HABTM_Alunos Create (0.0ms)[0m  [1m[32mINSERT INTO "alunos_turmas" ("aluno_id", "turma_id") VALUES (?, ?)[0m  [["aluno_id", 2], ["turma_id", 1]]
+  [1m[36mAluno Load (0.0ms)[0m  [1m[34mSELECT "alunos".* FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "150005491"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "150005491"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."usuario" = ? LIMIT ?[0m  [["usuario", "150005491"], ["LIMIT", 1]]
+  [1m[36mAluno Create (0.1ms)[0m  [1m[32mINSERT INTO "alunos" ("nome", "curso", "matricula", "departamento", "formacao", "usuario", "email", "ocupacao", "registered", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "André Carvalho Marques"], ["curso", "CIÊNCIA DA COMPUTAÇÃO/CIC"], ["matricula", "150005491"], ["departamento", "DEPTO CIÊNCIAS DA COMPUTAÇÃO"], ["formacao", nil], ["usuario", "150005491"], ["email", "[FILTERED]"], ["ocupacao", nil], ["registered", nil], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:27:59.046088"], ["updated_at", "2025-12-07 22:27:59.046088"]]
+  [1m[36mAluno Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" INNER JOIN "alunos_turmas" ON "alunos"."id" = "alunos_turmas"."aluno_id" WHERE "alunos_turmas"."turma_id" = ? AND "alunos"."id" = ? LIMIT ?[0m  [["turma_id", 1], ["id", 3], ["LIMIT", 1]]
+  [1m[36mTurma::HABTM_Alunos Create (0.0ms)[0m  [1m[32mINSERT INTO "alunos_turmas" ("aluno_id", "turma_id") VALUES (?, ?)[0m  [["aluno_id", 3], ["turma_id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mDisciplina Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "disciplinas"[0m
+  [1m[36mTurma Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "turmas"[0m
+  [1m[36mProfessor Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "professors"[0m
+  [1m[36mAluno Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "alunos"[0m
+  [1m[36mDisciplina Load (0.1ms)[0m  [1m[34mSELECT "disciplinas".* FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0097"], ["LIMIT", 1]]
+  [1m[36mTurma Load (0.1ms)[0m  [1m[34mSELECT "turmas".* FROM "turmas" WHERE "turmas"."disciplina_id" = ? AND "turmas"."semestre" = ? LIMIT ?[0m  [["disciplina_id", 1], ["semestre", "2021.2"], ["LIMIT", 1]]
+  [1m[36mProfessor Load (0.1ms)[0m  [1m[34mSELECT "professors".* FROM "professors" WHERE "professors"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAluno Load (0.0ms)[0m  [1m[34mSELECT "alunos".* FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "190084006"], ["LIMIT", 1]]
+  [1m[36mAluno Load (0.0ms)[0m  [1m[34mSELECT "alunos".* FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "200033522"], ["LIMIT", 1]]
+  [1m[36mAluno Load (0.0ms)[0m  [1m[34mSELECT "alunos".* FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "150005491"], ["LIMIT", 1]]
+  [1m[36mTurma Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "turmas" INNER JOIN "alunos_turmas" ON "turmas"."id" = "alunos_turmas"."turma_id" WHERE "alunos_turmas"."aluno_id" = ? AND "turmas"."id" = ? LIMIT ?[0m  [["aluno_id", 1], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTurma Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "turmas" INNER JOIN "alunos_turmas" ON "turmas"."id" = "alunos_turmas"."turma_id" WHERE "alunos_turmas"."aluno_id" = ? AND "turmas"."id" = ? LIMIT ?[0m  [["aluno_id", 2], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTurma Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "turmas" INNER JOIN "alunos_turmas" ON "turmas"."id" = "alunos_turmas"."turma_id" WHERE "alunos_turmas"."aluno_id" = ? AND "turmas"."id" = ? LIMIT ?[0m  [["aluno_id", 3], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mDisciplina Load (0.2ms)[0m  [1m[34mSELECT "disciplinas".* FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0097"], ["LIMIT", 1]]
+  [1m[36mDisciplina Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0097"], ["LIMIT", 1]]
+  [1m[36mDisciplina Create (0.1ms)[0m  [1m[32mINSERT INTO "disciplinas" ("codigo", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["codigo", "CIC0097"], ["nome", "CIC0097"], ["created_at", "2025-12-07 22:27:59.069815"], ["updated_at", "2025-12-07 22:27:59.069815"]]
+  [1m[36mProfessor Load (0.0ms)[0m  [1m[34mSELECT "professors".* FROM "professors" WHERE "professors"."usuario" = ? LIMIT ?[0m  [["usuario", "83807519491"], ["LIMIT", 1]]
+  [1m[36mProfessor Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mProfessor Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."usuario" = ? LIMIT ?[0m  [["usuario", "83807519491"], ["LIMIT", 1]]
+  [1m[36mProfessor Create (0.1ms)[0m  [1m[32mINSERT INTO "professors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "MARISTELA TERTO DE HOLANDA"], ["departamento", "DEPTO CIÊNCIAS DA COMPUTAÇÃO"], ["formacao", "DOUTORADO"], ["usuario", "83807519491"], ["email", "[FILTERED]"], ["ocupacao", nil], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:27:59.072230"], ["updated_at", "2025-12-07 22:27:59.072230"]]
+  [1m[36mTurma Load (0.1ms)[0m  [1m[34mSELECT "turmas".* FROM "turmas" WHERE "turmas"."disciplina_id" = ? AND "turmas"."professor_id" = ? AND "turmas"."semestre" = ? LIMIT ?[0m  [["disciplina_id", 1], ["professor_id", 1], ["semestre", "2021.2"], ["LIMIT", 1]]
+  [1m[36mTurma Create (0.1ms)[0m  [1m[32mINSERT INTO "turmas" ("professor_id", "disciplina_id", "formulario_id", "semestre", "horario", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["professor_id", 1], ["disciplina_id", 1], ["formulario_id", nil], ["semestre", "2021.2"], ["horario", "N/A"], ["created_at", "2025-12-07 22:27:59.073497"], ["updated_at", "2025-12-07 22:27:59.073497"]]
+  [1m[36mAluno Load (0.0ms)[0m  [1m[34mSELECT "alunos".* FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "190084006"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "190084006"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."usuario" = ? LIMIT ?[0m  [["usuario", "190084006"], ["LIMIT", 1]]
+  [1m[36mAluno Create (0.1ms)[0m  [1m[32mINSERT INTO "alunos" ("nome", "curso", "matricula", "departamento", "formacao", "usuario", "email", "ocupacao", "registered", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Ana Clara Jordao Perna"], ["curso", "CIÊNCIA DA COMPUTAÇÃO/CIC"], ["matricula", "190084006"], ["departamento", "DEPTO CIÊNCIAS DA COMPUTAÇÃO"], ["formacao", nil], ["usuario", "190084006"], ["email", "[FILTERED]"], ["ocupacao", nil], ["registered", nil], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:27:59.075828"], ["updated_at", "2025-12-07 22:27:59.075828"]]
+  [1m[36mAluno Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" INNER JOIN "alunos_turmas" ON "alunos"."id" = "alunos_turmas"."aluno_id" WHERE "alunos_turmas"."turma_id" = ? AND "alunos"."id" = ? LIMIT ?[0m  [["turma_id", 1], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTurma::HABTM_Alunos Create (0.0ms)[0m  [1m[32mINSERT INTO "alunos_turmas" ("aluno_id", "turma_id") VALUES (?, ?)[0m  [["aluno_id", 1], ["turma_id", 1]]
+  [1m[36mAluno Load (0.0ms)[0m  [1m[34mSELECT "alunos".* FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "200033522"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "200033522"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."usuario" = ? LIMIT ?[0m  [["usuario", "200033522"], ["LIMIT", 1]]
+  [1m[36mAluno Create (0.2ms)[0m  [1m[32mINSERT INTO "alunos" ("nome", "curso", "matricula", "departamento", "formacao", "usuario", "email", "ocupacao", "registered", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Andre Carvalho de Roure"], ["curso", "CIÊNCIA DA COMPUTAÇÃO/CIC"], ["matricula", "200033522"], ["departamento", "DEPTO CIÊNCIAS DA COMPUTAÇÃO"], ["formacao", nil], ["usuario", "200033522"], ["email", "[FILTERED]"], ["ocupacao", nil], ["registered", nil], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:27:59.079253"], ["updated_at", "2025-12-07 22:27:59.079253"]]
+  [1m[36mAluno Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" INNER JOIN "alunos_turmas" ON "alunos"."id" = "alunos_turmas"."aluno_id" WHERE "alunos_turmas"."turma_id" = ? AND "alunos"."id" = ? LIMIT ?[0m  [["turma_id", 1], ["id", 2], ["LIMIT", 1]]
+  [1m[36mTurma::HABTM_Alunos Create (0.0ms)[0m  [1m[32mINSERT INTO "alunos_turmas" ("aluno_id", "turma_id") VALUES (?, ?)[0m  [["aluno_id", 2], ["turma_id", 1]]
+  [1m[36mAluno Load (0.1ms)[0m  [1m[34mSELECT "alunos".* FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "150005491"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "150005491"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."usuario" = ? LIMIT ?[0m  [["usuario", "150005491"], ["LIMIT", 1]]
+  [1m[36mAluno Create (0.1ms)[0m  [1m[32mINSERT INTO "alunos" ("nome", "curso", "matricula", "departamento", "formacao", "usuario", "email", "ocupacao", "registered", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "André Carvalho Marques"], ["curso", "CIÊNCIA DA COMPUTAÇÃO/CIC"], ["matricula", "150005491"], ["departamento", "DEPTO CIÊNCIAS DA COMPUTAÇÃO"], ["formacao", nil], ["usuario", "150005491"], ["email", "[FILTERED]"], ["ocupacao", nil], ["registered", nil], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:27:59.082970"], ["updated_at", "2025-12-07 22:27:59.082970"]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" INNER JOIN "alunos_turmas" ON "alunos"."id" = "alunos_turmas"."aluno_id" WHERE "alunos_turmas"."turma_id" = ? AND "alunos"."id" = ? LIMIT ?[0m  [["turma_id", 1], ["id", 3], ["LIMIT", 1]]
+  [1m[36mTurma::HABTM_Alunos Create (0.0ms)[0m  [1m[32mINSERT INTO "alunos_turmas" ("aluno_id", "turma_id") VALUES (?, ?)[0m  [["aluno_id", 3], ["turma_id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mAluno Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "alunos"[0m
+  [1m[36mProfessor Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "professors"[0m
+  [1m[36mTurma Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "turmas"[0m
+  [1m[36mDisciplina Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "disciplinas"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mDisciplina Load (0.1ms)[0m  [1m[34mSELECT "disciplinas".* FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0097"], ["LIMIT", 1]]
+  [1m[36mDisciplina Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "disciplinas" WHERE "disciplinas"."codigo" = ? AND "disciplinas"."id" != ? LIMIT ?[0m  [["codigo", "CIC0097"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mProfessor Load (0.0ms)[0m  [1m[34mSELECT "professors".* FROM "professors" WHERE "professors"."usuario" = ? LIMIT ?[0m  [["usuario", "83807519491"], ["LIMIT", 1]]
+  [1m[36mProfessor Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."email" = ? AND "professors"."id" != ? LIMIT ?[0m  [["email", "[FILTERED]"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mProfessor Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."usuario" = ? AND "professors"."id" != ? LIMIT ?[0m  [["usuario", "83807519491"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTurma Load (0.0ms)[0m  [1m[34mSELECT "turmas".* FROM "turmas" WHERE "turmas"."disciplina_id" = ? AND "turmas"."professor_id" = ? AND "turmas"."semestre" = ? LIMIT ?[0m  [["disciplina_id", 1], ["professor_id", 1], ["semestre", "2021.2"], ["LIMIT", 1]]
+  [1m[36mAluno Load (0.1ms)[0m  [1m[34mSELECT "alunos".* FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "190084006"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."email" = ? AND "alunos"."id" != ? LIMIT ?[0m  [["email", "[FILTERED]"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."matricula" = ? AND "alunos"."id" != ? LIMIT ?[0m  [["matricula", "190084006"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."usuario" = ? AND "alunos"."id" != ? LIMIT ?[0m  [["usuario", "190084006"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" INNER JOIN "alunos_turmas" ON "alunos"."id" = "alunos_turmas"."aluno_id" WHERE "alunos_turmas"."turma_id" = ? AND "alunos"."id" = ? LIMIT ?[0m  [["turma_id", 1], ["id", 1], ["LIMIT", 1]]
+  [1m[36mAluno Load (0.0ms)[0m  [1m[34mSELECT "alunos".* FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "200033522"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."email" = ? AND "alunos"."id" != ? LIMIT ?[0m  [["email", "[FILTERED]"], ["id", 2], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."matricula" = ? AND "alunos"."id" != ? LIMIT ?[0m  [["matricula", "200033522"], ["id", 2], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."usuario" = ? AND "alunos"."id" != ? LIMIT ?[0m  [["usuario", "200033522"], ["id", 2], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" INNER JOIN "alunos_turmas" ON "alunos"."id" = "alunos_turmas"."aluno_id" WHERE "alunos_turmas"."turma_id" = ? AND "alunos"."id" = ? LIMIT ?[0m  [["turma_id", 1], ["id", 2], ["LIMIT", 1]]
+  [1m[36mAluno Load (0.0ms)[0m  [1m[34mSELECT "alunos".* FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "150005491"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."email" = ? AND "alunos"."id" != ? LIMIT ?[0m  [["email", "[FILTERED]"], ["id", 3], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."matricula" = ? AND "alunos"."id" != ? LIMIT ?[0m  [["matricula", "150005491"], ["id", 3], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."usuario" = ? AND "alunos"."id" != ? LIMIT ?[0m  [["usuario", "150005491"], ["id", 3], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" INNER JOIN "alunos_turmas" ON "alunos"."id" = "alunos_turmas"."aluno_id" WHERE "alunos_turmas"."turma_id" = ? AND "alunos"."id" = ? LIMIT ?[0m  [["turma_id", 1], ["id", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mDisciplina Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "disciplinas"[0m
+  [1m[36mTurma Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "turmas"[0m
+  [1m[36mProfessor Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "professors"[0m
+  [1m[36mAluno Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "alunos"[0m
+  [1m[36mTurma Load (0.1ms)[0m  [1m[34mSELECT "turmas".* FROM "turmas" INNER JOIN "disciplinas" ON "disciplinas"."id" = "turmas"."disciplina_id" WHERE "disciplinas"."codigo" = ? AND "turmas"."semestre" = ? LIMIT ?[0m  [["codigo", "CIC0097"], ["semestre", "2021.2"], ["LIMIT", 1]]
+  [1m[36mAluno Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "alunos" INNER JOIN "alunos_turmas" ON "alunos"."id" = "alunos_turmas"."aluno_id" WHERE "alunos_turmas"."turma_id" = ?[0m  [["turma_id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAluno Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "alunos"[0m
+  [1m[36mProfessor Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "professors"[0m
+  [1m[36mTurma Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "turmas"[0m
+  [1m[36mDisciplina Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "disciplinas"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mDisciplina Load (0.1ms)[0m  [1m[34mSELECT "disciplinas".* FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0097"], ["LIMIT", 1]]
+  [1m[36mDisciplina Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0097"], ["LIMIT", 1]]
+  [1m[36mDisciplina Create (0.1ms)[0m  [1m[32mINSERT INTO "disciplinas" ("codigo", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["codigo", "CIC0097"], ["nome", "BANCOS DE DADOS"], ["created_at", "2025-12-07 22:27:59.101820"], ["updated_at", "2025-12-07 22:27:59.101820"]]
+  [1m[36mDisciplina Load (0.0ms)[0m  [1m[34mSELECT "disciplinas".* FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0105"], ["LIMIT", 1]]
+  [1m[36mDisciplina Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0105"], ["LIMIT", 1]]
+  [1m[36mDisciplina Create (0.1ms)[0m  [1m[32mINSERT INTO "disciplinas" ("codigo", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["codigo", "CIC0105"], ["nome", "ENGENHARIA DE SOFTWARE"], ["created_at", "2025-12-07 22:27:59.102856"], ["updated_at", "2025-12-07 22:27:59.102856"]]
+  [1m[36mDisciplina Load (0.0ms)[0m  [1m[34mSELECT "disciplinas".* FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0202"], ["LIMIT", 1]]
+  [1m[36mDisciplina Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0202"], ["LIMIT", 1]]
+  [1m[36mDisciplina Create (0.1ms)[0m  [1m[32mINSERT INTO "disciplinas" ("codigo", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["codigo", "CIC0202"], ["nome", "PROGRAMAÇÃO CONCORRENTE"], ["created_at", "2025-12-07 22:27:59.103788"], ["updated_at", "2025-12-07 22:27:59.103788"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mDisciplina Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "disciplinas"[0m
+  [1m[36mTurma Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "turmas"[0m
+  [1m[36mProfessor Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "professors"[0m
+  [1m[36mAluno Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "alunos"[0m
+  [1m[36mDisciplina Load (0.0ms)[0m  [1m[34mSELECT "disciplinas".* FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0097"], ["LIMIT", 1]]
+  [1m[36mDisciplina Load (0.0ms)[0m  [1m[34mSELECT "disciplinas".* FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0105"], ["LIMIT", 1]]
+  [1m[36mDisciplina Load (0.0ms)[0m  [1m[34mSELECT "disciplinas".* FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0202"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mDisciplina Load (0.1ms)[0m  [1m[34mSELECT "disciplinas".* FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0097"], ["LIMIT", 1]]
+  [1m[36mDisciplina Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0097"], ["LIMIT", 1]]
+  [1m[36mDisciplina Create (0.1ms)[0m  [1m[32mINSERT INTO "disciplinas" ("codigo", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["codigo", "CIC0097"], ["nome", "BANCOS DE DADOS"], ["created_at", "2025-12-07 22:27:59.107553"], ["updated_at", "2025-12-07 22:27:59.107553"]]
+  [1m[36mDisciplina Load (0.0ms)[0m  [1m[34mSELECT "disciplinas".* FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0105"], ["LIMIT", 1]]
+  [1m[36mDisciplina Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0105"], ["LIMIT", 1]]
+  [1m[36mDisciplina Create (0.1ms)[0m  [1m[32mINSERT INTO "disciplinas" ("codigo", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["codigo", "CIC0105"], ["nome", "ENGENHARIA DE SOFTWARE"], ["created_at", "2025-12-07 22:27:59.108679"], ["updated_at", "2025-12-07 22:27:59.108679"]]
+  [1m[36mDisciplina Load (0.0ms)[0m  [1m[34mSELECT "disciplinas".* FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0202"], ["LIMIT", 1]]
+  [1m[36mDisciplina Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0202"], ["LIMIT", 1]]
+  [1m[36mDisciplina Create (0.0ms)[0m  [1m[32mINSERT INTO "disciplinas" ("codigo", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["codigo", "CIC0202"], ["nome", "PROGRAMAÇÃO CONCORRENTE"], ["created_at", "2025-12-07 22:27:59.109591"], ["updated_at", "2025-12-07 22:27:59.109591"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTurma Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "turmas"[0m
+  [1m[36mDisciplina Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "disciplinas"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mDisciplina Load (0.1ms)[0m  [1m[34mSELECT "disciplinas".* FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0097"], ["LIMIT", 1]]
+  [1m[36mDisciplina Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "disciplinas" WHERE "disciplinas"."codigo" = ? AND "disciplinas"."id" != ? LIMIT ?[0m  [["codigo", "CIC0097"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mDisciplina Load (0.0ms)[0m  [1m[34mSELECT "disciplinas".* FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0105"], ["LIMIT", 1]]
+  [1m[36mDisciplina Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "disciplinas" WHERE "disciplinas"."codigo" = ? AND "disciplinas"."id" != ? LIMIT ?[0m  [["codigo", "CIC0105"], ["id", 2], ["LIMIT", 1]]
+  [1m[36mDisciplina Load (0.0ms)[0m  [1m[34mSELECT "disciplinas".* FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0202"], ["LIMIT", 1]]
+  [1m[36mDisciplina Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "disciplinas" WHERE "disciplinas"."codigo" = ? AND "disciplinas"."id" != ? LIMIT ?[0m  [["codigo", "CIC0202"], ["id", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mDisciplina Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "disciplinas"[0m
+  [1m[36mTurma Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "turmas"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mDisciplina Load (0.2ms)[0m  [1m[34mSELECT "disciplinas".* FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0097"], ["LIMIT", 1]]
+  [1m[36mDisciplina Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0097"], ["LIMIT", 1]]
+  [1m[36mDisciplina Create (0.1ms)[0m  [1m[32mINSERT INTO "disciplinas" ("codigo", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["codigo", "CIC0097"], ["nome", "BANCOS DE DADOS"], ["created_at", "2025-12-07 22:27:59.115757"], ["updated_at", "2025-12-07 22:27:59.115757"]]
+  [1m[36mDisciplina Load (0.0ms)[0m  [1m[34mSELECT "disciplinas".* FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0105"], ["LIMIT", 1]]
+  [1m[36mDisciplina Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0105"], ["LIMIT", 1]]
+  [1m[36mDisciplina Create (0.1ms)[0m  [1m[32mINSERT INTO "disciplinas" ("codigo", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["codigo", "CIC0105"], ["nome", "ENGENHARIA DE SOFTWARE"], ["created_at", "2025-12-07 22:27:59.116840"], ["updated_at", "2025-12-07 22:27:59.116840"]]
+  [1m[36mDisciplina Load (0.0ms)[0m  [1m[34mSELECT "disciplinas".* FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0202"], ["LIMIT", 1]]
+  [1m[36mDisciplina Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0202"], ["LIMIT", 1]]
+  [1m[36mDisciplina Create (0.0ms)[0m  [1m[32mINSERT INTO "disciplinas" ("codigo", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["codigo", "CIC0202"], ["nome", "PROGRAMAÇÃO CONCORRENTE"], ["created_at", "2025-12-07 22:27:59.117742"], ["updated_at", "2025-12-07 22:27:59.117742"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mDisciplina Load (0.0ms)[0m  [1m[34mSELECT "disciplinas".* FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0097"], ["LIMIT", 1]]
+  [1m[36mAluno Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "alunos"[0m
+  [1m[36mProfessor Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "professors"[0m
+  [1m[36mTurma Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "turmas"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mDisciplina Load (0.1ms)[0m  [1m[34mSELECT "disciplinas".* FROM "disciplinas" WHERE "disciplinas"."codigo" = ? LIMIT ?[0m  [["codigo", "CIC0097"], ["LIMIT", 1]]
+  [1m[36mDisciplina Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "disciplinas" WHERE "disciplinas"."codigo" = ? AND "disciplinas"."id" != ? LIMIT ?[0m  [["codigo", "CIC0097"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mProfessor Load (0.0ms)[0m  [1m[34mSELECT "professors".* FROM "professors" WHERE "professors"."usuario" = ? LIMIT ?[0m  [["usuario", "83807519491"], ["LIMIT", 1]]
+  [1m[36mProfessor Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mProfessor Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."usuario" = ? LIMIT ?[0m  [["usuario", "83807519491"], ["LIMIT", 1]]
+  [1m[36mProfessor Create (0.1ms)[0m  [1m[32mINSERT INTO "professors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "MARISTELA TERTO DE HOLANDA"], ["departamento", "DEPTO CIÊNCIAS DA COMPUTAÇÃO"], ["formacao", "DOUTORADO"], ["usuario", "83807519491"], ["email", "[FILTERED]"], ["ocupacao", nil], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:27:59.122374"], ["updated_at", "2025-12-07 22:27:59.122374"]]
+  [1m[36mTurma Load (0.0ms)[0m  [1m[34mSELECT "turmas".* FROM "turmas" WHERE "turmas"."disciplina_id" = ? AND "turmas"."professor_id" = ? AND "turmas"."semestre" = ? LIMIT ?[0m  [["disciplina_id", 1], ["professor_id", 1], ["semestre", "2021.2"], ["LIMIT", 1]]
+  [1m[36mTurma Create (0.1ms)[0m  [1m[32mINSERT INTO "turmas" ("professor_id", "disciplina_id", "formulario_id", "semestre", "horario", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["professor_id", 1], ["disciplina_id", 1], ["formulario_id", nil], ["semestre", "2021.2"], ["horario", "N/A"], ["created_at", "2025-12-07 22:27:59.123522"], ["updated_at", "2025-12-07 22:27:59.123522"]]
+  [1m[36mAluno Load (0.0ms)[0m  [1m[34mSELECT "alunos".* FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "190084006"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "190084006"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."usuario" = ? LIMIT ?[0m  [["usuario", "190084006"], ["LIMIT", 1]]
+  [1m[36mAluno Create (0.1ms)[0m  [1m[32mINSERT INTO "alunos" ("nome", "curso", "matricula", "departamento", "formacao", "usuario", "email", "ocupacao", "registered", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Ana Clara Jordao Perna"], ["curso", "CIÊNCIA DA COMPUTAÇÃO/CIC"], ["matricula", "190084006"], ["departamento", "DEPTO CIÊNCIAS DA COMPUTAÇÃO"], ["formacao", nil], ["usuario", "190084006"], ["email", "[FILTERED]"], ["ocupacao", nil], ["registered", nil], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:27:59.125978"], ["updated_at", "2025-12-07 22:27:59.125978"]]
+  [1m[36mAluno Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" INNER JOIN "alunos_turmas" ON "alunos"."id" = "alunos_turmas"."aluno_id" WHERE "alunos_turmas"."turma_id" = ? AND "alunos"."id" = ? LIMIT ?[0m  [["turma_id", 1], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTurma::HABTM_Alunos Create (0.0ms)[0m  [1m[32mINSERT INTO "alunos_turmas" ("aluno_id", "turma_id") VALUES (?, ?)[0m  [["aluno_id", 1], ["turma_id", 1]]
+  [1m[36mAluno Load (0.0ms)[0m  [1m[34mSELECT "alunos".* FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "200033522"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "200033522"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."usuario" = ? LIMIT ?[0m  [["usuario", "200033522"], ["LIMIT", 1]]
+  [1m[36mAluno Create (0.3ms)[0m  [1m[32mINSERT INTO "alunos" ("nome", "curso", "matricula", "departamento", "formacao", "usuario", "email", "ocupacao", "registered", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Andre Carvalho de Roure"], ["curso", "CIÊNCIA DA COMPUTAÇÃO/CIC"], ["matricula", "200033522"], ["departamento", "DEPTO CIÊNCIAS DA COMPUTAÇÃO"], ["formacao", nil], ["usuario", "200033522"], ["email", "[FILTERED]"], ["ocupacao", nil], ["registered", nil], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:27:59.129573"], ["updated_at", "2025-12-07 22:27:59.129573"]]
+  [1m[36mAluno Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" INNER JOIN "alunos_turmas" ON "alunos"."id" = "alunos_turmas"."aluno_id" WHERE "alunos_turmas"."turma_id" = ? AND "alunos"."id" = ? LIMIT ?[0m  [["turma_id", 1], ["id", 2], ["LIMIT", 1]]
+  [1m[36mTurma::HABTM_Alunos Create (0.0ms)[0m  [1m[32mINSERT INTO "alunos_turmas" ("aluno_id", "turma_id") VALUES (?, ?)[0m  [["aluno_id", 2], ["turma_id", 1]]
+  [1m[36mAluno Load (0.0ms)[0m  [1m[34mSELECT "alunos".* FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "150005491"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "150005491"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."usuario" = ? LIMIT ?[0m  [["usuario", "150005491"], ["LIMIT", 1]]
+  [1m[36mAluno Create (0.1ms)[0m  [1m[32mINSERT INTO "alunos" ("nome", "curso", "matricula", "departamento", "formacao", "usuario", "email", "ocupacao", "registered", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "André Carvalho Marques"], ["curso", "CIÊNCIA DA COMPUTAÇÃO/CIC"], ["matricula", "150005491"], ["departamento", "DEPTO CIÊNCIAS DA COMPUTAÇÃO"], ["formacao", nil], ["usuario", "150005491"], ["email", "[FILTERED]"], ["ocupacao", nil], ["registered", nil], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:27:59.133300"], ["updated_at", "2025-12-07 22:27:59.133300"]]
+  [1m[36mAluno Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" INNER JOIN "alunos_turmas" ON "alunos"."id" = "alunos_turmas"."aluno_id" WHERE "alunos_turmas"."turma_id" = ? AND "alunos"."id" = ? LIMIT ?[0m  [["turma_id", 1], ["id", 3], ["LIMIT", 1]]
+  [1m[36mTurma::HABTM_Alunos Create (0.0ms)[0m  [1m[32mINSERT INTO "alunos_turmas" ("aluno_id", "turma_id") VALUES (?, ?)[0m  [["aluno_id", 3], ["turma_id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTurma Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "turmas"[0m
+  [1m[36mProfessor Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "professors"[0m
+  [1m[36mAluno Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "alunos"[0m
+  [1m[36mTurma Load (0.0ms)[0m  [1m[34mSELECT "turmas".* FROM "turmas" WHERE "turmas"."disciplina_id" = ? AND "turmas"."semestre" = ? LIMIT ?[0m  [["disciplina_id", 1], ["semestre", "2021.2"], ["LIMIT", 1]]
+  [1m[36mProfessor Load (0.0ms)[0m  [1m[34mSELECT "professors".* FROM "professors" WHERE "professors"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAluno Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "alunos" INNER JOIN "alunos_turmas" ON "alunos"."id" = "alunos_turmas"."aluno_id" WHERE "alunos_turmas"."turma_id" = ?[0m  [["turma_id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDisciplina Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "disciplinas"[0m
+  [1m[36mTurma Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "turmas"[0m
+  [1m[36mProfessor Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "professors"[0m
+  [1m[36mAluno Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "alunos"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "turmas"[0m
+  [1m[35m (15.3ms)[0m  [1m[31mDELETE FROM "turmas"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'turmas';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "formularios"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "formularios"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'formularios';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "alunos_turmas"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "alunos_turmas"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'alunos_turmas';[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "templates"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "templates"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'templates';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "administradors"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "administradors"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'administradors';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "pergunta"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "pergunta"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'pergunta';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "disciplinas"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "disciplinas"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'disciplinas';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mTRUNCATE TABLE "professors"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "professors"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'professors';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "alunos"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "alunos"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'alunos';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Processing by TemplatesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering templates/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/index.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.6ms | GC: 0.0ms)
+Completed 200 OK in 271ms (Views: 5.2ms | ActiveRecord: 0.4ms (0 queries, 0 cached) | GC: 55.5ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.117232"], ["updated_at", "2025-12-07 22:28:10.117232"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Template de Avaliação"], ["created_at", "2025-12-07 22:28:10.122108"], ["updated_at", "2025-12-07 22:28:10.122108"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "outro_admin"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "outro_admin"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.124493"], ["updated_at", "2025-12-07 22:28:10.124493"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.1ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 2], ["nome", "Template de Avaliação"], ["created_at", "2025-12-07 22:28:10.125247"], ["updated_at", "2025-12-07 22:28:10.125247"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Processing by TemplatesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering templates/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/index.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTemplate Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTemplate Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.132580"], ["updated_at", "2025-12-07 22:28:10.132580"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Processing by TemplatesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering templates/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/index.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.146924"], ["updated_at", "2025-12-07 22:28:10.146924"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Template de Avaliação"], ["created_at", "2025-12-07 22:28:10.148016"], ["updated_at", "2025-12-07 22:28:10.148016"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "outro_admin"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.2ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "outro_admin"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.150188"], ["updated_at", "2025-12-07 22:28:10.150188"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 2], ["nome", "Template de Avaliação"], ["created_at", "2025-12-07 22:28:10.152354"], ["updated_at", "2025-12-07 22:28:10.152354"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Processing by TemplatesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering templates/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/index.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTemplate Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "templates" WHERE "templates"."administrador_id" = ? AND "templates"."id" = ? LIMIT ?[0m  [["administrador_id", 1], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTemplate Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "templates" WHERE "templates"."administrador_id" = ? AND "templates"."id" = ? LIMIT ?[0m  [["administrador_id", 1], ["id", 2], ["LIMIT", 1]]
+  [1m[36mTemplate Load (0.1ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."administrador_id" = ? ORDER BY "templates"."created_at" DESC[0m  [["administrador_id", 1]]
+  [1m[36mPergunta Load (0.1ms)[0m  [1m[34mSELECT "pergunta".* FROM "pergunta" WHERE "pergunta"."formulario_id" IS NULL AND "pergunta"."template_id" = ?[0m  [["template_id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProfessor Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mProfessor Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."usuario" = ? LIMIT ?[0m  [["usuario", "prof_test"], ["LIMIT", 1]]
+  [1m[36mProfessor Create (0.1ms)[0m  [1m[32mINSERT INTO "professors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Professor Test"], ["departamento", "Ciência da Computação"], ["formacao", "Doutorado"], ["usuario", "prof_test"], ["email", "[FILTERED]"], ["ocupacao", "Professor"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.171793"], ["updated_at", "2025-12-07 22:28:10.171793"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Processing by TemplatesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering templates/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/index.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProfessor Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mProfessor Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."usuario" = ? LIMIT ?[0m  [["usuario", "prof_test"], ["LIMIT", 1]]
+  [1m[36mProfessor Create (0.1ms)[0m  [1m[32mINSERT INTO "professors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Professor Test"], ["departamento", "Ciência da Computação"], ["formacao", "Doutorado"], ["usuario", "prof_test"], ["email", "[FILTERED]"], ["ocupacao", "Professor"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.188459"], ["updated_at", "2025-12-07 22:28:10.188459"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.7ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.190914"], ["updated_at", "2025-12-07 22:28:10.190914"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Template de Avaliação"], ["created_at", "2025-12-07 22:28:10.192735"], ["updated_at", "2025-12-07 22:28:10.192735"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "outro_admin"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "outro_admin"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.195081"], ["updated_at", "2025-12-07 22:28:10.195081"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 2], ["nome", "Template de Avaliação"], ["created_at", "2025-12-07 22:28:10.195871"], ["updated_at", "2025-12-07 22:28:10.195871"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Processing by TemplatesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering templates/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/index.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTemplate Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTemplate Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Processing by TemplatesController#new as HTML
+Redirected to http://test.host/
+Filter chain halted as :require_admin rendered or redirected
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.1ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.204498"], ["updated_at", "2025-12-07 22:28:10.204498"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Processing by TemplatesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering templates/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/new.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.5ms | GC: 0.0ms)
+Completed 200 OK in 6ms (Views: 0.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.5ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.216433"], ["updated_at", "2025-12-07 22:28:10.216433"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Processing by TemplatesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering templates/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/new.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProfessor Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mProfessor Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."usuario" = ? LIMIT ?[0m  [["usuario", "prof_test"], ["LIMIT", 1]]
+  [1m[36mProfessor Create (0.1ms)[0m  [1m[32mINSERT INTO "professors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Professor Test"], ["departamento", "Ciência da Computação"], ["formacao", "Doutorado"], ["usuario", "prof_test"], ["email", "[FILTERED]"], ["ocupacao", "Professor"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.222406"], ["updated_at", "2025-12-07 22:28:10.222406"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Processing by TemplatesController#new as HTML
+Redirected to http://test.host/
+Filter chain halted as :require_admin rendered or redirected
+Completed 302 Found in 0ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAluno Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."matricula" = ? LIMIT ?[0m  [["matricula", "20230001"], ["LIMIT", 1]]
+  [1m[36mAluno Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "alunos" WHERE "alunos"."usuario" = ? LIMIT ?[0m  [["usuario", "aluno_test"], ["LIMIT", 1]]
+  [1m[36mAluno Create (0.1ms)[0m  [1m[32mINSERT INTO "alunos" ("nome", "curso", "matricula", "departamento", "formacao", "usuario", "email", "ocupacao", "registered", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Aluno Test"], ["curso", "Ciência da Computação"], ["matricula", "20230001"], ["departamento", "CC"], ["formacao", "Graduação"], ["usuario", "aluno_test"], ["email", "[FILTERED]"], ["ocupacao", "Estudante"], ["registered", 1], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.231897"], ["updated_at", "2025-12-07 22:28:10.231897"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Processing by TemplatesController#new as HTML
+Redirected to http://test.host/
+Filter chain halted as :require_admin rendered or redirected
+Completed 302 Found in 0ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.237496"], ["updated_at", "2025-12-07 22:28:10.237496"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTemplate Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+Processing by TemplatesController#create as HTML
+  Parameters: {"template"=>{"nome"=>"Test Template", "perguntas_attributes"=>{"0"=>{"texto"=>"Pergunta 1"}}}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Test Template"], ["created_at", "2025-12-07 22:28:10.245407"], ["updated_at", "2025-12-07 22:28:10.245407"]]
+  [1m[36mPergunta Create (0.1ms)[0m  [1m[32mINSERT INTO "pergunta" ("template_id", "formulario_id", "texto", "resposta", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["template_id", 1], ["formulario_id", nil], ["texto", "Pergunta 1"], ["resposta", nil], ["created_at", "2025-12-07 22:28:10.246176"], ["updated_at", "2025-12-07 22:28:10.246176"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Redirected to http://test.host/templates/1
+Completed 302 Found in 3ms (ActiveRecord: 0.3ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTemplate Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.251486"], ["updated_at", "2025-12-07 22:28:10.251486"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Processing by TemplatesController#create as HTML
+  Parameters: {"template"=>{"nome"=>"Test Template", "perguntas_attributes"=>{"0"=>{"texto"=>"Pergunta 1"}}}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Test Template"], ["created_at", "2025-12-07 22:28:10.253935"], ["updated_at", "2025-12-07 22:28:10.253935"]]
+  [1m[36mPergunta Create (0.1ms)[0m  [1m[32mINSERT INTO "pergunta" ("template_id", "formulario_id", "texto", "resposta", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["template_id", 1], ["formulario_id", nil], ["texto", "Pergunta 1"], ["resposta", nil], ["created_at", "2025-12-07 22:28:10.254579"], ["updated_at", "2025-12-07 22:28:10.254579"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Redirected to http://test.host/templates/1
+Completed 302 Found in 2ms (ActiveRecord: 0.3ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTemplate Load (0.1ms)[0m  [1m[34mSELECT "templates".* FROM "templates" ORDER BY "templates"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mAdministrador Load (0.1ms)[0m  [1m[34mSELECT "administradors".* FROM "administradors" WHERE "administradors"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.260379"], ["updated_at", "2025-12-07 22:28:10.260379"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mPergunta Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "pergunta"[0m
+Processing by TemplatesController#create as HTML
+  Parameters: {"template"=>{"nome"=>"Test Template", "perguntas_attributes"=>{"0"=>{"texto"=>"Pergunta 1"}, "1"=>{"texto"=>"Pergunta 2"}}}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Test Template"], ["created_at", "2025-12-07 22:28:10.263096"], ["updated_at", "2025-12-07 22:28:10.263096"]]
+  [1m[36mPergunta Create (0.1ms)[0m  [1m[32mINSERT INTO "pergunta" ("template_id", "formulario_id", "texto", "resposta", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["template_id", 1], ["formulario_id", nil], ["texto", "Pergunta 1"], ["resposta", nil], ["created_at", "2025-12-07 22:28:10.263724"], ["updated_at", "2025-12-07 22:28:10.263724"]]
+  [1m[36mPergunta Create (0.1ms)[0m  [1m[32mINSERT INTO "pergunta" ("template_id", "formulario_id", "texto", "resposta", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["template_id", 1], ["formulario_id", nil], ["texto", "Pergunta 2"], ["resposta", nil], ["created_at", "2025-12-07 22:28:10.264153"], ["updated_at", "2025-12-07 22:28:10.264153"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Redirected to http://test.host/templates/1
+Completed 302 Found in 3ms (ActiveRecord: 0.4ms (3 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mPergunta Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "pergunta"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.269028"], ["updated_at", "2025-12-07 22:28:10.269028"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Processing by TemplatesController#create as HTML
+  Parameters: {"template"=>{"nome"=>"Test Template", "perguntas_attributes"=>{"0"=>{"texto"=>"Pergunta 1"}}}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Test Template"], ["created_at", "2025-12-07 22:28:10.271494"], ["updated_at", "2025-12-07 22:28:10.271494"]]
+  [1m[36mPergunta Create (0.1ms)[0m  [1m[32mINSERT INTO "pergunta" ("template_id", "formulario_id", "texto", "resposta", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["template_id", 1], ["formulario_id", nil], ["texto", "Pergunta 1"], ["resposta", nil], ["created_at", "2025-12-07 22:28:10.272198"], ["updated_at", "2025-12-07 22:28:10.272198"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Redirected to http://test.host/templates/1
+Completed 302 Found in 3ms (ActiveRecord: 0.3ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTemplate Load (0.0ms)[0m  [1m[34mSELECT "templates".* FROM "templates" ORDER BY "templates"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.277014"], ["updated_at", "2025-12-07 22:28:10.277014"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Processing by TemplatesController#create as HTML
+  Parameters: {"template"=>{"nome"=>""}}
+  Rendering layout layouts/application.html.erb
+  Rendering templates/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/new.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 2ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProfessor Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mProfessor Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."usuario" = ? LIMIT ?[0m  [["usuario", "prof_test"], ["LIMIT", 1]]
+  [1m[36mProfessor Create (0.1ms)[0m  [1m[32mINSERT INTO "professors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Professor Test"], ["departamento", "Ciência da Computação"], ["formacao", "Doutorado"], ["usuario", "prof_test"], ["email", "[FILTERED]"], ["ocupacao", "Professor"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.283558"], ["updated_at", "2025-12-07 22:28:10.283558"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTemplate Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+Processing by TemplatesController#create as HTML
+  Parameters: {"template"=>{"nome"=>"Test Template"}}
+Redirected to http://test.host/
+Filter chain halted as :require_admin rendered or redirected
+Completed 302 Found in 0ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTemplate Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProfessor Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mProfessor Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."usuario" = ? LIMIT ?[0m  [["usuario", "prof_test"], ["LIMIT", 1]]
+  [1m[36mProfessor Create (0.1ms)[0m  [1m[32mINSERT INTO "professors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Professor Test"], ["departamento", "Ciência da Computação"], ["formacao", "Doutorado"], ["usuario", "prof_test"], ["email", "[FILTERED]"], ["ocupacao", "Professor"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.289251"], ["updated_at", "2025-12-07 22:28:10.289251"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Processing by TemplatesController#create as HTML
+  Parameters: {"template"=>{"nome"=>"Test Template"}}
+Redirected to http://test.host/
+Filter chain halted as :require_admin rendered or redirected
+Completed 302 Found in 0ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.294750"], ["updated_at", "2025-12-07 22:28:10.294750"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.1ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Template de Avaliação"], ["created_at", "2025-12-07 22:28:10.295620"], ["updated_at", "2025-12-07 22:28:10.295620"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mPergunta Create (0.3ms)[0m  [1m[32mINSERT INTO "pergunta" ("template_id", "formulario_id", "texto", "resposta", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["template_id", 1], ["formulario_id", nil], ["texto", "Como você avalia o aspecto 1 da disciplina?"], ["resposta", nil], ["created_at", "2025-12-07 22:28:10.301624"], ["updated_at", "2025-12-07 22:28:10.301624"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mPergunta Create (0.2ms)[0m  [1m[32mINSERT INTO "pergunta" ("template_id", "formulario_id", "texto", "resposta", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["template_id", 1], ["formulario_id", nil], ["texto", "Como você avalia o aspecto 2 da disciplina?"], ["resposta", nil], ["created_at", "2025-12-07 22:28:10.302802"], ["updated_at", "2025-12-07 22:28:10.302802"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mPergunta Create (0.1ms)[0m  [1m[32mINSERT INTO "pergunta" ("template_id", "formulario_id", "texto", "resposta", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["template_id", 1], ["formulario_id", nil], ["texto", "Como você avalia o aspecto 3 da disciplina?"], ["resposta", nil], ["created_at", "2025-12-07 22:28:10.303599"], ["updated_at", "2025-12-07 22:28:10.303599"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Processing by TemplatesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTemplate Load (0.1ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering templates/show.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/show.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 3ms (Views: 0.8ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.310914"], ["updated_at", "2025-12-07 22:28:10.310914"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Template de Avaliação"], ["created_at", "2025-12-07 22:28:10.312061"], ["updated_at", "2025-12-07 22:28:10.312061"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mPergunta Create (0.2ms)[0m  [1m[32mINSERT INTO "pergunta" ("template_id", "formulario_id", "texto", "resposta", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["template_id", 1], ["formulario_id", nil], ["texto", "Como você avalia o aspecto 4 da disciplina?"], ["resposta", nil], ["created_at", "2025-12-07 22:28:10.312902"], ["updated_at", "2025-12-07 22:28:10.312902"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mPergunta Create (0.2ms)[0m  [1m[32mINSERT INTO "pergunta" ("template_id", "formulario_id", "texto", "resposta", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["template_id", 1], ["formulario_id", nil], ["texto", "Como você avalia o aspecto 5 da disciplina?"], ["resposta", nil], ["created_at", "2025-12-07 22:28:10.313635"], ["updated_at", "2025-12-07 22:28:10.313635"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mPergunta Create (0.1ms)[0m  [1m[32mINSERT INTO "pergunta" ("template_id", "formulario_id", "texto", "resposta", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["template_id", 1], ["formulario_id", nil], ["texto", "Como você avalia o aspecto 6 da disciplina?"], ["resposta", nil], ["created_at", "2025-12-07 22:28:10.314579"], ["updated_at", "2025-12-07 22:28:10.314579"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Processing by TemplatesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTemplate Load (0.0ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering templates/show.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/show.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mPergunta Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "pergunta" WHERE "pergunta"."template_id" = ? AND "pergunta"."formulario_id" IS NULL[0m  [["template_id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.320485"], ["updated_at", "2025-12-07 22:28:10.320485"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Template de Avaliação"], ["created_at", "2025-12-07 22:28:10.321260"], ["updated_at", "2025-12-07 22:28:10.321260"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Processing by TemplatesController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTemplate Load (0.1ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering templates/edit.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/edit.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 4ms (Views: 0.6ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.330662"], ["updated_at", "2025-12-07 22:28:10.330662"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Template de Avaliação"], ["created_at", "2025-12-07 22:28:10.331657"], ["updated_at", "2025-12-07 22:28:10.331657"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Processing by TemplatesController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTemplate Load (0.0ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering templates/edit.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/edit.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 2ms (Views: 0.7ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mPergunta Load (0.1ms)[0m  [1m[34mSELECT "pergunta".* FROM "pergunta" WHERE "pergunta"."template_id" = ? AND "pergunta"."formulario_id" IS NULL[0m  [["template_id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.341544"], ["updated_at", "2025-12-07 22:28:10.341544"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Template de Avaliação"], ["created_at", "2025-12-07 22:28:10.342509"], ["updated_at", "2025-12-07 22:28:10.342509"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "outro_admin"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "outro_admin"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.344831"], ["updated_at", "2025-12-07 22:28:10.344831"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Processing by TemplatesController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTemplate Load (0.1ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering templates/edit.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered templates/edit.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered layout layouts/application.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.352308"], ["updated_at", "2025-12-07 22:28:10.352308"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.1ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Template de Avaliação"], ["created_at", "2025-12-07 22:28:10.353234"], ["updated_at", "2025-12-07 22:28:10.353234"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProfessor Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mProfessor Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."usuario" = ? LIMIT ?[0m  [["usuario", "prof_test"], ["LIMIT", 1]]
+  [1m[36mProfessor Create (0.1ms)[0m  [1m[32mINSERT INTO "professors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Professor Test"], ["departamento", "Ciência da Computação"], ["formacao", "Doutorado"], ["usuario", "prof_test"], ["email", "[FILTERED]"], ["ocupacao", "Professor"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.355691"], ["updated_at", "2025-12-07 22:28:10.355691"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Processing by TemplatesController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTemplate Load (0.0ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Redirected to http://test.host/
+Filter chain halted as :require_admin rendered or redirected
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.361050"], ["updated_at", "2025-12-07 22:28:10.361050"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Original Name"], ["created_at", "2025-12-07 22:28:10.361967"], ["updated_at", "2025-12-07 22:28:10.361967"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Processing by TemplatesController#update as HTML
+  Parameters: {"template"=>{"nome"=>"Updated Name"}, "id"=>"1"}
+  [1m[36mTemplate Load (0.1ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Update (0.1ms)[0m  [1m[33mUPDATE "templates" SET "nome" = ?, "updated_at" = ? WHERE "templates"."id" = ?[0m  [["nome", "Updated Name"], ["updated_at", "2025-12-07 22:28:10.364585"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Redirected to http://test.host/templates/1
+Completed 302 Found in 2ms (ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTemplate Load (0.0ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.369248"], ["updated_at", "2025-12-07 22:28:10.369248"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Original Name"], ["created_at", "2025-12-07 22:28:10.370160"], ["updated_at", "2025-12-07 22:28:10.370160"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mPergunta Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "pergunta" WHERE "pergunta"."template_id" = ? AND "pergunta"."formulario_id" IS NULL[0m  [["template_id", 1]]
+Processing by TemplatesController#update as HTML
+  Parameters: {"template"=>{"perguntas_attributes"=>{"0"=>{"texto"=>"Nova pergunta"}}}, "id"=>"1"}
+  [1m[36mTemplate Load (0.0ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mPergunta Create (0.2ms)[0m  [1m[32mINSERT INTO "pergunta" ("template_id", "formulario_id", "texto", "resposta", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["template_id", 1], ["formulario_id", nil], ["texto", "Nova pergunta"], ["resposta", nil], ["created_at", "2025-12-07 22:28:10.373568"], ["updated_at", "2025-12-07 22:28:10.373568"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Redirected to http://test.host/templates/1
+Completed 302 Found in 2ms (ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mPergunta Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "pergunta" WHERE "pergunta"."template_id" = ? AND "pergunta"."formulario_id" IS NULL[0m  [["template_id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.377978"], ["updated_at", "2025-12-07 22:28:10.377978"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Original Name"], ["created_at", "2025-12-07 22:28:10.379345"], ["updated_at", "2025-12-07 22:28:10.379345"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Processing by TemplatesController#update as HTML
+  Parameters: {"template"=>{"nome"=>"Updated Name"}, "id"=>"1"}
+  [1m[36mTemplate Load (0.0ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Update (0.1ms)[0m  [1m[33mUPDATE "templates" SET "nome" = ?, "updated_at" = ? WHERE "templates"."id" = ?[0m  [["nome", "Updated Name"], ["updated_at", "2025-12-07 22:28:10.381719"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Redirected to http://test.host/templates/1
+Completed 302 Found in 1ms (ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.386026"], ["updated_at", "2025-12-07 22:28:10.386026"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Original Name"], ["created_at", "2025-12-07 22:28:10.387008"], ["updated_at", "2025-12-07 22:28:10.387008"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProfessor Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mProfessor Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."usuario" = ? LIMIT ?[0m  [["usuario", "prof_test"], ["LIMIT", 1]]
+  [1m[36mProfessor Create (0.1ms)[0m  [1m[32mINSERT INTO "professors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Professor Test"], ["departamento", "Ciência da Computação"], ["formacao", "Doutorado"], ["usuario", "prof_test"], ["email", "[FILTERED]"], ["ocupacao", "Professor"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.389394"], ["updated_at", "2025-12-07 22:28:10.389394"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Processing by TemplatesController#update as HTML
+  Parameters: {"template"=>{"nome"=>"Should Not Update"}, "id"=>"1"}
+  [1m[36mTemplate Load (0.0ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Redirected to http://test.host/
+Filter chain halted as :require_admin rendered or redirected
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTemplate Load (0.0ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.395269"], ["updated_at", "2025-12-07 22:28:10.395269"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Original Name"], ["created_at", "2025-12-07 22:28:10.396255"], ["updated_at", "2025-12-07 22:28:10.396255"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProfessor Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mProfessor Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."usuario" = ? LIMIT ?[0m  [["usuario", "prof_test"], ["LIMIT", 1]]
+  [1m[36mProfessor Create (0.1ms)[0m  [1m[32mINSERT INTO "professors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Professor Test"], ["departamento", "Ciência da Computação"], ["formacao", "Doutorado"], ["usuario", "prof_test"], ["email", "[FILTERED]"], ["ocupacao", "Professor"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.398445"], ["updated_at", "2025-12-07 22:28:10.398445"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Processing by TemplatesController#update as HTML
+  Parameters: {"template"=>{"nome"=>"Should Not Update"}, "id"=>"1"}
+  [1m[36mTemplate Load (0.0ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Redirected to http://test.host/
+Filter chain halted as :require_admin rendered or redirected
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.404083"], ["updated_at", "2025-12-07 22:28:10.404083"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Template de Avaliação"], ["created_at", "2025-12-07 22:28:10.405129"], ["updated_at", "2025-12-07 22:28:10.405129"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTemplate Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+Processing by TemplatesController#destroy as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTemplate Load (0.0ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mPergunta Load (0.1ms)[0m  [1m[34mSELECT "pergunta".* FROM "pergunta" WHERE "pergunta"."template_id" = ? AND "pergunta"."formulario_id" IS NULL[0m  [["template_id", 1]]
+  [1m[36mFormulario Load (0.0ms)[0m  [1m[34mSELECT "formularios".* FROM "formularios" WHERE "formularios"."template_id" = ?[0m  [["template_id", 1]]
+  [1m[36mTemplate Destroy (0.0ms)[0m  [1m[31mDELETE FROM "templates" WHERE "templates"."id" = ?[0m  [["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Redirected to http://test.host/templates
+Completed 302 Found in 3ms (ActiveRecord: 0.3ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTemplate Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.413200"], ["updated_at", "2025-12-07 22:28:10.413200"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.1ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Template de Avaliação"], ["created_at", "2025-12-07 22:28:10.414266"], ["updated_at", "2025-12-07 22:28:10.414266"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mPergunta Create (0.2ms)[0m  [1m[32mINSERT INTO "pergunta" ("template_id", "formulario_id", "texto", "resposta", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["template_id", 1], ["formulario_id", nil], ["texto", "Como você avalia o aspecto 7 da disciplina?"], ["resposta", nil], ["created_at", "2025-12-07 22:28:10.415302"], ["updated_at", "2025-12-07 22:28:10.415302"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mPergunta Create (0.2ms)[0m  [1m[32mINSERT INTO "pergunta" ("template_id", "formulario_id", "texto", "resposta", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["template_id", 1], ["formulario_id", nil], ["texto", "Como você avalia o aspecto 8 da disciplina?"], ["resposta", nil], ["created_at", "2025-12-07 22:28:10.416194"], ["updated_at", "2025-12-07 22:28:10.416194"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mPergunta Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "pergunta"[0m
+Processing by TemplatesController#destroy as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTemplate Load (0.0ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mPergunta Load (0.1ms)[0m  [1m[34mSELECT "pergunta".* FROM "pergunta" WHERE "pergunta"."template_id" = ? AND "pergunta"."formulario_id" IS NULL[0m  [["template_id", 1]]
+  [1m[36mPergunta Destroy (0.0ms)[0m  [1m[31mDELETE FROM "pergunta" WHERE "pergunta"."id" = ?[0m  [["id", 1]]
+  [1m[36mPergunta Destroy (0.0ms)[0m  [1m[31mDELETE FROM "pergunta" WHERE "pergunta"."id" = ?[0m  [["id", 2]]
+  [1m[36mFormulario Load (0.0ms)[0m  [1m[34mSELECT "formularios".* FROM "formularios" WHERE "formularios"."template_id" = ?[0m  [["template_id", 1]]
+  [1m[36mTemplate Destroy (0.1ms)[0m  [1m[31mDELETE FROM "templates" WHERE "templates"."id" = ?[0m  [["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Redirected to http://test.host/templates
+Completed 302 Found in 3ms (ActiveRecord: 0.3ms (6 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mPergunta Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "pergunta"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.424154"], ["updated_at", "2025-12-07 22:28:10.424154"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Template de Avaliação"], ["created_at", "2025-12-07 22:28:10.425045"], ["updated_at", "2025-12-07 22:28:10.425045"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Processing by TemplatesController#destroy as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTemplate Load (0.0ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mPergunta Load (0.1ms)[0m  [1m[34mSELECT "pergunta".* FROM "pergunta" WHERE "pergunta"."template_id" = ? AND "pergunta"."formulario_id" IS NULL[0m  [["template_id", 1]]
+  [1m[36mFormulario Load (0.0ms)[0m  [1m[34mSELECT "formularios".* FROM "formularios" WHERE "formularios"."template_id" = ?[0m  [["template_id", 1]]
+  [1m[36mTemplate Destroy (0.0ms)[0m  [1m[31mDELETE FROM "templates" WHERE "templates"."id" = ?[0m  [["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Redirected to http://test.host/templates
+Completed 302 Found in 2ms (ActiveRecord: 0.2ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.431619"], ["updated_at", "2025-12-07 22:28:10.431619"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Template de Avaliação"], ["created_at", "2025-12-07 22:28:10.432599"], ["updated_at", "2025-12-07 22:28:10.432599"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "outro_admin"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "outro_admin"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.434838"], ["updated_at", "2025-12-07 22:28:10.434838"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTemplate Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+Processing by TemplatesController#destroy as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTemplate Load (0.0ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mPergunta Load (0.1ms)[0m  [1m[34mSELECT "pergunta".* FROM "pergunta" WHERE "pergunta"."template_id" = ? AND "pergunta"."formulario_id" IS NULL[0m  [["template_id", 1]]
+  [1m[36mFormulario Load (0.0ms)[0m  [1m[34mSELECT "formularios".* FROM "formularios" WHERE "formularios"."template_id" = ?[0m  [["template_id", 1]]
+  [1m[36mTemplate Destroy (0.0ms)[0m  [1m[31mDELETE FROM "templates" WHERE "templates"."id" = ?[0m  [["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Redirected to http://test.host/templates
+Completed 302 Found in 2ms (ActiveRecord: 0.2ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTemplate Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.442690"], ["updated_at", "2025-12-07 22:28:10.442690"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Template de Avaliação"], ["created_at", "2025-12-07 22:28:10.443943"], ["updated_at", "2025-12-07 22:28:10.443943"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "outro_admin"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "outro_admin"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.446357"], ["updated_at", "2025-12-07 22:28:10.446357"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Processing by TemplatesController#destroy as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTemplate Load (0.0ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mPergunta Load (0.1ms)[0m  [1m[34mSELECT "pergunta".* FROM "pergunta" WHERE "pergunta"."template_id" = ? AND "pergunta"."formulario_id" IS NULL[0m  [["template_id", 1]]
+  [1m[36mFormulario Load (0.0ms)[0m  [1m[34mSELECT "formularios".* FROM "formularios" WHERE "formularios"."template_id" = ?[0m  [["template_id", 1]]
+  [1m[36mTemplate Destroy (0.0ms)[0m  [1m[31mDELETE FROM "templates" WHERE "templates"."id" = ?[0m  [["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Redirected to http://test.host/templates
+Completed 302 Found in 2ms (ActiveRecord: 0.2ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.453459"], ["updated_at", "2025-12-07 22:28:10.453459"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Template de Avaliação"], ["created_at", "2025-12-07 22:28:10.454524"], ["updated_at", "2025-12-07 22:28:10.454524"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProfessor Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mProfessor Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."usuario" = ? LIMIT ?[0m  [["usuario", "prof_test"], ["LIMIT", 1]]
+  [1m[36mProfessor Create (0.1ms)[0m  [1m[32mINSERT INTO "professors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Professor Test"], ["departamento", "Ciência da Computação"], ["formacao", "Doutorado"], ["usuario", "prof_test"], ["email", "[FILTERED]"], ["ocupacao", "Professor"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.457631"], ["updated_at", "2025-12-07 22:28:10.457631"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTemplate Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+Processing by TemplatesController#destroy as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTemplate Load (0.1ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Redirected to http://test.host/
+Filter chain halted as :require_admin rendered or redirected
+Completed 302 Found in 1ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTemplate Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mAdministrador Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdministrador Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "administradors" WHERE "administradors"."usuario" = ? LIMIT ?[0m  [["usuario", "admin_test"], ["LIMIT", 1]]
+  [1m[36mAdministrador Create (0.1ms)[0m  [1m[32mINSERT INTO "administradors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Admin Test"], ["departamento", "TI"], ["formacao", "Mestrado"], ["usuario", "admin_test"], ["email", "[FILTERED]"], ["ocupacao", "Administrador"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.467321"], ["updated_at", "2025-12-07 22:28:10.467321"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mTemplate Create (0.2ms)[0m  [1m[32mINSERT INTO "templates" ("administrador_id", "nome", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["administrador_id", 1], ["nome", "Template de Avaliação"], ["created_at", "2025-12-07 22:28:10.468465"], ["updated_at", "2025-12-07 22:28:10.468465"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProfessor Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mProfessor Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "professors" WHERE "professors"."usuario" = ? LIMIT ?[0m  [["usuario", "prof_test"], ["LIMIT", 1]]
+  [1m[36mProfessor Create (0.1ms)[0m  [1m[32mINSERT INTO "professors" ("nome", "departamento", "formacao", "usuario", "email", "ocupacao", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["nome", "Professor Test"], ["departamento", "Ciência da Computação"], ["formacao", "Doutorado"], ["usuario", "prof_test"], ["email", "[FILTERED]"], ["ocupacao", "Professor"], ["password_digest", "[FILTERED]"], ["created_at", "2025-12-07 22:28:10.471886"], ["updated_at", "2025-12-07 22:28:10.471886"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Processing by TemplatesController#destroy as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTemplate Load (0.1ms)[0m  [1m[34mSELECT "templates".* FROM "templates" WHERE "templates"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Redirected to http://test.host/
+Filter chain halted as :require_admin rendered or redirected
+Completed 302 Found in 1ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m

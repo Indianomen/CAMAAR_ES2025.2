@@ -72,9 +72,6 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
   gem 'database_cleaner'
-  gem 'shoulda-matchers'
   gem 'simplecov', require: false
   gem "rails-controller-testing"
 end
-
-gem 'bcrypt', '~> 3.1'
