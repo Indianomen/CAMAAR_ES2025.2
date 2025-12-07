@@ -38,6 +38,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_07_162638) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "alunos_turmas", id: false, force: :cascade do |t|
+    t.integer "aluno_id", null: false
+    t.integer "turma_id", null: false
+    t.index ["aluno_id", "turma_id"], name: "index_alunos_turmas_on_aluno_id_and_turma_id", unique: true
+    t.index ["turma_id", "aluno_id"], name: "index_alunos_turmas_on_turma_id_and_aluno_id"
+  end
+
   create_table "disciplinas", force: :cascade do |t|
     t.string "codigo"
     t.string "nome"
@@ -90,7 +97,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_07_162638) do
   create_table "turmas", force: :cascade do |t|
     t.integer "professor_id", null: false
     t.integer "disciplina_id", null: false
-    t.integer "formulario_id", null: false
+    t.integer "formulario_id"
     t.string "semestre"
     t.string "horario"
     t.datetime "created_at", null: false
