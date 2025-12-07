@@ -4,6 +4,6 @@ class ApplicationController < ActionController::Base
   # Mock temporário de autenticação
   # DAVI remove isso quando for implementar autenticação
   def current_user
-    @current_user ||= Administrador.first
+    nil
   end
 end

@@ -1,9 +1,14 @@
 class TemplatesController < ApplicationController
-  before_action :set_template, only: %i[ show edit update destroy ]
+  before_action :set_template, only: %i[:show, :edit, :update, :destroy]
+  before_action :require_admin, except: %i[:index, :show]
 
   # GET /templates or /templates.json
   def index
-    @templates = Template.all
+    if current_user.is_a?(Administrador)
+      @templates = current_user.templates.includes(:perguntas)
+    else
+      @templates = Template.includes(:perguntas).all
+    end
   end
 
   # GET /templates/1 or /templates/1.json
@@ -13,48 +18,42 @@ class TemplatesController < ApplicationController
   # GET /templates/new
   def new
     @template = Template.new
+    # Define 3 perguntas iniciais vazias
+    3.times { @template.perguntas.build }
   end
 
   # GET /templates/1/edit
   def edit
+    # Adiciona perguntas vazias
+    @template.perguntas.build if @template.perguntas.empty?
   end
 
   # POST /templates or /templates.json
   def create
     @template = Template.new(template_params)
+    @template.administrador = current_user if current_user.is_a?(Administrador)
 
-    respond_to do |format|
-      if @template.save
-        format.html { redirect_to @template, notice: "Template was successfully created." }
-        format.json { render :show, status: :created, location: @template }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @template.errors, status: :unprocessable_entity }
-      end
+    if @template.save
+      redirect_to @template, notice: "Template criado com sucesso."
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /templates/1 or /templates/1.json
   def update
-    respond_to do |format|
-      if @template.update(template_params)
-        format.html { redirect_to @template, notice: "Template was successfully updated.", status: :see_other }
-        format.json { render :show, status: :ok, location: @template }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @template.errors, status: :unprocessable_entity }
-      end
+    if @template.update(template_params)
+      redirect_to @template, notice: "Template atualizado com sucesso."
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
+
   # DELETE /templates/1 or /templates/1.json
   def destroy
-    @template.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to templates_path, notice: "Template was successfully destroyed.", status: :see_other }
-      format.json { head :no_content }
-    end
+    @template.destroy
+    redirect_to templates_url, notice: "Template excluído com sucesso."
   end
 
   private
@@ -65,6 +64,14 @@ class TemplatesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def template_params
-      params.expect(template: [ :administrador_id, :nome ])
+      params.require(:template).permit(:nome, 
+        perguntas_attributes: [:id, :texto, :_destroy])
     end
-end
+    private
+  
+    def require_admin
+      unless current_user.is_a?(Administrador)
+        redirect_to root_path, alert: "Acesso não autorizado."
+      end
+    end
+end 

@@ -44,7 +44,8 @@ end
 RSpec.configure do |config|
   #Para o teste de criação de template
   config.include AuthenticationHelper
-  
+  config.include Rails.application.routes.url_helpers, type: :controller
+
   #Para testes com factory
   config.include FactoryBot::Syntax::Methods
 
