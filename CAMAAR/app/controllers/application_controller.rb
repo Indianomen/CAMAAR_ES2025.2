@@ -1,4 +1,13 @@
 class ApplicationController < ActionController::Base
-  # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
-  allow_browser versions: :modern
+  helper_method :current_user
+  
+  private
+  
+  # Temporary mock for development
+  # Remove this when real authentication is implemented
+  def current_user
+    # For now, return the first admin if exists
+    # In tests, this will be mocked
+    nil
+  end
 end
