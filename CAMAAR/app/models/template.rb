@@ -1,13 +1,13 @@
 class Template < ApplicationRecord
-  # Relationships
   belongs_to :administrador
-  has_many :perguntas, dependent: :destroy
+  has_many :perguntas, -> { where(formulario_id: nil) }, dependent: :destroy
   has_many :formularios, dependent: :destroy
-  
-  # Validations
-  validates :nome, presence: true
+    
+  validates :nome, presence: true, length: { minimum: 3, maximum: 100 }
   validates :administrador_id, presence: true
   
-  # Accept nested attributes for perguntas
-  accepts_nested_attributes_for :perguntas, allow_destroy: true
+  # Allow nested creation of questions
+  accepts_nested_attributes_for :perguntas, 
+    allow_destroy: true,
+    reject_if: ->(attrs) { attrs['texto'].blank? }
 end

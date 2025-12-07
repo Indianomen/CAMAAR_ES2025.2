@@ -1,10 +1,21 @@
-/*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
- */
+/* Add some basic styles */
+.template-card {
+  transition: transform 0.2s;
+}
+
+.template-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Improve form styling */
+.pergunta-card {
+  border-left: 4px solid #0d6efd;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card-title {
+    font-size: 1.1rem;
+  }
+}
