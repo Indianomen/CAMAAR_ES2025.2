@@ -9,9 +9,10 @@ RSpec.describe "FactoryBot Test", type: :model do
 end
 
 RSpec.describe TemplatesController, type: :controller do
-  let(:admin) { FactoryBot.create(:administrador) }
-  let(:professor) { FactoryBot.create(:professor) }
-  let(:aluno) { FactoryBot.create(:aluno) }
+  let(:admin) { create(:administrador) }
+  let(:other_admin) { create(:administrador, usuario: "outro_admin", email: "outro@admin.com") }
+  let(:professor) { create(:professor) }
+  let(:aluno) { create(:aluno) }
   
   describe "GET #index" do
     context "as admin" do
@@ -24,8 +25,8 @@ RSpec.describe TemplatesController, type: :controller do
       
       it "only shows templates created by current admin" do
         template1 = create(:template, administrador: admin)
-        template2 = create(:template, administrador: create(:administrador))
-        
+        template2 = create(:template, administrador: other_admin)
+                
         get :index
         expect(assigns(:templates)).to include(template1)
         expect(assigns(:templates)).not_to include(template2)
