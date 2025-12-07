@@ -1,5 +1,13 @@
 require 'rails_helper'
 
+RSpec.describe "FactoryBot Test", type: :model do
+  it "can create an administrador" do
+    admin = FactoryBot.create(:administrador)
+    expect(admin).to be_persisted
+    expect(admin.nome).to eq("Admin Test")
+  end
+end
+
 RSpec.describe TemplatesController, type: :controller do
   let(:admin) { create(:administrador) }
   let(:other_admin) { create(:administrador, usuario: "outro_admin", email: "outro@test.com") }
