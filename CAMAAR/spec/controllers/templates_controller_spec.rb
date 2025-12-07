@@ -12,6 +12,14 @@ RSpec.describe TemplatesController, type: :controller do
         get :index
         expect(response).to be_successful
       end
+      
+      it "shows all templates" do
+        template1 = create(:template, administrador: admin)
+        template2 = create(:template, administrador: other_admin)
+        
+        get :index
+        expect(assigns(:templates)).to include(template1, template2)
+      end
     end
     
     context "when mocking admin" do
