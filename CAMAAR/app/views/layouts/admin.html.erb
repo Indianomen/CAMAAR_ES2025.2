@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <style>
+    :root {
+      --main-orange: #f57c00;
+      --hover-orange: #e96e00;
+      --sidebar-bg: #ffffff;
+      --sidebar-shadow: rgba(0,0,0,0.12);
+      --text-dark: #2f2f2f;
+    }
+
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: #f4f4f6;
+      overflow-x: hidden;
+    }
+
+    /* ========== TOPBAR ========== */
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: var(--main-orange);
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 0 18px;
+      z-index: 3000;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    /* Botão/área do menu como botão real (acessível) */
+    .menu-area {
+      display: flex;
+      align-items: center;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 8px;
+      line-height: 0;
+      user-select: none;
+      color: inherit;
+    }
+    .menu-area:hover { background: rgba(255,255,255,0.12); }
+    .menu-area:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+    }
+
+    .menu-icon { font-size: 24px; }
+
+    .topbar-title {
+      font-size: 18px;
+      font-weight: 700;
+      flex: 1;
+      text-align: center; /* mantém título centralizado */
+      margin-right: 36px; /* desalinha ligeiramente para compensar ícone */
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      background: rgba(255,255,255,0.12);
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    /* ========== SIDEBAR ========== */
+    .sidebar {
+      position: fixed;
+      top: 64px;
+      left: -220px; /* escondida por padrão */
+      width: 220px;
+      height: calc(100vh - 64px);
+      background: var(--sidebar-bg);
+      box-shadow: 4px 0 14px var(--sidebar-shadow);
+      padding-top: 20px;
+      transition: left 220ms ease;
+      z-index: 2500;
+    }
+    .sidebar.is-open {
+      left: 0;
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 12px 20px;
+      color: var(--text-dark);
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 180ms, color 180ms;
+      border-left: 4px solid transparent;
+    }
+    .sidebar a:hover,
+    .sidebar a.active {
+      background: var(--main-orange);
+      color: white;
+      border-left-color: rgba(0,0,0,0.06);
+    }
+
+    .sidebar hr { border: none; border-top: 1px solid #eee; margin: 12px 0; }
+
+    /* ========== CONTENT ========== */
+    .page-wrap {
+      padding-top: 84px; /* espaço para topbar */
+      display: flex;
+      justify-content: center;
+      min-height: calc(100vh - 84px);
+    }
+
+    .content-inner {
+      width: 86%;
+      max-width: 1100px;
+      margin: 18px 0;
+      background: white;
+      border-radius: 12px;
+      padding: 36px;
+      box-shadow: 0 6px 18px rgba(16,24,40,0.06);
+    }
+
+    @media (max-width: 900px) {
+      .content-inner { width: 94%; padding: 24px; }
+      .topbar-title { font-size: 16px; margin-right: 8px; }
+      .avatar { width: 32px; height: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <!-- Botão do menu (acessível) -->
+    <button id="menuTrigger"
+            class="menu-area"
+            type="button"
+            title="Abrir menu"
+            aria-label="Abrir menu"
+            aria-expanded="false"
+            aria-controls="adminSidebar">
+      <div class="menu-icon" aria-hidden="true">&#9776;</div>
+    </button>
+
+    <div class="topbar-title">Painel Administrativo</div>
+
+    <div class="topbar-right">
+      <div style="text-align:right;font-size:13px;">
+        <% if current_administrador %>
+          <div style="font-weight:700;"><%= current_administrador.nome %></div>
+          <div style="font-size:11px;opacity:0.9;"><%= current_administrador.departamento %></div>
+        <% else %>
+          <div style="font-weight:700;">Convidado</div>
+        <% end %>
+      </div>
+
+      <div class="avatar">
+        <%= (current_administrador&.nome&.first || "A").upcase %>
+      </div>
+    </div>
+  </div>
+
+    <!-- SIDEBAR (apenas AVALIAÇÕES e GERENCIAMENTO) -->
+    <div id="adminSidebar" class="sidebar" role="navigation" aria-label="Menu lateral admin">
+    <a href="<%= admin_avaliacoes_path %>" class="<%= 'active' if controller_name == 'pages' && action_name == 'avaliacoes' %>">
+        Avaliações
+    </a>
+
+    <a href="<%= admin_gerenciamento_path %>" class="<%= 'active' if controller_name == 'pages' && action_name == 'gerenciamento' %>">
+        Gerenciamento
+    </a>
+    </div>
+
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <div class="page-wrap">
+    <div class="content-inner">
+      <%= yield %>
+    </div>
+  </div>
+
+  <!-- JS: abre/fecha sidebar com clique, clique fora e tecla ESC -->
+  <script>
+    (function() {
+      const trigger = document.getElementById('menuTrigger');
+      const sidebar = document.getElementById('adminSidebar');
+
+      function openSidebar() {
+        sidebar.classList.add('is-open');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+
+      function closeSidebar() {
+        sidebar.classList.remove('is-open');
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+
+      function toggleSidebar() {
+        const isOpen = sidebar.classList.contains('is-open');
+        if (isOpen) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      }
+
+      // Abre/fecha pelo botão
+      trigger.addEventListener('click', toggleSidebar);
+
+      // Fecha ao clicar fora da sidebar e do botão
+      document.addEventListener('click', (e) => {
+        const clickInside = sidebar.contains(e.target) || trigger.contains(e.target);
+        if (!clickInside) {
+          closeSidebar();
+        }
+      });
+
+      // Fecha com ESC
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeSidebar();
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>
