@@ -1,6 +1,9 @@
 module Admin
   class SessionsController < ApplicationController
     layout "admin"
+    
+    # Permite acesso às páginas de login sem autenticação
+    skip_before_action :authenticate_administrador!, only: [:new, :create]
 
     def new
     end
