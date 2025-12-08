@@ -1,10 +1,5 @@
 class CreateJoinTables < ActiveRecord::Migration[7.0]
   def change
-    # Join table entre Alunos e Turmas
-    create_join_table :alunos, :turmas do |t|
-      t.index [:aluno_id, :turma_id], unique: true
-      t.index [:turma_id, :aluno_id]
-    end
 
     # Join table entre Alunos e Formularios
     create_join_table :alunos, :formularios do |t|
