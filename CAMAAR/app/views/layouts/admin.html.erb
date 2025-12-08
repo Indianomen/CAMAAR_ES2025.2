@@ -1,12 +1,63 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Admin</title>
+  <title>CAMAAR - Painel Administrativo</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+  
   <style>
+    .admin-header {
+      background-color: #0066cc;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .admin-header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    
+    .admin-user-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .admin-user-name {
+      font-size: 14px;
+      font-weight: bold;
+    }
+    
+    .logout-button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background-color: rgba(255,255,255,0.2);
+      color: white;
+      padding: 8px 16px;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 14px;
+      transition: background-color 0.2s;
+    }
+    
+    .logout-button:hover {
+      background-color: rgba(255,255,255,0.3);
+      color: white;
+    }
+    
+    .logout-icon {
+      font-size: 16px;
+    }
     :root {
       --main-orange: #f57c00;
       --hover-orange: #e96e00;
@@ -177,6 +228,17 @@
       <div class="avatar">
         <%= (current_administrador&.nome&.first || "A").upcase %>
       </div>
+      
+      <% if current_administrador %>
+        <%= button_to admin_logout_path, method: :delete, 
+            style: "background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 8px 12px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 13px; transition: background 0.2s;",
+            onmouseover: "this.style.background='rgba(255,255,255,0.25)'",
+            onmouseout: "this.style.background='rgba(255,255,255,0.15)'",
+            title: "Sair do sistema" do %>
+          <span style="font-size: 16px;">🚪</span>
+          <span>Sair</span>
+        <% end %>
+      <% end %>
     </div>
   </div>
 
