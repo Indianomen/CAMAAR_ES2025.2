@@ -1,2 +1,29 @@
-<h1>Pages#login</h1>
-<p>Find me in app/views/pages/login.html.erb</p>
+<div class="container">
+  <h2>Login</h2>
+  
+  <% if flash[:alert] %>
+    <div class="alert alert-danger">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+
+  <%= form_with(url: login_path, method: :post, local: true) do |f| %>
+    <div class="field">
+      <%= f.label :email, "Email" %>
+      <%= f.text_field :email, required: true, class: "form-control" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password, "Senha" %>
+      <%= f.password_field :password, required: true, class: "form-control" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Entrar", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+  
+  <p>
+    <%= link_to "Esqueci minha senha", new_password_reset_path %>
+  </p>
+</div>

@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   
   # Other resources (already generated)
   resources :alunos
-  resources :professors
+  resources :professor
   resources :administradors
   resources :disciplinas
   resources :turmas
@@ -19,8 +19,17 @@ Rails.application.routes.draw do
   resources :perguntas
   
   # Simple routes for now
-  get 'login', to: 'pages#login'
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
   get 'dashboard', to: 'pages#dashboard'
+  
+  # Password Reset (Esqueci minha senha)
+  resources :password_resets, only: [:new, :create, :edit, :update]
+  
+  # Password Setup (from email invite)
+  get 'password_setups/:token/edit', to: 'password_setups#edit', as: :edit_password_setup
+  patch 'password_setups/:token', to: 'password_setups#update', as: :password_setup
 
   namespace :admin do
     root to: "dashboard#index"
