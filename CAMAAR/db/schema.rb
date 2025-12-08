@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_12_07_162638) do
+ActiveRecord::Schema[8.0].define(version: 2025_12_08_090139) do
   create_table "administradors", force: :cascade do |t|
     t.string "nome"
     t.string "departamento"
@@ -84,6 +84,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_07_162638) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "registered"
   end
 
   create_table "templates", force: :cascade do |t|
