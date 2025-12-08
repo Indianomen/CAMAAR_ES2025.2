@@ -26,7 +26,8 @@ require 'capybara/cucumber'
 #
 ActionController::Base.allow_rescue = false
 
-Capybara.default_driver = :selenium_chrome_headless
+# Use rack_test driver (no JavaScript, faster, no Selenium dependency)
+Capybara.default_driver = :rack_test
 Capybara.default_max_wait_time = 10
 
 require 'database_cleaner'
