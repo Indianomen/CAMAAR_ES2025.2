@@ -1,2 +1,38 @@
-<h1>Admin::Dashboard#index</h1>
-<p>Find me in app/views/admin/dashboard/index.html.erb</p>
+<style>
+
+.button {
+    display:block;
+    margin:15px 0;
+    padding:12px;
+    background:#1ac94a;
+    color:white;
+    border-radius:6px;
+    text-decoration:none;
+}
+    
+</style>
+
+
+<div style="
+  width: 400px;
+  margin: 0 auto;
+  padding: 40px;
+  background: white;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+">
+  <h2>Painel Administrativo</h2>
+
+  <%= link_to "Importar Dados", admin_importacoes_path,
+      class: "button" %>
+
+  <%= link_to "Templates", admin_templates_path,
+      class: "button" %>
+
+  <%= link_to "Formulários", admin_formularios_path,
+      class: "button" %>
+
+  <%= link_to "Resultados", admin_resultados_path,
+      class: "button" %>
+</div>
