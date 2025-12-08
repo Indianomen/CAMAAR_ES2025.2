@@ -1,0 +1,24 @@
+CAMAAR - Bem-vindo ao Sistema
+=====================================
+
+Olá, <%= @user.nome %>!
+
+Você foi cadastrado no sistema CAMAAR (Cadastro e Monitoramento de Avaliações Acadêmicas Regulares) da Universidade de Brasília como Aluno.
+
+CONFIGURAR SENHA
+Para ativar sua conta e definir sua senha de acesso, acesse o link abaixo:
+
+<%= @setup_link %>
+
+⏰ IMPORTANTE: Este link é válido por 48 horas.
+
+SEUS DADOS DE ACESSO:
+- Email: <%= @user.email %>
+- Usuário: <%= @user.usuario %>
+<% if @user.respond_to?(:matricula) %>- Matrícula: <%= @user.matricula %><% end %>
+
+Se você não solicitou este cadastro ou não reconhece esta ação, por favor ignore este email.
+
+---
+CAMAAR - Universidade de Brasília
+Este é um email automático, não responda a esta mensagem.

@@ -17,17 +17,28 @@ class ImportJson
     payload = JSON.parse(raw)
     raise ArgumentError, 'Esperado um array no topo do JSON' unless payload.is_a?(Array)
 
+    # Coletar IDs de novos usuários para envio de email
+    new_user_ids = { alunos: [], professores: [] }
+
     ActiveRecord::Base.transaction do
       payload.each do |entry|
         case detect_format(entry)
         when :roster
-          process_roster_entry(entry)
+          new_ids = process_roster_entry(entry)
+          new_user_ids[:alunos].concat(new_ids[:alunos])
+          new_user_ids[:professores].concat(new_ids[:professores])
         when :catalog
           process_catalog_entry(entry)
         else
           raise ArgumentError, 'Formato de entrada não reconhecido'
         end
       end
+    end
+
+    # FORA da transaction: dispara emails de forma assíncrona
+    # Só enfileira o job se houver novos usuários pendentes
+    if new_user_ids[:alunos].any? || new_user_ids[:professores].any?
+      UserInviteJob.perform_later(new_user_ids)
     end
   end
 
@@ -66,7 +77,11 @@ class ImportJson
     #
     # Aqui criamos/atualizamos: Disciplina, Professor (com senha dummy), Turma (sem professor não passa nas validações),
     # e Alunos (com senha dummy e departamento default), além das associações HABTM (alunos_turmas).
+    # 
+    # RETORNA: Hash com IDs de novos usuários pendentes { alunos: [1,2,3], professores: [4] }
     def process_roster_entry(entry)
+      new_ids = { alunos: [], professores: [] }
+      
       code     = entry.fetch('code')
       semester = entry.fetch('semester')
       # classCode existe na entrada, mas sua Turma não tem essa coluna; pode ser ignorado para este fluxo.
@@ -79,6 +94,8 @@ class ImportJson
       # Professor (has_secure_password): define senha dummy se necessário
       doc = entry['docente'] || {}
       professor = Professor.find_or_initialize_by(usuario: doc.fetch('usuario'))
+      is_new_professor = professor.new_record?
+      
       professor.nome         = doc['nome']
       professor.email        = doc['email']
       professor.departamento = doc['departamento']
@@ -89,7 +106,18 @@ class ImportJson
         professor.password = pwd
         professor.password_confirmation = pwd
       end
+      
+      # Forçar registered: false para novos professores
+      if is_new_professor
+        professor.registered = false
+      end
+      
       professor.save!
+      
+      # Coleta ID apenas se for novo E pendente (registered: false)
+      if is_new_professor && !professor.registered?
+        new_ids[:professores] << professor.id
+      end
 
       # Turma: sua model exige :semestre, :horario, :professor e :disciplina
       turma = Turma.find_or_initialize_by(
@@ -102,7 +130,14 @@ class ImportJson
 
       # Alunos: criar/atualizar e associar via HABTM
       Array(entry['dicente']).each do |st|
-        aluno = Aluno.find_or_initialize_by(matricula: st.fetch('matricula'))
+        # Normalizar a matrícula (strip) para garantir a busca correta
+        matricula_normalizada = st.fetch('matricula').to_s.strip
+        
+        aluno = Aluno.find_or_initialize_by(matricula: matricula_normalizada)
+        
+        # Verificar se o registro é novo (new_record?)
+        is_new_record = aluno.new_record?
+        
         aluno.usuario      = st['usuario']
         aluno.nome         = st['nome']
         aluno.email        = st['email']
@@ -115,10 +150,23 @@ class ImportJson
           aluno.password = apwd
           aluno.password_confirmation = apwd
         end
+        
+        # Forçar registered: false para novos registros
+        if is_new_record
+          aluno.registered = false
+        end
+        
         aluno.save!
+
+        # Coleta ID apenas se for novo E pendente (registered: false)
+        if is_new_record && !aluno.registered?
+          new_ids[:alunos] << aluno.id
+        end
 
         turma.alunos << aluno unless turma.alunos.exists?(aluno.id)
       end
+      
+      new_ids
     end
 
     # Fallback simples para departamento
