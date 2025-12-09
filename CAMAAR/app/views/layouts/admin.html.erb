@@ -243,19 +243,50 @@
   </div>
 
     <!-- SIDEBAR (apenas AVALIAÇÕES e GERENCIAMENTO) -->
-    <div id="adminSidebar" class="sidebar" role="navigation" aria-label="Menu lateral admin">
+    <nav id="adminSidebar" class="sidebar" aria-label="Menu lateral admin">
     <a href="<%= admin_avaliacoes_path %>" class="<%= 'active' if controller_name == 'pages' && action_name == 'avaliacoes' %>">
         Avaliações
     </a>
 
-    <a href="<%= admin_gerenciamento_path %>" class="<%= 'active' if controller_name == 'pages' && action_name == 'gerenciamento' %>">
+    <a href="<%= admin_root_path %>" class="<%= 'active' if controller_name == 'pages' && action_name == 'gerenciamento' %>">
         Gerenciamento
     </a>
-    </div>
+    </nav>
 
 
   <!-- CONTEÚDO PRINCIPAL -->
   <div class="page-wrap">
+    <div id="flash-container" style="position: fixed; top: 80px; right: 20px; z-index: 4000;">
+      <% flash.each do |type, message| %>
+        <div class="flash <%= type %>" style="padding: 12px 20px; margin-bottom: 10px;
+                    border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+                    background-color: <%= type == 'notice' ? '#28a745' : '#dc3545' %>;
+                    color: white; min-width: 220px; font-weight: 600;
+                    transition: opacity 0.5s, transform 0.5s;
+                    opacity: 1; transform: translateY(-20px);">
+          <%= message %>
+        </div>
+      <% end %>
+    </div>
+
+    <script>
+      document.addEventListener("turbo:load", () => {
+        const flashes = document.querySelectorAll('#flash-container .flash');
+        flashes.forEach((flash, index) => {
+          // anima entrada (slide down)
+          setTimeout(() => { flash.style.transform = 'translateY(0)'; }, 100);
+
+          // anima saída após 4 segundos
+          setTimeout(() => { 
+            flash.style.opacity = 0;
+            flash.style.transform = 'translateY(-20px)';
+          }, 4000 + index * 200);
+
+          // remove do DOM
+          setTimeout(() => { flash.remove(); }, 4500 + index * 200);
+        });
+      });
+    </script>
     <div class="content-inner">
       <%= yield %>
     </div>

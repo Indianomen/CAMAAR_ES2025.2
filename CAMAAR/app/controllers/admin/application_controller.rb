@@ -1,7 +1,6 @@
 module Admin
-  class ApplicationController < ActionController::Base
+  class ApplicationController < ::ApplicationController
     layout "admin"
-    before_action :authenticate_administrador!
 
     helper_method :current_administrador, :administrador_signed_in?
 
