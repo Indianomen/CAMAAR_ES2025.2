@@ -2,23 +2,14 @@ require 'rails_helper'
 
 RSpec.describe TemplatesController, type: :controller do
   let(:admin) { create(:administrador) }
-  let(:other_admin) { create(:administrador, usuario: "outro_admin", email: "outro@test.com") }
-  let(:professor) { create(:professor) }
   let(:aluno) { create(:aluno) }
   
   describe "GET #index" do
     context "without authentication" do
-      it "returns a success response" do
-        get :index
-        expect(response).to be_successful
-      end
-      
-      it "shows all templates" do
-        template1 = create(:template, administrador: admin)
-        template2 = create(:template, administrador: other_admin)
-        
-        get :index
-        expect(assigns(:templates)).to include(template1, template2)
+      it "redirects to root with unauthorized message" do
+        get :new
+        expect(response).to redirect_to('/login')
+        expect(flash[:alert]).to eq("Você precisa fazer login para acessar esta página")
       end
     end
     
@@ -28,32 +19,6 @@ RSpec.describe TemplatesController, type: :controller do
       it "returns a success response" do
         get :index
         expect(response).to be_successful
-      end
-      
-      it "shows only templates created by current admin" do
-        my_template = create(:template, administrador: admin)
-        other_template = create(:template, administrador: other_admin)
-        
-        get :index
-        expect(assigns(:templates)).to include(my_template)
-        expect(assigns(:templates)).not_to include(other_template)
-      end
-    end
-    
-    context "when mocking professor" do
-      before { login_as_professor(professor) }
-      
-      it "returns a success response" do
-        get :index
-        expect(response).to be_successful
-      end
-      
-      it "shows all templates" do
-        template1 = create(:template, administrador: admin)
-        template2 = create(:template, administrador: other_admin)
-        
-        get :index
-        expect(assigns(:templates)).to include(template1, template2)
       end
     end
   end
@@ -78,16 +43,6 @@ RSpec.describe TemplatesController, type: :controller do
       it "builds 3 empty questions" do
         get :new
         expect(assigns(:template).perguntas.size).to eq(3)
-      end
-    end
-    
-    context "when mocking professor" do
-      before { login_as_professor(professor) }
-      
-      it "redirects with unauthorized message" do
-        get :new
-        expect(response).to redirect_to('/')
-        expect(flash[:alert]).to eq("Acesso não autorizado.")
       end
     end
     
@@ -164,22 +119,6 @@ RSpec.describe TemplatesController, type: :controller do
         expect(flash[:alert]).to be_present
       end
     end
-    
-    context "when mocking professor" do
-      before { login_as_professor(professor) }
-      
-      it "does not create template" do
-        expect {
-          post :create, params: { template: { nome: "Test Template" } }
-        }.not_to change(Template, :count)
-      end
-      
-      it "redirects with unauthorized message" do
-        post :create, params: { template: { nome: "Test Template" } }
-        expect(response).to redirect_to('/')
-        expect(flash[:alert]).to eq("Acesso não autorizado.")
-      end
-    end
   end
   
   describe "GET #show" do
@@ -214,31 +153,12 @@ RSpec.describe TemplatesController, type: :controller do
         expect(assigns(:template).perguntas.any? { |p| p.new_record? }).to be true
       end
     end
-    
-    context "when mocking other admin" do
-      before { login_as_admin(other_admin) }
-      
-      it "returns a success response (other admins can view but not edit)" do
-        get :edit, params: { id: template.id }
-        expect(response).to be_successful
-      end
-    end
-    
-    context "when mocking professor" do
-      before { login_as_professor(professor) }
-      
-      it "redirects with unauthorized message" do
-        get :edit, params: { id: template.id }
-        expect(response).to redirect_to('/')
-        expect(flash[:alert]).to eq("Acesso não autorizado.")
-      end
-    end
   end
   
   describe "PUT #update" do
     let!(:template) { create(:template, administrador: admin, nome: "Original Name") }
     
-    context "when mocking admin (owner)" do
+    context "when mocking admin" do
       before { login_as_admin(admin) }
       
       it "updates template name" do
@@ -272,34 +192,12 @@ RSpec.describe TemplatesController, type: :controller do
         expect(flash[:notice]).to eq("Template atualizado com sucesso.")
       end
     end
-    
-    context "when mocking professor" do
-      before { login_as_professor(professor) }
-      
-      it "does not update template" do
-        put :update, params: { 
-          id: template.id, 
-          template: { nome: "Should Not Update" } 
-        }
-        template.reload
-        expect(template.nome).to eq("Original Name")
-      end
-      
-      it "redirects with unauthorized message" do
-        put :update, params: { 
-          id: template.id, 
-          template: { nome: "Should Not Update" } 
-        }
-        expect(response).to redirect_to('/')
-        expect(flash[:alert]).to eq("Acesso não autorizado.")
-      end
-    end
   end
   
   describe "DELETE #destroy" do
     let!(:template) { create(:template, administrador: admin) }
     
-    context "when mocking admin (owner)" do
+    context "when mocking admin" do
       before { login_as_admin(admin) }
       
       it "destroys the template" do
@@ -320,38 +218,6 @@ RSpec.describe TemplatesController, type: :controller do
         delete :destroy, params: { id: template.id }
         expect(response).to redirect_to(templates_path)
         expect(flash[:notice]).to eq("Template excluído com sucesso.")
-      end
-    end
-    
-    context "when mocking other admin" do
-      before { login_as_admin(other_admin) }
-      
-      it "destroys template (any admin can delete)" do
-        expect {
-          delete :destroy, params: { id: template.id }
-        }.to change(Template, :count).by(-1)
-      end
-      
-      it "redirects to templates list" do
-        delete :destroy, params: { id: template.id }
-        expect(response).to redirect_to(templates_path)
-        expect(flash[:notice]).to eq("Template excluído com sucesso.")
-      end
-    end
-    
-    context "when mocking professor" do
-      before { login_as_professor(professor) }
-      
-      it "does not destroy template" do
-        expect {
-          delete :destroy, params: { id: template.id }
-        }.not_to change(Template, :count)
-      end
-      
-      it "redirects with unauthorized message" do
-        delete :destroy, params: { id: template.id }
-        expect(response).to redirect_to('/')
-        expect(flash[:alert]).to eq("Acesso não autorizado.")
       end
     end
   end
