@@ -62,8 +62,8 @@ RSpec.describe TemplatesController, type: :controller do
     context "without authentication" do
       it "redirects to root with unauthorized message" do
         get :new
-        expect(response).to redirect_to('/')
-        expect(flash[:alert]).to eq("Acesso não autorizado.")
+        expect(response).to redirect_to('/login')
+        expect(flash[:alert]).to eq("Você precisa fazer login para acessar esta página.")
       end
     end
     
