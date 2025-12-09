@@ -38,7 +38,9 @@ Rails.application.routes.draw do
     resources :alunos
     resources :professors
     resources :disciplinas
-    resources :templates
+    resources :templates do
+      resources :perguntas, only: [:new, :create]
+    end
     resources :formularios
     resources :turmas
 

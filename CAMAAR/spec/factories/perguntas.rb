@@ -5,5 +5,8 @@ FactoryBot.define do
     
     # Formulario opcional para perguntas de template
     formulario { nil }
+    trait :with_formulario do
+      association :formulario
+    end
   end
 end
