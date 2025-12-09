@@ -1,15 +1,14 @@
 Rails.application.routes.draw do
   get "pages/login"
   get "pages/dashboard"
+
   # Root path
   root 'templates#index'
   
-  # Template resources
   resources :templates do
     resources :perguntas, only: [:new, :create]
   end
-  
-  # Other resources (already generated)
+
   resources :alunos
   resources :professor
   resources :administradors
@@ -17,19 +16,20 @@ Rails.application.routes.draw do
   resources :turmas
   resources :formularios
   resources :perguntas
-  
-  # Simple routes for now
-  get 'login', to: 'sessions#new'
-  post 'login', to: 'sessions#create'
+
+  # Sessões
+  get    'login',  to: 'sessions#new'
+  post   'login',  to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
+
   get 'dashboard', to: 'pages#dashboard'
-  
-  # Password Reset (Esqueci minha senha)
+
+  # Password Reset
   resources :password_resets, only: [:new, :create, :edit, :update]
-  
-  # Password Setup (from email invite)
-  get 'password_setups/:token/edit', to: 'password_setups#edit', as: :edit_password_setup
-  patch 'password_setups/:token', to: 'password_setups#update', as: :password_setup
+
+  # Password Setup (via invite)
+  get   'password_setups/:token/edit', to: 'password_setups#edit',   as: :edit_password_setup
+  patch 'password_setups/:token',      to: 'password_setups#update', as: :password_setup
 
   namespace :admin do
     root to: "dashboard#index"
@@ -44,17 +44,15 @@ Rails.application.routes.draw do
     resources :formularios
     resources :turmas
 
-    get "avaliacoes", to: "pages#avaliacoes"
+    get "avaliacoes",    to: "pages#avaliacoes"
     get "gerenciamento", to: "pages#gerenciamento"
 
-    # Sessões de Administrador
-    get  "login",  to: "sessions#new"
-    post "login",  to: "sessions#create"
+    get    "login",  to: "sessions#new"
+    post   "login",  to: "sessions#create"
     delete "logout", to: "sessions#destroy"
 
-    # Página principal do painel
-    get "importacoes", to: "pages#importacoes"
-    get "resultados",  to: "pages#resultados"
+    post "importacoes", to: "importacoes#create"
+
+    get "resultados", to: "pages#resultados"
   end
 end
-

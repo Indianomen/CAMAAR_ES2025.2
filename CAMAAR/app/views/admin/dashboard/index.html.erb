@@ -1,17 +1,103 @@
+
 <style>
+/* ====== Reset & base ====== */
 
-.button {
-    display:block;
-    margin:15px 0;
-    padding:12px;
-    background:#1ac94a;
-    color:white;
-    border-radius:6px;
-    text-decoration:none;
+/* Zera estilo do <form> gerado pelo button_to quando tiver classe .button */
+form.button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
 }
-    
-</style>
 
+/* Estilo base para elementos com a classe .button (links ou botões) */
+.button {
+  display: block;
+  width: 100%;
+  margin: 15px 0;
+  padding: 12px;
+  background: #1ac94a; /* cor padrão (primary) */
+  color: #fff;
+  border-radius: 6px;
+  text-align: center;
+  text-decoration: none;
+
+  /* Remover aparência default dos botões do sistema */
+  appearance: none;
+  -webkit-appearance: none;
+
+  /* Reset para <button>/<input> parecerem link estilizado */
+  border: none;
+  cursor: pointer;
+  font: inherit; /* herda família/tamanho de fonte do container */
+  line-height: 1.2;
+}
+
+/* Para <a> especificamente (garante mesmo layout) */
+a.button {
+  display: block;
+}
+
+/* Aplica estilo ao botão interno do form com classe .button */
+form.button > button,
+form.button > input[type="submit"] {
+  display: block;
+  width: 100%;
+  margin: 15px 0;
+  padding: 12px;
+  background: #1ac94a;
+  color: #fff;
+  border-radius: 6px;
+  border: none;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  font: inherit;
+  line-height: 1.2;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* ====== Estados visuais ====== */
+a.button:hover,
+form.button > button:hover,
+form.button > input[type="submit"]:hover {
+  filter: brightness(0.95);
+}
+
+a.button:active,
+form.button > button:active,
+form.button > input[type="submit"]:active {
+  transform: translateY(1px);
+}
+
+/* Focus ring para acessibilidade */
+a.button:focus,
+form.button > button:focus,
+form.button > input[type="submit"]:focus {
+  outline: 2px solid #0b7a2e;
+  outline-offset: 2px;
+}
+
+/* ====== Variantes de categoria ====== */
+.button--primary   { background: #1ac94a; } /* verde */
+.button--secondary { background: #0d6efd; } /* azul */
+.button--warning   { background: #f39c12; } /* laranja */
+.button--danger    { background: #e74c3c; } /* vermelho */
+
+/* Variantes aplicadas ao botão dentro do form */
+form.button.button--primary   > button,
+form.button.button--primary   > input[type="submit"] { background: #1ac94a; }
+
+form.button.button--secondary > button,
+form.button.button--secondary > input[type="submit"] { background: #0d6efd; }
+
+form.button.button--warning   > button,
+form.button.button--warning   > input[type="submit"] { background: #f39c12; }
+
+form.button.button--danger    > button,
+form.button.button--danger    > input[type="submit"] { background: #e74c3c; }
+</style>
 
 <div style="
   width: 400px;
@@ -24,15 +110,31 @@
 ">
   <h2>Painel Administrativo</h2>
 
-  <%= link_to "Importar Dados", admin_importacoes_path,
-      class: "button" %>
+  <!-- button_to: visual igual aos links; desabilita Turbo para este submit -->
+  <!-- Em Rails 7+, 'class:' abaixo vai para o <button>; em versões mais antigas, vai para o <form>, e o CSS acima cuida do botão interno -->
+  <%= button_to "Importar Dados",
+        admin_importacoes_path,
+        method: :post,
+        form: {
+          class: "button button--primary",   # classe no <form> (compatibilidade)
+          data: { turbo: false },            # desabilita Turbo para este submit
+          id: "btn-importar-form"            # id opcional
+        },
+        class: "button button--primary"      # classe no <button> (Rails recente)
+        # ⚠️ Só use a linha abaixo se você SABE que pode remover o token (API ou rota com skip_forgery_protection)
+        # authenticity_token: false
+  %>
 
-  <%= link_to "Templates", admin_templates_path,
-      class: "button" %>
+  <!-- Links com variantes -->
+  <%= button_to "Templates",
+        admin_templates_path,
+        class: "button button--secondary" %>
 
-  <%= link_to "Formulários", admin_formularios_path,
-      class: "button" %>
+  <%= button_to "Formulários",
+        admin_formularios_path,
+        class: "button button--warning" %>
 
-  <%= link_to "Resultados", admin_resultados_path,
-      class: "button" %>
+  <%= button_to "Resultados",
+        admin_resultados_path,
+        class: "button button--danger" %>
 </div>
