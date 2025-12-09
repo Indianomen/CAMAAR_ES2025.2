@@ -63,7 +63,7 @@ RSpec.describe TemplatesController, type: :controller do
       it "redirects to root with unauthorized message" do
         get :new
         expect(response).to redirect_to('/login')
-        expect(flash[:alert]).to eq("Você precisa fazer login para acessar esta página.")
+        expect(flash[:alert]).to eq("Você precisa fazer login para acessar esta página")
       end
     end
     
@@ -190,14 +190,10 @@ RSpec.describe TemplatesController, type: :controller do
     end
     
     context "without authentication" do
-      it "returns a success response" do
+      it "redirects to login page" do
         get :show, params: { id: template.id }
-        expect(response).to be_successful
-      end
-      
-      it "shows template questions" do
-        get :show, params: { id: template.id }
-        expect(assigns(:perguntas).count).to eq(3)
+        expect(response).to redirect_to('/login')
+        expect(flash[:alert]).to eq('Você precisa fazer login para acessar esta página')
       end
     end
   end
