@@ -1,7 +1,6 @@
 module Admin
-  class DashboardController < ApplicationController
+  class DashboardController < Admin::BaseController
     def index
-      render plain: "Admin Dashboard - Under Construction"
     end
   end
 end

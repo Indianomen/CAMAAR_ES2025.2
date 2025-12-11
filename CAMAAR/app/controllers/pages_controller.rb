@@ -1,9 +1,10 @@
 class PagesController < ApplicationController
+  # Requer login para acessar qualquer página
+  before_action :require_login
+  
   def login
-    # Simple login page for now
   end
   
   def dashboard
-    # Simple dashboard for now
   end
 end

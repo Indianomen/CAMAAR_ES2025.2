@@ -140,5 +140,138 @@ RSpec.describe ImportJson, type: :service do
         File.delete(path) if File.exist?(path)
       end
     end
+
+    context 'verificação de novos registros (new_record?)' do
+      it 'identifica corretamente quando um aluno é novo' do
+        # Primeiro import: alunos devem ser novos
+        described_class.call(roster_path)
+        
+        aluno = Aluno.find_by(matricula: '190084006')
+        expect(aluno).to be_present
+        expect(aluno.persisted?).to be true
+        
+        # Segundo import: aluno já existe, não deve ser novo
+        initial_count = Aluno.count
+        described_class.call(roster_path)
+        
+        expect(Aluno.count).to eq(initial_count)
+        aluno_recarregado = Aluno.find_by(matricula: '190084006')
+        expect(aluno_recarregado.id).to eq(aluno.id)
+      end
+    end
+
+    context 'forçar registered: false para novos registros' do
+      it 'define registered como false ao criar novos alunos' do
+        described_class.call(roster_path)
+        
+        alunos = Aluno.where(matricula: ['190084006', '200033522', '150005491'])
+        expect(alunos.count).to eq(3)
+        
+        alunos.each do |aluno|
+          expect(aluno.registered).to eq(false)
+        end
+      end
+
+      it 'não altera registered de alunos existentes ao reimportar' do
+        # Primeiro import
+        described_class.call(roster_path)
+        
+        # Simular que o aluno se registrou
+        aluno = Aluno.find_by(matricula: '190084006')
+        aluno.update!(registered: true)
+        
+        # Segundo import: não deve alterar registered
+        described_class.call(roster_path)
+        
+        aluno.reload
+        expect(aluno.registered).to eq(true)
+      end
+    end
+
+    context 'normalização da matrícula com strip' do
+      it 'normaliza matrícula com espaços em branco antes de buscar/criar' do
+        # Criar um JSON com matrícula contendo espaços
+        path = Rails.root.join('spec', 'fixtures', 'files', 'roster_with_spaces.json')
+        data = [
+          {
+            'code' => 'CIC0097',
+            'semester' => '2021.2',
+            'classCode' => 'TA',
+            'docente' => {
+              'usuario' => '83807519491',
+              'nome' => 'MARISTELA TERTO DE HOLANDA',
+              'email' => 'mholanda@unb.br',
+              'departamento' => 'DEPTO CIÊNCIAS DA COMPUTAÇÃO',
+              'formacao' => 'DOUTORADO'
+            },
+            'dicente' => [
+              {
+                'matricula' => '  190084006  ',
+                'usuario' => '190084006',
+                'nome' => 'ALUNO TESTE',
+                'email' => 'aluno@test.com',
+                'curso' => 'CIÊNCIA DA COMPUTAÇÃO/CIC'
+              }
+            ]
+          }
+        ]
+        File.write(path, JSON.dump(data))
+
+        expect {
+          described_class.call(path)
+        }.to change(Aluno, :count).by(1)
+
+        # Deve encontrar o aluno pela matrícula normalizada (sem espaços)
+        aluno = Aluno.find_by(matricula: '190084006')
+        expect(aluno).to be_present
+        expect(aluno.matricula).to eq('190084006')
+        expect(aluno.matricula).not_to include(' ')
+      ensure
+        File.delete(path) if File.exist?(path)
+      end
+
+      it 'evita duplicação ao reimportar matrícula com espaços diferentes' do
+        # Primeiro import com matrícula limpa
+        described_class.call(roster_path)
+        initial_count = Aluno.count
+
+        # Segundo import com mesma matrícula mas com espaços
+        path = Rails.root.join('spec', 'fixtures', 'files', 'roster_with_spaces2.json')
+        data = [
+          {
+            'code' => 'CIC0097',
+            'semester' => '2021.2',
+            'classCode' => 'TA',
+            'docente' => {
+              'usuario' => '83807519491',
+              'nome' => 'MARISTELA TERTO DE HOLANDA',
+              'email' => 'mholanda@unb.br',
+              'departamento' => 'DEPTO CIÊNCIAS DA COMPUTAÇÃO',
+              'formacao' => 'DOUTORADO'
+            },
+            'dicente' => [
+              {
+                'matricula' => ' 190084006 ',
+                'usuario' => '190084006',
+                'nome' => 'ALUNO TESTE ATUALIZADO',
+                'email' => 'aluno@test.com',
+                'curso' => 'CIÊNCIA DA COMPUTAÇÃO/CIC'
+              }
+            ]
+          }
+        ]
+        File.write(path, JSON.dump(data))
+
+        expect {
+          described_class.call(path)
+        }.to change(Aluno, :count).by(0)
+
+        expect(Aluno.count).to eq(initial_count)
+        aluno = Aluno.find_by(matricula: '190084006')
+        expect(aluno).to be_present
+      ensure
+        File.delete(path) if File.exist?(path)
+      end
+    end
   end
 end

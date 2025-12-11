@@ -1,0 +1,20 @@
+<div class="container">
+  <h2>Esqueci Minha Senha</h2>
+  
+  <% if flash[:alert] %>
+    <div class="alert alert-danger">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+  
+  <%= form_with(url: password_resets_path, method: :post, local: true) do |f| %>
+    <div class="field">
+      <%= f.label :email, "Email" %>
+      <%= f.text_field :email, required: true, class: "form-control" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Enviar", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

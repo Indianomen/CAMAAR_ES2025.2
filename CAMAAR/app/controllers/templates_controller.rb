@@ -1,4 +1,6 @@
 class TemplatesController < ApplicationController
+  layout "admin"  
+  before_action :require_login, except: [:index]  # Permite acesso público ao index (root_path)
   before_action :set_template, only: [:show, :edit, :update, :destroy]
   before_action :require_admin, except: [:index, :show]
 

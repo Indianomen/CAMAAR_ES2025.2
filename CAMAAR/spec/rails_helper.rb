@@ -30,6 +30,9 @@ RSpec.configure do |config|
 
   # Para testes com factory
   config.include FactoryBot::Syntax::Methods
+  
+  # Para testes com manipulação de tempo (travel_to)
+  config.include ActiveSupport::Testing::TimeHelpers
 
   # Configuração para system tests
   config.before(:each, type: :system) do

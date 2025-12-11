@@ -1,0 +1,95 @@
+<div class="container">
+  <div class="admin-login-box">
+    <h2>Login Administrativo</h2>
+    <p>Acesso restrito a administradores do sistema CAMAAR</p>
+    
+    <% if flash[:alert] %>
+      <div class="alert alert-danger">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+
+    <%= form_with(url: admin_login_path, method: :post, local: true) do |f| %>
+      <div class="field">
+        <%= f.label :usuario, "Usuário" %>
+        <%= f.text_field :usuario, required: true, class: "form-control", autofocus: true %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password, "Senha" %>
+        <%= f.password_field :password, required: true, class: "form-control" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Entrar", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<style>
+  .admin-login-box {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  
+  .admin-login-box h2 {
+    color: #0066cc;
+    margin-bottom: 10px;
+  }
+  
+  .admin-login-box p {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  
+  .field {
+    margin-bottom: 15px;
+  }
+  
+  .field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .btn-primary {
+    width: 100%;
+    padding: 10px;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0052a3;
+  }
+  
+  .alert {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+  }
+  
+  .alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+</style>
