@@ -1,5 +1,5 @@
 module Admin
-  class TemplatesController < ApplicationController
+  class TemplatesController < Admin::ApplicationController
     before_action :set_template, only: [:show, :edit, :update, :destroy]
 
     # GET /admin/templates
@@ -21,8 +21,10 @@ module Admin
 
     # GET /admin/templates/1/edit
     def edit
-      # Add an empty question for adding more
-      @template.perguntas.build
+      respond_to do |format|
+        format.html
+        format.turbo_stream  # Add this line
+      end
     end
 
     # POST /admin/templates

@@ -9,5 +9,8 @@ class Template < ApplicationRecord
   # Allow nested creation of questions
   accepts_nested_attributes_for :perguntas, 
     allow_destroy: true,
-    reject_if: ->(attrs) { attrs['texto'].blank? }
+    reject_if: ->(attrs) { 
+      # Only reject if texto is blank AND it's a new record
+      attrs['texto'].blank? && attrs['id'].blank?
+    }
 end

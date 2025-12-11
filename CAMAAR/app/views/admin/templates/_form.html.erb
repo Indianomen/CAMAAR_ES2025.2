@@ -1,0 +1,415 @@
+
+<%= form_with(model: [:admin, @template], id: 'template-form') do |form| %>
+  <% if @template.errors.any? %>
+    <div class="alert alert-error">
+      <h3><%= pluralize(@template.errors.count, "erro") %> impediram este template de ser salvo:</h3>
+      <ul>
+        <% @template.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :nome, "Nome do Template*" %>
+    <%= form.text_field :nome, 
+          class: 'form-control',
+          placeholder: 'Ex: Avaliação de Desempenho - Semestre 2024/1',
+          required: true %>
+    <small class="form-text">Dê um nome descritivo para identificar este template</small>
+  </div>
+
+  <div class="form-group">
+    <h3>Perguntas</h3>
+    <small class="form-text">Adicione as questões que farão parte deste template</small>
+    
+    <div id="perguntas-container">
+      <%# Calculate starting index for new questions %>
+      <% existing_count = @template.perguntas.select(&:persisted?).count %>
+      <% new_question_index = existing_count %>
+      
+      <%= form.fields_for :perguntas do |pergunta_fields| %>
+        <div class="pergunta-field" data-persisted="<%= pergunta_fields.object.persisted? %>">
+          <div class="pergunta-header">
+            <% if pergunta_fields.object.persisted? %>
+              <%= pergunta_fields.label :texto, "Pergunta ##{pergunta_fields.index + 1}" %>
+              <div class="remove-existing">
+                <%= pergunta_fields.check_box :_destroy %>
+                <%= pergunta_fields.label :_destroy, "Marcar para remover" %>
+              </div>
+            <% else %>
+              <label>Nova Pergunta</label>
+              <button type="button" class="remove-new-question">× Remover</button>
+            <% end %>
+          </div>
+          <%= pergunta_fields.text_area :texto, 
+                rows: 2,
+                class: 'form-control question-text',
+                placeholder: 'Digite o texto da pergunta...' %>
+          <%= pergunta_fields.hidden_field :id if pergunta_fields.object.persisted? %>
+        </div>
+      <% end %>
+    </div>
+    
+     <%= button_tag type: 'button', 
+        id: 'add-question',
+        class: 'btn btn-outline',
+        data: { 
+          controller: 'questions',
+          action: 'questions#add'
+        } do %>
+           + Adicionar nova pergunta
+      <% end %>
+    
+    <%# Hidden field to track next index %>
+    <input type="hidden" id="next-question-index" value="<%= new_question_index %>">
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit @template.persisted? ? 'Atualizar Template' : 'Criar Template', 
+          class: 'btn btn-primary',
+          id: 'submit-btn' %>
+    <%= link_to 'Cancelar', admin_templates_path, 
+          class: 'btn btn-outline' %>
+  </div>
+<% end %>
+
+<style>
+  .form-group {
+    margin-bottom: 2rem;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+  }
+  
+  .form-control:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+  }
+  
+  .pergunta-field {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+  }
+  
+  .pergunta-field:hover {
+    border-color: #007bff;
+    box-shadow: 0 2px 8px rgba(0,123,255,0.1);
+  }
+  
+  .pergunta-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+  
+  .pergunta-header label {
+    margin-bottom: 0;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  
+  .remove-new-question {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: background-color 0.2s;
+  }
+  
+  .remove-new-question:hover {
+    background: #c82333;
+  }
+  
+  .remove-existing {
+    font-size: 0.875rem;
+    color: #666;
+  }
+  
+  .remove-existing input[type="checkbox"] {
+    margin-right: 5px;
+    cursor: pointer;
+  }
+  
+  .remove-existing label {
+    cursor: pointer;
+    color: #dc3545;
+  }
+  
+  .alert-error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 1rem;
+    border-radius: 4px;
+    border: 1px solid #f5c6cb;
+    margin-bottom: 1.5rem;
+  }
+  
+  .alert-error h3 {
+    margin-top: 0;
+    font-size: 1rem;
+  }
+  
+  .alert-error ul {
+    margin: 0.5rem 0 0 1.5rem;
+    padding: 0;
+  }
+  
+  .form-actions {
+    display: flex;
+    gap: 0.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+    margin-top: 2rem;
+  }
+  
+  .btn {
+    padding: 0.625rem 1.25rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+    font-size: 1rem;
+  }
+  
+  .btn-primary {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+  }
+  
+  .btn-primary:hover {
+    background: #0056b3;
+    border-color: #0056b3;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,123,255,0.2);
+  }
+  
+  .btn-outline {
+    background: transparent;
+    color: #6c757d;
+    border: 1px solid #6c757d;
+    padding: 0.625rem 1.25rem;
+    border-radius: 4px;
+  }
+  
+  .btn-outline:hover {
+    background: #6c757d;
+    color: white;
+    transform: translateY(-1px);
+  }
+  
+  #add-question {
+    margin-top: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('perguntas-container');
+    const addButton = document.getElementById('add-question');
+    const nextIndexInput = document.getElementById('next-question-index');
+    
+    // Initialize index
+    let nextIndex = parseInt(nextIndexInput.value) || 0;
+    
+    // Function to update the hidden index
+    function updateNextIndex() {
+      nextIndexInput.value = nextIndex;
+    }
+    
+    // Function to add a new question
+    function addNewQuestion() {
+      const timestamp = new Date().getTime();
+      const index = nextIndex;
+      
+      const html = `
+        <div class="pergunta-field" data-persisted="false" data-timestamp="${timestamp}">
+          <div class="pergunta-header">
+            <label>Nova Pergunta</label>
+            <button type="button" class="remove-new-question" data-index="${index}">
+              × Remover
+            </button>
+          </div>
+          <textarea 
+            name="template[perguntas_attributes][${index}][texto]" 
+            rows="2"
+            class="form-control question-text"
+            placeholder="Digite o texto da pergunta..."
+            data-index="${index}"></textarea>
+          <input type="hidden" name="template[perguntas_attributes][${index}][id]" value="">
+        </div>
+      `;
+      
+      container.insertAdjacentHTML('beforeend', html);
+      nextIndex++;
+      updateNextIndex();
+      
+      // Attach remove event to the new button
+      const newField = container.querySelector(`[data-timestamp="${timestamp}"]`);
+      const removeButton = newField.querySelector('.remove-new-question');
+      
+      removeButton.addEventListener('click', function() {
+        const fieldIndex = this.dataset.index;
+        newField.remove();
+        
+        // Re-index remaining new questions
+        reindexNewQuestions();
+        
+        // Update UI
+        updateQuestionNumbers();
+      });
+      
+      // Focus the new textarea
+      const newTextarea = newField.querySelector('textarea');
+      setTimeout(() => {
+        newTextarea.focus();
+      }, 100);
+      
+      // Update UI
+      updateQuestionNumbers();
+      
+      console.log(`Added question with index ${index}, next index: ${nextIndex}`);
+    }
+    
+    // Function to re-index new questions after removal
+    function reindexNewQuestions() {
+      const newFields = container.querySelectorAll('.pergunta-field[data-persisted="false"]');
+      let currentIndex = nextIndex - newFields.length;
+      
+      newFields.forEach((field, position) => {
+        const textarea = field.querySelector('textarea');
+        const removeButton = field.querySelector('.remove-new-question');
+        const index = currentIndex + position;
+        
+        // Update data attributes
+        field.dataset.timestamp = new Date().getTime() + position;
+        removeButton.dataset.index = index;
+        textarea.dataset.index = index;
+        
+        // Update name attributes
+        textarea.name = `template[perguntas_attributes][${index}][texto]`;
+        
+        // Find and update hidden id field
+        const hiddenId = field.querySelector('input[type="hidden"][name$="[id]"]');
+        if (hiddenId) {
+          hiddenId.name = `template[perguntas_attributes][${index}][id]`;
+        }
+      });
+      
+      // Update nextIndex
+      nextIndex = currentIndex + newFields.length;
+      updateNextIndex();
+      
+      console.log('Re-indexed questions, next index:', nextIndex);
+    }
+    
+    // Function to update question numbers in UI
+    function updateQuestionNumbers() {
+      const allFields = container.querySelectorAll('.pergunta-field');
+      let questionNumber = 1;
+      
+      allFields.forEach((field, index) => {
+        const label = field.querySelector('label');
+        if (label && field.dataset.persisted === 'true') {
+          label.textContent = `Pergunta #${questionNumber}`;
+          questionNumber++;
+        }
+      });
+    }
+    
+    // Attach event to existing "Add question" button
+    addButton.addEventListener('click', addNewQuestion);
+    
+    // Attach remove events to existing new questions
+    document.querySelectorAll('.remove-new-question').forEach(button => {
+      button.addEventListener('click', function() {
+        const field = this.closest('.pergunta-field');
+        field.remove();
+        reindexNewQuestions();
+        updateQuestionNumbers();
+      });
+    });
+    
+    // Handle form submission - clean empty new questions
+    const form = document.getElementById('template-form');
+    form.addEventListener('submit', function(e) {
+      // Find empty new questions
+      const emptyNewQuestions = [];
+      
+      container.querySelectorAll('.pergunta-field[data-persisted="false"]').forEach(field => {
+        const textarea = field.querySelector('.question-text');
+        if (!textarea.value.trim()) {
+          emptyNewQuestions.push(field);
+        }
+      });
+      
+      // Remove empty new questions
+      emptyNewQuestions.forEach(field => {
+        console.log('Removing empty question:', field.dataset.timestamp);
+        field.remove();
+      });
+      
+      // Re-index after removal
+      if (emptyNewQuestions.length > 0) {
+        reindexNewQuestions();
+      }
+      
+      // Check if we have at least one question with content
+      const allTextareas = container.querySelectorAll('.question-text');
+      let hasContent = false;
+      
+      allTextareas.forEach(textarea => {
+        if (textarea.value.trim()) {
+          hasContent = true;
+        }
+      });
+      
+      // If no content and there are textareas, prevent submission
+      if (!hasContent && allTextareas.length > 0) {
+        e.preventDefault();
+        alert('⚠️ Pelo menos uma pergunta deve ter conteúdo!');
+        return false;
+      }
+      
+      // Log final state for debugging
+      console.log('Form submitted with questions:', allTextareas.length);
+    });
+    
+    // Initial UI update
+    updateQuestionNumbers();
+    
+    // Debug: Log initial state
+    console.log('Initial nextIndex:', nextIndex);
+    console.log('Existing persisted questions:', container.querySelectorAll('.pergunta-field[data-persisted="true"]').length);
+    console.log('Existing new questions:', container.querySelectorAll('.pergunta-field[data-persisted="false"]').length);
+  });
+</script>

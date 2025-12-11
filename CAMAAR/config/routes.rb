@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get "pages/dashboard"
 
   # Root path
-  root 'templates#index'
+  root 'sessions#new'
   
   resources :templates do
     resources :perguntas, only: [:new, :create]
