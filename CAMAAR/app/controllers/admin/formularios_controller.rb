@@ -1,5 +1,6 @@
 module Admin
-  class FormulariosController < Admin::ApplicationController
+  class FormulariosController < ApplicationController
+    layout "admin"
     before_action :authenticate_administrador!
     before_action :set_formulario, only: [:show, :edit, :update, :destroy, :results]
     
@@ -20,41 +21,36 @@ module Admin
     # GET /admin/formularios/1
     def show
       @perguntas = @formulario.perguntas
-      @respostas_count = @formulario.respostas.select(:aluno_id).distinct.count
-      @total_students = @formulario.turma.alunos.count
+    end
+    
+    # GET /admin/formularios/1/edit
+    def edit
+      @templates = current_administrador.templates
+      @turmas = Turma.all.order(:semestre, :horario)
     end
     
     # POST /admin/formularios
     def create
       @formulario = current_administrador.formularios.new(formulario_params)
       @templates = current_administrador.templates
-      @turmas = Turma.all
+      @turmas = Turma.all.order(:semestre, :horario)
       
       if @formulario.save
-        # Assign form to all students in the class
-        assign_form_to_students(@formulario)
-        
         redirect_to admin_formulario_path(@formulario), 
-                    notice: 'Formulário criado e enviado aos alunos com sucesso.'
+                    notice: 'Formulário criado com sucesso.'
       else
         render :new, status: :unprocessable_entity
       end
     end
     
-    # GET /admin/formularios/1/results
-    def results
-      # Get all answers for this form (anonymous)
-      @respostas = @formulario.respostas
-                             .includes(:pergunta)
-                             .order('perguntas.id')
-      
-      # Group answers by question for reporting
-      @answers_by_question = @respostas.group_by(&:pergunta)
-      
-      # Statistics
-      @total_responses = @respostas.select(:aluno_id).distinct.count
-      @total_students = @formulario.turma.alunos.count
-      @response_rate = @total_students > 0 ? (@total_responses.to_f / @total_students * 100).round(1) : 0
+    # PATCH/PUT /admin/formularios/1
+    def update
+      if @formulario.update(formulario_params)
+        redirect_to admin_formulario_path(@formulario), 
+                    notice: 'Formulário atualizado com sucesso.'
+      else
+        render :edit, status: :unprocessable_entity
+      end
     end
     
     # DELETE /admin/formularios/1
@@ -62,6 +58,24 @@ module Admin
       @formulario.destroy
       redirect_to admin_formularios_url, 
                   notice: 'Formulário excluído com sucesso.'
+    end
+    
+    # GET /admin/formularios/1/results
+    def results
+      # Get answers through the association
+      @respostas = Resposta.joins(:pergunta)
+                          .where(perguntas: { formulario_id: @formulario.id })
+      
+      # Or using the association if you have it set up:
+      # @respostas = @formulario.respostas
+      
+      @answers_by_question = @respostas.group_by(&:pergunta)
+      
+      # Calculate statistics
+      @total_responses = @respostas.count
+      @total_students = @formulario.turma&.alunos&.count || 0
+      @response_rate = @total_students > 0 ? 
+        (@total_responses.to_f / @total_students * 100).round(1) : 0
     end
     
     private
@@ -73,9 +87,8 @@ module Admin
     def formulario_params
       params.require(:formulario).permit(:template_id, :turma_id)
     end
-    
+
     def assign_form_to_students(formulario)
-      # Add form to all students in the class
       formulario.turma.alunos.each do |aluno|
         aluno.formularios_respostas << formulario
       end

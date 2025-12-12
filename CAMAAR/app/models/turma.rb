@@ -11,4 +11,8 @@ class Turma < ApplicationRecord
   validates :horario, presence: true
   validates :professor_id, presence: true
   validates :disciplina_id, presence: true
+  
+  def full_description
+    "#{disciplina.nome} (#{disciplina.codigo}) - #{professor.nome} - #{semestre} - #{horario}"
+  end
 end

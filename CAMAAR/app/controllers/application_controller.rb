@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_user, :logged_in?
+  helper_method :current_user, :logged_in?, :current_administrador
   
   private
   
@@ -22,6 +22,47 @@ class ApplicationController < ActionController::Base
   def require_login
     unless logged_in?
       flash[:alert] = 'Você precisa fazer login para acessar esta página'
+      redirect_to login_path
+    end
+  end
+  
+  # ADMIN SPECIFIC METHODS
+  
+  # Returns current admin if logged in as admin
+  def current_administrador
+    return nil unless logged_in? && current_user.is_a?(Administrador)
+    current_user
+  end
+  
+  # Authenticate admin
+  def authenticate_administrador!
+    unless current_administrador
+      flash[:alert] = 'Acesso restrito a administradores'
+      redirect_to admin_login_path
+    end
+  end
+  
+  # Similarly for other user types if needed
+  def current_aluno
+    return nil unless logged_in? && current_user.is_a?(Aluno)
+    current_user
+  end
+  
+  def authenticate_aluno!
+    unless current_aluno
+      flash[:alert] = 'Acesso restrito a alunos'
+      redirect_to login_path
+    end
+  end
+  
+  def current_professor
+    return nil unless logged_in? && current_user.is_a?(Professor)
+    current_user
+  end
+  
+  def authenticate_professor!
+    unless current_professor
+      flash[:alert] = 'Acesso restrito a professores'
       redirect_to login_path
     end
   end

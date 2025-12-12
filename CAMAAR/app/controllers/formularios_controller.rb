@@ -1,72 +1,89 @@
 class FormulariosController < ApplicationController
-  before_action :set_formulario, only: %i[ show edit update destroy ]
   layout "admin"
   before_action :authenticate_administrador!
-
-  # GET /formularios or /formularios.json
+  before_action :set_formulario, only: [:show, :edit, :update, :destroy, :results]
+  
+  # GET /admin/formularios
   def index
-    @formularios = Formulario.all
+    @formularios = current_administrador.formularios
+                                        .includes(:template, :turma)
+                                        .order(created_at: :desc)
   end
-
-  # GET /formularios/1 or /formularios/1.json
-  def show
-  end
-
-  # GET /formularios/new
+  
+  # GET /admin/formularios/new
   def new
-    @formulario = Formulario.new
+    @formulario = current_administrador.formularios.new
+    @templates = current_administrador.templates
+    @turmas = Turma.all.order(:semestre, :horario)
   end
-
-  # GET /formularios/1/edit
+  
+  # GET /admin/formularios/1
+  def show
+    @perguntas = @formulario.perguntas
+  end
+  
+  # GET /admin/formularios/1/edit
   def edit
+    @templates = current_administrador.templates
+    @turmas = Turma.all.order(:semestre, :horario)
   end
-
-  # POST /formularios or /formularios.json
+  
+  # POST /admin/formularios
   def create
-    @formulario = Formulario.new(formulario_params)
-
-    respond_to do |format|
-      if @formulario.save
-        format.html { redirect_to @formulario, notice: "Formulario was successfully created." }
-        format.json { render :show, status: :created, location: @formulario }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @formulario.errors, status: :unprocessable_entity }
-      end
+    @formulario = current_administrador.formularios.new(formulario_params)
+    @templates = current_administrador.templates
+    @turmas = Turma.all.order(:semestre, :horario)
+    
+    if @formulario.save
+      redirect_to admin_formulario_path(@formulario), 
+                  notice: 'Formulário criado com sucesso.'
+    else
+      render :new, status: :unprocessable_entity
     end
   end
-
-  # PATCH/PUT /formularios/1 or /formularios/1.json
+  
+  # PATCH/PUT /admin/formularios/1
   def update
-    respond_to do |format|
-      if @formulario.update(formulario_params)
-        format.html { redirect_to @formulario, notice: "Formulario was successfully updated.", status: :see_other }
-        format.json { render :show, status: :ok, location: @formulario }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @formulario.errors, status: :unprocessable_entity }
-      end
+    if @formulario.update(formulario_params)
+      redirect_to admin_formulario_path(@formulario), 
+                  notice: 'Formulário atualizado com sucesso.'
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
-
-  # DELETE /formularios/1 or /formularios/1.json
+  
+  # DELETE /admin/formularios/1
   def destroy
-    @formulario.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to formularios_path, notice: "Formulario was successfully destroyed.", status: :see_other }
-      format.json { head :no_content }
-    end
+    @formulario.destroy
+    redirect_to admin_formularios_url, 
+                notice: 'Formulário excluído com sucesso.'
   end
-
+  
+  # GET /admin/formularios/1/results
+  def results
+    # Get answers through the association
+    @respostas = Resposta.joins(:pergunta)
+                        .where(perguntas: { formulario_id: @formulario.id })
+    
+    # Or using the association if you have it set up:
+    # @respostas = @formulario.respostas
+    
+    @answers_by_question = @respostas.group_by(&:pergunta)
+    
+    # Calculate statistics
+    @total_responses = @respostas.count
+    @total_students = @formulario.turma&.alunos&.count || 0
+    @response_rate = @total_students > 0 ? 
+      (@total_responses.to_f / @total_students * 100).round(1) : 0
+  end
+  
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_formulario
-      @formulario = Formulario.find(params.expect(:id))
-    end
-
-    # Only allow a list of trusted parameters through.
-    def formulario_params
-      params.expect(formulario: [ :administrador_id, :template_id, :turma_id ])
-    end
+  
+  def set_formulario
+    @formulario = current_administrador.formularios.find(params[:id])
+  end
+  
+  def formulario_params
+    params.require(:formulario).permit(:template_id, :turma_id)
+  end
 end

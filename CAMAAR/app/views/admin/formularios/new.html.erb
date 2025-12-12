@@ -92,11 +92,12 @@
       <div class="form-group">
         <%= f.label :turma_id, "Selecione a Turma*", class: 'form-label' %>
         <%= f.select :turma_id, 
-              options_from_collection_for_select(@turmas, :id, :full_description, f.object.turma_id),
-              { include_blank: 'Selecione uma turma...' },
-              class: 'form-control',
-              required: true,
-              id: 'turma-select' %>
+          options_from_collection_for_select(@turmas, :id, :simple_description, f.object.turma_id),
+          { include_blank: 'Selecione uma turma...' },
+          class: 'form-control',
+          required: true,
+          id: 'turma-select' %>
+
       </div>
       
       <!-- Template Preview -->
