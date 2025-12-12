@@ -43,7 +43,8 @@ module Admin
     # PATCH/PUT /admin/templates/1
     def update
       if @template.update(template_params)
-        redirect_to admin_template_path(@template), notice: 'Template atualizado com sucesso.'
+        # Use explicit path helper to ensure non-admin route
+        redirect_to template_path(@template), notice: 'Template atualizado com sucesso.'
       else
         render :edit, status: :unprocessable_entity
       end
