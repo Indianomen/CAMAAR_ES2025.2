@@ -67,4 +67,21 @@ class TurmasController < ApplicationController
     def turma_params
       params.expect(turma: [ :professor_id, :disciplina_id, :formulario_id, :semestre, :horario ])
     end
+
+    def details
+      @turma = Turma.find(params[:id])
+      
+      respond_to do |format|
+        format.json { 
+          render json: {
+            disciplina_nome: @turma.disciplina.nome,
+            disciplina_codigo: @turma.disciplina.codigo,
+            professor_nome: @turma.professor.nome,
+            semestre: @turma.semestre,
+            horario: @turma.horario,
+            alunos_count: @turma.alunos.count
+          }
+        }
+      end
+    end
 end

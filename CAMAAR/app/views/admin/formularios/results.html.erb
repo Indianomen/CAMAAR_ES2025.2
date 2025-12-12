@@ -1,0 +1,124 @@
+<style>
+  .results-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .stat-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    border: 1px solid #e9ecef;
+  }
+  
+  .stat-value {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .answers-section {
+    margin-top: 2rem;
+  }
+  
+  .question-answers {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+  }
+  
+  .answer-item {
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border-left: 4px solid #28a745;
+  }
+  
+  .answer-meta {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-top: 0.5rem;
+  }
+</style>
+
+<div class="results-container">
+  <div class="page-header" style="margin-bottom: 2rem;">
+    <h1>📊 Resultados: <%= @formulario.template.nome %></h1>
+    <div class="btn-group">
+      <%= link_to '← Voltar ao Formulário', admin_formulario_path(@formulario), 
+            class: 'btn btn-outline' %>
+      <%= link_to 'Exportar CSV', '#', class: 'btn btn-primary' %>
+    </div>
+  </div>
+  
+  <div class="alert alert-info">
+    <strong>⚠️ Dados Anônimos:</strong> As respostas são exibidas de forma anônima. 
+    Não é possível identificar qual aluno respondeu cada avaliação.
+  </div>
+  
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-value"><%= @total_students %></div>
+      <div class="stat-label">Alunos na Turma</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-value"><%= @total_responses %></div>
+      <div class="stat-label">Responderam</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-value <%= @response_rate >= 70 ? 'text-success' : 'text-warning' %>">
+        <%= @response_rate %>%
+      </div>
+      <div class="stat-label">Taxa de Resposta</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-value"><%= @formulario.perguntas.count %></div>
+      <div class="stat-label">Perguntas</div>
+    </div>
+  </div>
+  
+  <div class="answers-section">
+    <h3>Respostas por Pergunta</h3>
+    
+    <% if @answers_by_question.any? %>
+      <% @answers_by_question.each do |pergunta, respostas| %>
+        <div class="question-answers">
+          <h4><%= pergunta.texto %></h4>
+          <p class="text-muted" style="margin-bottom: 1rem;">
+            <%= respostas.count %> respostas recebidas
+          </p>
+          
+          <% respostas.each do |resposta| %>
+            <div class="answer-item">
+              <div class="answer-text">
+                <%= resposta.texto %>
+              </div>
+              <div class="answer-meta">
+                Respondido em: <%= l(resposta.created_at, format: :short) %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="alert alert-warning">
+        Nenhuma resposta recebida para este formulário ainda.
+      </div>
+    <% end %>
+  </div>
+</div>

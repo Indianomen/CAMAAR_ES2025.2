@@ -1,0 +1,196 @@
+<style>
+  .form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .form-card {
+    background: white;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.25);
+    outline: none;
+  }
+  
+  .template-preview {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 4px;
+    border-left: 4px solid #007bff;
+  }
+  
+  .questions-preview {
+    margin-top: 1rem;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  
+  .question-preview-item {
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    background: white;
+    border-radius: 4px;
+    border: 1px solid #e9ecef;
+  }
+</style>
+
+<div class="form-container">
+  <div class="page-header" style="margin-bottom: 2rem;">
+    <h1>Novo Formulário</h1>
+    <%= link_to '← Voltar', admin_formularios_path, class: 'btn btn-outline' %>
+  </div>
+  
+  <div class="form-card">
+    <%= form_with(model: [:admin, @formulario], local: true) do |f| %>
+      <% if @formulario.errors.any? %>
+        <div class="alert alert-error">
+          <h3><%= pluralize(@formulario.errors.count, "erro") %> impediram este formulário de ser salvo:</h3>
+          <ul>
+            <% @formulario.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      
+      <div class="form-group">
+        <%= f.label :template_id, "Selecione o Template*", class: 'form-label' %>
+        <%= f.select :template_id, 
+              options_from_collection_for_select(@templates, :id, :nome, f.object.template_id),
+              { include_blank: 'Selecione um template...' },
+              class: 'form-control',
+              required: true,
+              id: 'template-select' %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :turma_id, "Selecione a Turma*", class: 'form-label' %>
+        <%= f.select :turma_id, 
+              options_from_collection_for_select(@turmas, :id, :full_description, f.object.turma_id),
+              { include_blank: 'Selecione uma turma...' },
+              class: 'form-control',
+              required: true,
+              id: 'turma-select' %>
+      </div>
+      
+      <!-- Template Preview -->
+      <div id="template-preview" style="display: none;">
+        <div class="template-preview">
+          <h4>Preview do Template</h4>
+          <div id="questions-preview" class="questions-preview"></div>
+        </div>
+      </div>
+      
+      <!-- Turma Info -->
+      <div id="turma-info" style="display: none;">
+        <div class="template-preview">
+          <h4>Informações da Turma</h4>
+          <div id="turma-details"></div>
+        </div>
+      </div>
+      
+      <div class="form-actions">
+        <%= f.submit 'Criar Formulário e Enviar aos Alunos', 
+              class: 'btn btn-primary btn-lg',
+              data: { disable_with: 'Criando...' } %>
+        <%= link_to 'Cancelar', admin_formularios_path, 
+              class: 'btn btn-outline' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const templateSelect = document.getElementById('template-select');
+    const turmaSelect = document.getElementById('turma-select');
+    const templatePreview = document.getElementById('template-preview');
+    const turmaInfo = document.getElementById('turma-info');
+    const questionsPreview = document.getElementById('questions-preview');
+    const turmaDetails = document.getElementById('turma-details');
+    
+    // Template selection handler
+    templateSelect.addEventListener('change', function() {
+      const templateId = this.value;
+      
+      if (templateId) {
+        // Fetch template details
+        fetch(`/admin/templates/${templateId}.json`)
+          .then(response => response.json())
+          .then(template => {
+            // Show questions
+            let html = '';
+            template.perguntas.forEach((pergunta, index) => {
+              html += `
+                <div class="question-preview-item">
+                  <strong>${index + 1}.</strong> ${pergunta.texto}
+                </div>
+              `;
+            });
+            
+            questionsPreview.innerHTML = html;
+            templatePreview.style.display = 'block';
+          })
+          .catch(error => {
+            console.error('Error fetching template:', error);
+          });
+      } else {
+        templatePreview.style.display = 'none';
+      }
+    });
+    
+    // Turma selection handler
+    turmaSelect.addEventListener('change', function() {
+      const turmaId = this.value;
+      
+      if (turmaId) {
+        // Fetch turma details
+        fetch(`/turmas/${turmaId}.json`)
+          .then(response => response.json())
+          .then(turma => {
+            let html = `
+              <p><strong>Disciplina:</strong> ${turma.disciplina_nome} (${turma.disciplina_codigo})</p>
+              <p><strong>Professor:</strong> ${turma.professor_nome}</p>
+              <p><strong>Semestre:</strong> ${turma.semestre}</p>
+              <p><strong>Horário:</strong> ${turma.horario}</p>
+              <p><strong>Alunos matriculados:</strong> ${turma.alunos_count}</p>
+            `;
+            
+            turmaDetails.innerHTML = html;
+            turmaInfo.style.display = 'block';
+          })
+          .catch(error => {
+            console.error('Error fetching turma:', error);
+          });
+      } else {
+        turmaInfo.style.display = 'none';
+      }
+    });
+  });
+</script>

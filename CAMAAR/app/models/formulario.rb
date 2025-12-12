@@ -1,25 +1,44 @@
 class Formulario < ApplicationRecord
-  # Relationships
   belongs_to :administrador
   belongs_to :template
   belongs_to :turma
   
+  # Questions copied from template to this specific form
   has_many :perguntas, dependent: :destroy
-  has_many :respostas, dependent: :destroy
   
-  has_and_belongs_to_many :alunos_respostas, 
-                          class_name: 'Aluno', 
+  # Students who have answered this form
+  has_and_belongs_to_many :alunos_respostas,
+                          class_name: 'Aluno',
                           join_table: :alunos_formularios
   
-  # Validations
-  validates :administrador_id, presence: true
-  validates :template_id, presence: true
-  validates :turma_id, presence: true
+  # Answers submitted for this form
+  has_many :respostas, through: :perguntas
   
-  # Scopes
-  scope :pendentes_para_aluno, ->(aluno_id) {
-    joins(turma: :alunos)
-    .where(alunos: { id: aluno_id })
-    .where.not(id: Aluno.find(aluno_id).formularios_respostas.pluck(:id))
+  validates :turma_id, uniqueness: { scope: :template_id, 
+    message: "já possui um formulário deste template" }
+  
+  # After creating a form, copy questions from template
+  after_create :copy_questions_from_template
+  
+  # Scope for forms with answers
+  scope :with_responses, -> { 
+    joins(:respostas).distinct 
   }
+  
+  # Scope for pending forms (not answered by all students)
+  scope :pending, -> {
+    where.not(id: AlunoFormulario.select(:formulario_id).distinct)
+  }
+  
+  private
+  
+  def copy_questions_from_template
+    template.perguntas.each do |template_pergunta|
+      perguntas.create(
+        texto: template_pergunta.texto,
+        # Don't copy template_id since this is now a form-specific question
+        formulario_id: id
+      )
+    end
+  end
 end

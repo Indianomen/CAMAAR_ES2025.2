@@ -65,5 +65,14 @@ module Admin
       params.require(:template).permit(:nome, 
         perguntas_attributes: [:id, :texto, :_destroy])
     end
+    
+    def questions
+      @template = current_administrador.templates.find(params[:id])
+      @perguntas = @template.perguntas
+      
+      respond_to do |format|
+        format.json { render json: { perguntas: @perguntas } }
+      end
+    end
   end
 end

@@ -41,8 +41,19 @@ Rails.application.routes.draw do
     resources :templates do
       resources :perguntas, only: [:new, :create]
     end
-    resources :formularios
     resources :turmas
+
+    #Formularios
+    get 'formularios', to: 'formularios#index', as: 'formularios'
+    get 'formularios/new', to: 'formularios#new', as: 'new_formulario'
+    post 'formularios', to: 'formularios#create'
+    get 'formularios/:id', to: 'formularios#show', as: 'formulario'
+    get 'formularios/:id/edit', to: 'formularios#edit', as: 'edit_formulario'
+    patch 'formularios/:id', to: 'formularios#update'
+    put 'formularios/:id', to: 'formularios#update'
+    delete 'formularios/:id', to: 'formularios#destroy'
+  
+    get 'formularios/:id/results', to: 'formularios#results', as: 'results_formulario'
 
     get "avaliacoes",    to: "pages#avaliacoes"
     get "gerenciamento", to: "pages#gerenciamento"

@@ -1,5 +1,7 @@
 class FormulariosController < ApplicationController
   before_action :set_formulario, only: %i[ show edit update destroy ]
+  layout "admin"
+  before_action :authenticate_administrador!
 
   # GET /formularios or /formularios.json
   def index
