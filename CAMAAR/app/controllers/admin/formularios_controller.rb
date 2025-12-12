@@ -62,12 +62,8 @@ module Admin
     
     # GET /admin/formularios/1/results
     def results
-      # Get answers through the association
       @respostas = Resposta.joins(:pergunta)
-                          .where(perguntas: { formulario_id: @formulario.id })
-      
-      # Or using the association if you have it set up:
-      # @respostas = @formulario.respostas
+                          .where(pergunta: { formulario_id: @formulario.id })
       
       @answers_by_question = @respostas.group_by(&:pergunta)
       

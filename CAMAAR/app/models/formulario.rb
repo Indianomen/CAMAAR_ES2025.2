@@ -35,8 +35,8 @@ class Formulario < ApplicationRecord
   def copy_questions_from_template
     template.perguntas.each do |template_pergunta|
       perguntas.create(
+        template_id: template.id,
         texto: template_pergunta.texto,
-        # Don't copy template_id since this is now a form-specific question
         formulario_id: id
       )
     end

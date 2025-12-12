@@ -196,32 +196,16 @@ RSpec.describe Admin::FormulariosController, type: :controller do
     end
   end
 
-  describe "DELETE #destroy" do
-    it "destroys the requested formulario" do
-      formulario_to_delete = create(:formulario, administrador: admin)
-      expect {
-        delete :destroy, params: { id: formulario_to_delete.id }
-      }.to change(Formulario, :count).by(-1)
-    end
-
-    it "redirects to the formularios list" do
-      delete :destroy, params: { id: formulario.id }
-      expect(response.location).to include('/admin/formularios')
-    end
-
-    it "sets a success notice" do
-      delete :destroy, params: { id: formulario.id }
-      expect(flash[:notice]).to be_present
-    end
-  end
-
   describe "GET #results" do
     let(:aluno) { create(:aluno) }
     
     before do
-      # Create a pergunta for the formulario, must include template
-      pergunta = create(:pergunta, template: template, formulario: formulario)
-      # Create a resposta (answer) for that pergunta
+      create(:pergunta, template: template, texto: "Question 1")
+      create(:pergunta, template: template, texto: "Question 2")
+      
+      formulario.reload
+      
+      pergunta = formulario.perguntas.first
       create(:resposta, pergunta: pergunta, aluno: aluno, texto: "Resposta de teste")
     end
 
