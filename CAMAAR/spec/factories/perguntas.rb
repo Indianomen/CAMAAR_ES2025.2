@@ -1,12 +1,16 @@
 FactoryBot.define do
   factory :pergunta do
-    sequence(:texto) { |n| "Como você avalia o aspecto #{n} da disciplina?" }
-    association :template
+    texto { "Qual sua avaliação sobre a disciplina?" }
     
-    # Formulario opcional para perguntas de template
-    formulario { nil }
+    trait :with_template do
+      association :template
+      formulario_id { nil }
+    end
+    
     trait :with_formulario do
       association :formulario
+      template_id { nil }
+      resposta { "Resposta exemplo" } # If storing answers in pergunta table
     end
   end
 end

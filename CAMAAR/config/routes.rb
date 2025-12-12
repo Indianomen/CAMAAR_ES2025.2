@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get "pages/dashboard"
 
   # Root path
-  root 'templates#index'
+  root 'sessions#new'
   
   resources :templates do
     resources :perguntas, only: [:new, :create]
@@ -38,11 +38,14 @@ Rails.application.routes.draw do
     resources :alunos
     resources :professors
     resources :disciplinas
+    resources :formularios
     resources :templates do
       resources :perguntas, only: [:new, :create]
     end
-    resources :formularios
     resources :turmas
+
+  
+    get 'formularios/:id/results', to: 'formularios#results', as: 'results_formulario'
 
     get "avaliacoes",    to: "pages#avaliacoes"
     get "gerenciamento", to: "pages#gerenciamento"

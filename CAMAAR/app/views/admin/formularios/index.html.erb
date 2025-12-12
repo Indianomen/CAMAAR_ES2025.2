@@ -1,0 +1,193 @@
+<style>
+  .formularios-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .formulario-card {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+  }
+  
+  .formulario-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+  }
+  
+  .formulario-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+  
+  .formulario-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0;
+  }
+  
+  .formulario-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .meta-label {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-bottom: 0.25rem;
+  }
+  
+  .meta-value {
+    font-weight: 500;
+    color: #2c3e50;
+  }
+  
+  .response-stats {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .stat-item {
+    text-align: center;
+  }
+  
+  .stat-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #007bff;
+  }
+  
+  .stat-label {
+    font-size: 0.875rem;
+    color: #6c757d;
+  }
+  
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 2px dashed #dee2e6;
+  }
+</style>
+
+<div class="formularios-container">
+  <div class="page-header">
+    <h1>📄 Formulários</h1>
+    <%= link_to 'Novo Formulário', new_admin_formulario_path, 
+          class: 'btn btn-primary' %>
+  </div>
+  
+  <% if @formularios.any? %>
+    <% @formularios.each do |formulario| %>
+      <div class="formulario-card">
+        <div class="formulario-header">
+          <h3 class="formulario-title">
+            <%= formulario.template.nome %>
+            <span style="font-size: 0.875rem; color: #6c757d; font-weight: normal;">
+              (Turma: <%= formulario.turma.disciplina.nome %>)
+            </span>
+          </h3>
+          
+          <div class="btn-group">
+            <%= link_to 'Ver', admin_formulario_path(formulario), 
+                  class: 'btn btn-sm btn-outline' %>
+            <%= link_to 'Resultados', results_admin_formulario_path(formulario),
+                  class: 'btn btn-sm btn-primary' %>
+            <%= link_to 'Excluir', admin_formulario_path(formulario),
+                  method: :delete,
+                  data: { turbo_confirm: 'Tem certeza?' },
+                  class: 'btn btn-sm btn-danger' %>
+          </div>
+        </div>
+        
+        <div class="formulario-meta">
+          <div class="meta-item">
+            <span class="meta-label">Template</span>
+            <span class="meta-value"><%= formulario.template.nome %></span>
+          </div>
+          
+          <div class="meta-item">
+            <span class="meta-label">Disciplina</span>
+            <span class="meta-value">
+              <%= formulario.turma.disciplina.nome %> 
+              (<%= formulario.turma.disciplina.codigo %>)
+            </span>
+          </div>
+          
+          <div class="meta-item">
+            <span class="meta-label">Professor</span>
+            <span class="meta-value"><%= formulario.turma.professor.nome %></span>
+          </div>
+          
+          <div class="meta-item">
+            <span class="meta-label">Semestre/Horário</span>
+            <span class="meta-value">
+              <%= formulario.turma.semestre %> - <%= formulario.turma.horario %>
+            </span>
+          </div>
+        </div>
+        
+        <div class="response-stats">
+          <div class="stat-item">
+            <div class="stat-value"><%= formulario.turma.alunos.count %></div>
+            <div class="stat-label">Alunos na Turma</div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-value"><%= formulario.respostas.select(:aluno_id).distinct.count %></div>
+            <div class="stat-label">Respostas Recebidas</div>
+          </div>
+          
+          <% response_rate = formulario.turma.alunos.count > 0 ? 
+               (formulario.respostas.select(:aluno_id).distinct.count.to_f / formulario.turma.alunos.count * 100).round(1) : 0 %>
+          <div class="stat-item">
+            <div class="stat-value <%= response_rate >= 70 ? 'text-success' : 'text-warning' %>">
+              <%= response_rate %>%
+            </div>
+            <div class="stat-label">Taxa de Resposta</div>
+          </div>
+        </div>
+        
+        <div style="font-size: 0.875rem; color: #6c757d;">
+          Criado em: <%= l(formulario.created_at, format: :short) %>
+          • 
+          <%= formulario.perguntas.count %> perguntas
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="empty-state">
+      <h3>Nenhum formulário criado</h3>
+      <p>Crie seu primeiro formulário para enviar avaliações aos alunos.</p>
+      <%= link_to 'Criar Primeiro Formulário', new_admin_formulario_path,
+            class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>

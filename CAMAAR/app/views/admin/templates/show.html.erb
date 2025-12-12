@@ -1,0 +1,215 @@
+<style>
+  .show-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .show-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  .show-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0;
+  }
+
+  .card {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .card-header {
+    padding: 1rem 1.25rem;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    font-weight: 600;
+    color: #495057;
+  }
+
+  .card-body {
+    padding: 1.25rem;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .info-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .info-label {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-bottom: 0.25rem;
+  }
+
+  .info-value {
+    font-size: 1rem;
+    color: #2c3e50;
+    font-weight: 500;
+  }
+
+  .questions-list {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .question-item {
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    background: #f8f9fa;
+    border-radius: 0.375rem;
+    border-left: 4px solid #007bff;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .question-text {
+    flex: 1;
+    color: #2c3e50;
+    line-height: 1.5;
+  }
+
+  .question-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: #007bff;
+    color: white;
+    border-radius: 50%;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-right: 1rem;
+    flex-shrink: 0;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e9ecef;
+  }
+
+  @media (max-width: 768px) {
+    .show-container {
+      padding: 1rem;
+    }
+
+    .show-header {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .info-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .action-buttons {
+      flex-direction: column;
+    }
+
+    .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
+
+<div class="show-container">
+  <!-- Header -->
+  <div class="show-header">
+    <div>
+      <h1 class="show-title"><%= @template.nome %></h1>
+      <p style="color: #6c757d; margin-top: 0.5rem;">ID: <%= @template.id %></p>
+    </div>
+    <div>
+      <%= link_to '← Voltar', admin_templates_path, class: 'btn btn-outline' %>
+    </div>
+  </div>
+
+  <!-- Template Info Card -->
+  <div class="card">
+    <div class="card-header">Informações do Template</div>
+    <div class="card-body">
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">Criado por</span>
+          <span class="info-value"><%= @template.administrador.nome %></span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Data de criação</span>
+          <span class="info-value"><%= l(@template.created_at, format: :long) %></span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Última atualização</span>
+          <span class="info-value"><%= l(@template.updated_at, format: :long) %></span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Total de perguntas</span>
+          <span class="info-value"><%= @perguntas.count %></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Questions Card -->
+  <div class="card">
+    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+      <span>Perguntas</span>
+      <%= link_to '✏️ Editar Perguntas', edit_admin_template_path(@template), class: 'btn btn-sm btn-outline' %>
+    </div>
+    <div class="card-body">
+      <% if @perguntas.any? %>
+        <ol class="questions-list">
+          <% @perguntas.each_with_index do |pergunta, index| %>
+            <li class="question-item">
+              <span class="question-number"><%= index + 1 %></span>
+              <div class="question-text"><%= pergunta.texto %></div>
+            </li>
+          <% end %>
+        </ol>
+      <% else %>
+        <div style="text-align: center; padding: 2rem; color: #6c757d;">
+          <p>Este template ainda não possui perguntas.</p>
+          <%= link_to 'Adicionar primeira pergunta', edit_admin_template_path(@template), class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="action-buttons">
+    <%= link_to '✏️ Editar Template', edit_admin_template_path(@template), class: 'btn btn-primary' %>
+    <%= link_to '🗑️ Excluir Template', admin_template_path(@template),
+          method: :delete,
+          data: { 
+            confirm: 'Tem certeza que deseja excluir este template? Esta ação não pode ser desfeita.',
+            turbo_confirm: 'Tem certeza que deseja excluir este template? Esta ação não pode ser desfeita.'
+          },
+          class: 'btn btn-danger' %>
+    
+    <%# You can add this later when working on forms %>
+    <%#= link_to '📄 Criar Formulário', new_admin_formulario_path(template_id: @template.id), class: 'btn btn-success' %>
+  </div>
+</div>

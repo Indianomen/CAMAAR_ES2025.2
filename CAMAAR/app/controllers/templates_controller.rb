@@ -1,4 +1,4 @@
-class TemplatesController < ApplicationController
+class TemplatesController < Admin::ApplicationController
   layout "admin"  
   before_action :require_login, except: [:index]  # Permite acesso público ao index (root_path)
   before_action :set_template, only: [:show, :edit, :update, :destroy]
@@ -48,7 +48,8 @@ class TemplatesController < ApplicationController
   # PATCH/PUT /templates/1
   def update
     if @template.update(template_params)
-      redirect_to @template, notice: 'Template atualizado com sucesso.'
+      # Use explicit path helper to ensure non-admin route
+      redirect_to template_path(@template), notice: 'Template atualizado com sucesso.'
     else
       render :edit, status: :unprocessable_entity
     end

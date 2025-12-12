@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :aluno do
-    nome { "Aluno Test" }
-    usuario { "aluno_test" }
-    email { "aluno@test.com" }
+    sequence(:nome) { |n| "Aluno Test #{n}" }
+    sequence(:usuario) { |n| "aluno_test_#{n}" }
+    sequence(:email) { |n| "aluno#{n}@test.com" }
     curso { "Ciência da Computação" }
-    matricula { "20230001" }
+    sequence(:matricula) { |n| "2023000#{n}" }
     departamento { "CC" }
     formacao { "Graduação" }
     ocupacao { "Estudante" }

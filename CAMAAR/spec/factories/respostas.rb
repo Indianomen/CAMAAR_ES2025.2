@@ -1,8 +1,7 @@
 FactoryBot.define do
   factory :resposta do
-    texto { "Resposta de teste" }
     association :aluno
     association :pergunta
-    association :formulario
+    texto { "Esta é uma resposta de teste" }
   end
 end
