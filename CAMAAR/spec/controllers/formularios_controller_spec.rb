@@ -67,7 +67,7 @@ RSpec.describe Admin::FormulariosController, type: :controller do
     end
 
     it "assigns perguntas for the formulario" do
-      pergunta = create(:pergunta, formulario: formulario)
+      pergunta = create(:pergunta, template: template, formulario: formulario)
       get :show, params: { id: formulario.id }
       expect(assigns(:perguntas)).to include(pergunta)
     end
