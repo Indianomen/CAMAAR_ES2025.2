@@ -65,6 +65,13 @@
         <span class="link-icon">🔑</span>
         <span>Esqueci minha senha</span>
       <% end %>
+      
+      <div style="margin: 12px 0; opacity: 0.3;">•</div>
+      
+      <%= link_to admin_login_path, class: "footer-link admin-link" do %>
+        <span class="link-icon">👤</span>
+        <span>Login Administrativo</span>
+      <% end %>
     </div>
 
     <!-- Info Box -->
@@ -253,6 +260,10 @@
     text-align: center;
     padding: 20px 0;
     border-top: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
   }
 
   .footer-link {
@@ -273,6 +284,14 @@
 
   .link-icon {
     font-size: 16px;
+  }
+
+  .admin-link {
+    color: #f57c00;
+  }
+
+  .admin-link:hover {
+    color: #e96e00;
   }
 
   .info-box {

@@ -202,16 +202,18 @@
 
   <!-- TOPBAR -->
   <div class="topbar">
-    <!-- Botão do menu (acessível) -->
-    <button id="menuTrigger"
-            class="menu-area"
-            type="button"
-            title="Abrir menu"
-            aria-label="Abrir menu"
-            aria-expanded="false"
-            aria-controls="adminSidebar">
-      <div class="menu-icon" aria-hidden="true">&#9776;</div>
-    </button>
+    <% if current_administrador %>
+      <!-- Botão do menu (acessível) -->
+      <button id="menuTrigger"
+              class="menu-area"
+              type="button"
+              title="Abrir menu"
+              aria-label="Abrir menu"
+              aria-expanded="false"
+              aria-controls="adminSidebar">
+        <div class="menu-icon" aria-hidden="true">&#9776;</div>
+      </button>
+    <% end %>
 
     <div class="topbar-title">Painel Administrativo</div>
 
@@ -242,16 +244,18 @@
     </div>
   </div>
 
-    <!-- SIDEBAR (apenas AVALIAÇÕES e GERENCIAMENTO) -->
-    <nav id="adminSidebar" class="sidebar" aria-label="Menu lateral admin">
-    <a href="<%= admin_avaliacoes_path %>" class="<%= 'active' if controller_name == 'pages' && action_name == 'avaliacoes' %>">
-        Avaliações
-    </a>
+    <% if current_administrador %>
+      <!-- SIDEBAR (apenas AVALIAÇÕES e GERENCIAMENTO) -->
+      <nav id="adminSidebar" class="sidebar" aria-label="Menu lateral admin">
+      <a href="<%= admin_avaliacoes_path %>" class="<%= 'active' if controller_name == 'pages' && action_name == 'avaliacoes' %>">
+          Avaliações
+      </a>
 
-    <a href="<%= admin_root_path %>" class="<%= 'active' if controller_name == 'pages' && action_name == 'gerenciamento' %>">
-        Gerenciamento
-    </a>
-    </nav>
+      <a href="<%= admin_root_path %>" class="<%= 'active' if controller_name == 'pages' && action_name == 'gerenciamento' %>">
+          Gerenciamento
+      </a>
+      </nav>
+    <% end %>
 
 
   <!-- CONTEÚDO PRINCIPAL -->
@@ -297,6 +301,9 @@
     (function() {
       const trigger = document.getElementById('menuTrigger');
       const sidebar = document.getElementById('adminSidebar');
+
+      // Só executa se os elementos existirem (não na página de login)
+      if (!trigger || !sidebar) return;
 
       function openSidebar() {
         sidebar.classList.add('is-open');
