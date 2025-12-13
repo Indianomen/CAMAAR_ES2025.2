@@ -291,12 +291,12 @@
                         <%= link_to admin_template_path(template), 
                             method: :delete,
                             data: { 
-                                confirm: 'Tem certeza que deseja excluir este template?',
-                                turbo_confirm: 'Tem certeza que deseja excluir este template?'
+                              turbo_method: :delete,
+                              turbo_confirm: 'Tem certeza que deseja excluir este template?'
                             },
                             class: "btn btn-danger btn-sm",
                             title: "Excluir template" do %>
-                        🗑️ Excluir
+                          🗑️ Excluir
                         <% end %>
                         </div>
                     </div>

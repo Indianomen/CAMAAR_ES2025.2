@@ -4,7 +4,7 @@ module Admin
 
     # GET /admin/templates
     def index
-      @templates = current_administrador.templates.includes(:perguntas).order(created_at: :desc)
+      @templates = current_user.templates.includes(:perguntas).order(created_at: :desc)
     end
 
     # GET /admin/templates/1
@@ -21,10 +21,8 @@ module Admin
 
     # GET /admin/templates/1/edit
     def edit
-      respond_to do |format|
-        format.html
-        format.turbo_stream  # Add this line
-      end
+      # Add an empty question for adding more
+      @template.perguntas.build
     end
 
     # POST /admin/templates
@@ -43,8 +41,7 @@ module Admin
     # PATCH/PUT /admin/templates/1
     def update
       if @template.update(template_params)
-        # Use explicit path helper to ensure non-admin route
-        redirect_to template_path(@template), notice: 'Template atualizado com sucesso.'
+        redirect_to admin_template_path(@template), notice: 'Template atualizado com sucesso.'
       else
         render :edit, status: :unprocessable_entity
       end
@@ -59,21 +56,12 @@ module Admin
     private
 
     def set_template
-      @template = current_administrador.templates.find(params[:id])
+      @template = current_user.templates.find(params[:id])
     end
 
     def template_params
       params.require(:template).permit(:nome, 
         perguntas_attributes: [:id, :texto, :_destroy])
-    end
-    
-    def questions
-      @template = current_administrador.templates.find(params[:id])
-      @perguntas = @template.perguntas
-      
-      respond_to do |format|
-        format.json { render json: { perguntas: @perguntas } }
-      end
     end
   end
 end

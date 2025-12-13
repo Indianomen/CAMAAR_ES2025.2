@@ -4,10 +4,6 @@ Rails.application.routes.draw do
 
   # Root path
   root 'sessions#new'
-  
-  resources :templates do
-    resources :perguntas, only: [:new, :create]
-  end
 
   resources :alunos
   resources :professor
