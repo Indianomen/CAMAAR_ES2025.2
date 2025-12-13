@@ -1,0 +1,14 @@
+<div class="pergunta-field" data-persisted="false">
+  <div class="pergunta-header">
+    <label>Nova Pergunta</label>
+    <button type="button" class="remove-new-question" onclick="this.closest('.pergunta-field').remove()">
+      × Remover
+    </button>
+  </div>
+  <textarea 
+    name="template[perguntas_attributes][<%= index %>][texto]" 
+    rows="2"
+    class="form-control question-text"
+    placeholder="Digite o texto da pergunta..."></textarea>
+  <input type="hidden" name="template[perguntas_attributes][<%= index %>][id]" value="">
+</div>

@@ -1,0 +1,95 @@
+<style>
+  .show-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .info-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    border: 1px solid #e9ecef;
+  }
+  
+  .questions-list {
+    margin-top: 2rem;
+  }
+  
+  .question-item {
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #007bff;
+  }
+</style>
+
+<div class="show-container">
+  <div class="page-header" style="margin-bottom: 2rem;">
+    <h1>Formulário: <%= @formulario.template.nome %></h1>
+    <div class="btn-group">
+      <%= link_to '← Voltar', admin_formularios_path, class: 'btn btn-outline' %>
+      <%= link_to 'Ver Resultados', results_admin_formulario_path(@formulario),
+            class: 'btn btn-primary' %>
+    </div>
+  </div>
+  
+  <div class="info-grid">
+    <div class="info-card">
+      <h4>📋 Informações do Formulário</h4>
+      <p><strong>Criado em:</strong> <%= l(@formulario.created_at, format: :long) %></p>
+      <p><strong>Template base:</strong> <%= @formulario.template.nome %></p>
+      <p><strong>Perguntas:</strong> <%= @perguntas.count %></p>
+    </div>
+    
+    <div class="info-card">
+      <h4>🏫 Informações da Turma</h4>
+      <p><strong>Disciplina:</strong> <%= @formulario.turma.disciplina.nome %></p>
+      <p><strong>Código:</strong> <%= @formulario.turma.disciplina.codigo %></p>
+      <p><strong>Professor:</strong> <%= @formulario.turma.professor.nome %></p>
+      <p><strong>Semestre/Horário:</strong> <%= @formulario.turma.semestre %> - <%= @formulario.turma.horario %></p>
+    </div>
+    
+    <div class="info-card">
+      <h4>📊 Estatísticas de Resposta</h4>
+      <p><strong>Alunos na turma:</strong> <%= @total_students %></p>
+      <p><strong>Respostas recebidas:</strong> <%= @respostas_count %></p>
+      <p><strong>Taxa de resposta:</strong> 
+        <% rate = @total_students > 0 ? (@respostas_count.to_f / @total_students * 100).round(1) : 0 %>
+        <span class="<%= rate >= 70 ? 'text-success' : 'text-warning' %>">
+          <%= rate %>%
+        </span>
+      </p>
+    </div>
+  </div>
+  
+  <div class="questions-list">
+    <h3>Perguntas do Formulário</h3>
+    
+    <% if @perguntas.any? %>
+      <% @perguntas.each_with_index do |pergunta, index| %>
+        <div class="question-item">
+          <h5>Pergunta <%= index + 1 %></h5>
+          <p><%= pergunta.texto %></p>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="text-muted">Nenhuma pergunta neste formulário.</p>
+    <% end %>
+  </div>
+  
+  <div class="form-actions" style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #eee;">
+    <%= link_to 'Excluir Formulário', admin_formulario_path(@formulario),
+          method: :delete,
+          data: { turbo_confirm: 'Tem certeza? Esta ação não pode ser desfeita.' },
+          class: 'btn btn-danger' %>
+  </div>
+</div>

@@ -126,13 +126,11 @@ form.button.button--danger    > input[type="submit"] { background: #e74c3c; }
   %>
 
   <!-- Links com variantes -->
-  <%= button_to "Templates",
-        admin_templates_path,
+  <%= link_to "Templates", admin_templates_path, 
         class: "button button--secondary" %>
 
-  <%= button_to "Formulários",
-        admin_formularios_path,
-        class: "button button--warning" %>
+  <%= link_to "Formulários", admin_formularios_path, 
+        class: "button" %>
 
   <%= button_to "Resultados",
         admin_resultados_path,

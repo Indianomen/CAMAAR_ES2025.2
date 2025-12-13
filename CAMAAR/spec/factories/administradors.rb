@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :administrador do
-    nome { "Admin Test" }
-    usuario { "admin_test" }
-    email { "admin@test.com" }
+    sequence(:nome) { |n| "Admin Test #{n}" }
+    sequence(:usuario) { |n| "admin_test_#{n}" }
+    sequence(:email) { |n| "admin#{n}@test.com" }
     departamento { "TI" }
     formacao { "Mestrado" }
     ocupacao { "Administrador" }

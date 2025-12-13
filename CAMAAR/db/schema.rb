@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_12_08_090139) do
+ActiveRecord::Schema[8.0].define(version: 2025_12_12_000144) do
   create_table "administradors", force: :cascade do |t|
     t.string "nome"
     t.string "departamento"
@@ -36,6 +36,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_08_090139) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "alunos_formularios", id: false, force: :cascade do |t|
+    t.integer "aluno_id", null: false
+    t.integer "formulario_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["aluno_id", "formulario_id"], name: "index_alunos_formularios_on_aluno_id_and_formulario_id", unique: true
   end
 
   create_table "alunos_turmas", id: false, force: :cascade do |t|
@@ -67,7 +75,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_08_090139) do
     t.integer "template_id", null: false
     t.integer "formulario_id"
     t.string "texto"
-    t.string "resposta"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["formulario_id"], name: "index_pergunta_on_formulario_id"
@@ -85,6 +92,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_08_090139) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "registered"
+  end
+
+  create_table "respostas", force: :cascade do |t|
+    t.integer "aluno_id", null: false
+    t.integer "pergunta_id", null: false
+    t.text "texto"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["aluno_id"], name: "index_respostas_on_aluno_id"
+    t.index ["pergunta_id"], name: "index_respostas_on_pergunta_id"
   end
 
   create_table "templates", force: :cascade do |t|
@@ -113,6 +130,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_08_090139) do
   add_foreign_key "formularios", "turmas"
   add_foreign_key "pergunta", "formularios", on_delete: :nullify
   add_foreign_key "pergunta", "templates"
+  add_foreign_key "respostas", "alunos"
+  add_foreign_key "respostas", "pergunta", column: "pergunta_id"
   add_foreign_key "templates", "administradors"
   add_foreign_key "turmas", "disciplinas"
   add_foreign_key "turmas", "formularios"
