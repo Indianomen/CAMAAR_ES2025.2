@@ -5,6 +5,22 @@
     padding: 2rem;
   }
   
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .page-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0;
+  }
+  
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -18,6 +34,7 @@
     padding: 1.5rem;
     text-align: center;
     border: 1px solid #e9ecef;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   }
   
   .stat-value {
@@ -36,6 +53,7 @@
     background: white;
     border-radius: 8px;
     border: 1px solid #e9ecef;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   }
   
   .answer-item {
@@ -51,23 +69,147 @@
     color: #6c757d;
     margin-top: 0.5rem;
   }
+  
+  /* Button styles matching templates */
+  .btn-group {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+  }
+  
+  .btn-outline {
+    background: transparent;
+    color: #6c757d;
+    border-color: #6c757d;
+  }
+  
+  .btn-outline:hover {
+    background: #6c757d;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(108, 117, 125, 0.2);
+  }
+  
+  .btn-primary {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+  }
+  
+  .btn-primary:hover {
+    background: #0056b3;
+    border-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+  }
+  
+  .btn-success {
+    background: #28a745;
+    color: white;
+    border-color: #28a745;
+  }
+  
+  .btn-success:hover {
+    background: #218838;
+    border-color: #1e7e34;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.2);
+  }
+  
+  /* Alert styles */
+  .alert {
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    border: 1px solid transparent;
+  }
+  
+  .alert-info {
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+    color: #0c5460;
+  }
+  
+  .alert-warning {
+    background-color: #fff3cd;
+    border-color: #ffeaa7;
+    color: #856404;
+  }
+  
+  /* Text utilities */
+  .text-success {
+    color: #28a745;
+  }
+  
+  .text-warning {
+    color: #ffc107;
+  }
+  
+  .text-muted {
+    color: #6c757d;
+  }
 </style>
 
 <div class="results-container">
-  <div class="page-header" style="margin-bottom: 2rem;">
-    <h1>📊 Resultados: <%= @formulario.template.nome %></h1>
+  <!-- Header with buttons -->
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">📊 Resultados: <%= @formulario.template.nome %></h1>
+      <p class="text-muted" style="margin-top: 0.5rem;">
+        Turma: <%= @formulario.turma.disciplina.nome %> (<%= @formulario.turma.semestre %>)
+      </p>
+    </div>
+    
     <div class="btn-group">
-      <%= link_to '← Voltar ao Formulário', admin_formulario_path(@formulario), 
-            class: 'btn btn-outline' %>
-      <%= link_to 'Exportar CSV', '#', class: 'btn btn-primary' %>
+      <%= link_to admin_formulario_path(@formulario), class: 'btn btn-outline' do %>
+        <span>←</span>
+        <span>Voltar ao Formulário</span>
+      <% end %>
+      
+      <<%= link_to export_csv_admin_formulario_path(@formulario, format: :csv), class: 'btn btn-primary' do %>
+        <span>📥</span>
+        <span>Exportar CSV</span>
+      <% end %>
+      
+      <!-- Optional: Add a button to send form if not already sent -->
+      <% unless @formulario.alunos_respostas.any? %>
+        <%= button_to send_to_students_admin_formulario_path(@formulario),
+              method: :post,
+              form: { 
+                data: { 
+                  turbo_confirm: 'Enviar este formulário para todos os alunos da turma?'
+                },
+                class: "inline-btn-form"
+              },
+              class: "btn btn-success" do %>
+          <span>📤</span>
+          <span>Enviar para Alunos</span>
+        <% end %>
+      <% end %>
     </div>
   </div>
   
+  <!-- Info Alert -->
   <div class="alert alert-info">
     <strong>⚠️ Dados Anônimos:</strong> As respostas são exibidas de forma anônima. 
     Não é possível identificar qual aluno respondeu cada avaliação.
   </div>
   
+  <!-- Statistics Cards -->
   <div class="stats-grid">
     <div class="stat-card">
       <div class="stat-value"><%= @total_students %></div>
@@ -92,13 +234,14 @@
     </div>
   </div>
   
+  <!-- Answers Section -->
   <div class="answers-section">
     <h3>Respostas por Pergunta</h3>
     
     <% if @answers_by_question.any? %>
       <% @answers_by_question.each do |pergunta, respostas| %>
         <div class="question-answers">
-          <h4><%= pergunta.texto %></h4>
+          <h4 style="margin-bottom: 0.5rem;"><%= pergunta.texto %></h4>
           <p class="text-muted" style="margin-bottom: 1rem;">
             <%= respostas.count %> respostas recebidas
           </p>
@@ -122,3 +265,36 @@
     <% end %>
   </div>
 </div>
+
+<style>
+  .inline-btn-form {
+    display: inline;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .inline-btn-form button {
+    all: unset;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 6px;
+    border: 1px solid;
+    transition: all 0.2s ease;
+    background-color: #28a745;
+    color: white;
+    border-color: #28a745;
+  }
+  
+  .inline-btn-form button:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.2);
+  }
+</style>

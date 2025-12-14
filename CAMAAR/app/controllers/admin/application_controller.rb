@@ -1,7 +1,8 @@
 module Admin
   class ApplicationController < ::ApplicationController
     layout "admin"
-
+    before_action :authenticate_administrador!
+    
     helper_method :current_administrador, :administrador_signed_in?
 
     private
@@ -15,7 +16,10 @@ module Admin
     end
 
     def authenticate_administrador!
-      redirect_to admin_login_path unless administrador_signed_in?
+      unless administrador_signed_in?
+        flash[:alert] = "Acesso restrito a administradores"
+        redirect_to admin_login_path
+      end
     end
   end
 end

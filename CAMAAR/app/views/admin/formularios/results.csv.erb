@@ -1,0 +1,10 @@
+Formulário: <%= @formulario.template.nome %>
+Turma: <%= @formulario.turma.disciplina.nome %> (<%= @formulario.turma.semestre %>)
+Data da Exportação: <%= Time.current.strftime("%d/%m/%Y %H:%M") %>
+
+Pergunta,Resposta,Data da Resposta
+<% @answers_by_question.each do |pergunta, respostas| %>
+  <% respostas.each do |resposta| %>
+"<%= pergunta.texto %>","<%= resposta.texto %>",<%= resposta.created_at.strftime("%d/%m/%Y %H:%M") %>
+  <% end %>
+<% end %>

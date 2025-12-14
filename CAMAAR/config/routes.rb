@@ -4,17 +4,12 @@ Rails.application.routes.draw do
 
   # Root path
   root 'sessions#new'
-  
-  resources :templates do
-    resources :perguntas, only: [:new, :create]
-  end
 
   resources :alunos
   resources :professor
   resources :administradors
   resources :disciplinas
   resources :turmas
-  resources :formularios
   resources :perguntas
 
   # Sessões
@@ -38,7 +33,13 @@ Rails.application.routes.draw do
     resources :alunos
     resources :professors
     resources :disciplinas
-    resources :formularios
+    resources :formularios do
+      member do
+        post :send_to_students
+        get :results
+        get :export_csv
+      end
+    end
     resources :templates do
       resources :perguntas, only: [:new, :create]
     end

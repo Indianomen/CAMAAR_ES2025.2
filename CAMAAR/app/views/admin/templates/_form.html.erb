@@ -1,5 +1,4 @@
-
-<%= form_with(model: [:admin, @template], id: 'template-form') do |form| %>
+<%= form_with(model: [:admin, @template], id: 'template-form', data: { controller: 'questions' }) do |form| %>
   <% if @template.errors.any? %>
     <div class="alert alert-error">
       <h3><%= pluralize(@template.errors.count, "erro") %> impediram este template de ser salvo:</h3>
@@ -24,7 +23,7 @@
     <h3>Perguntas</h3>
     <small class="form-text">Adicione as questões que farão parte deste template</small>
     
-    <div id="perguntas-container">
+    <div id="perguntas-container" data-questions-target="container">
       <%# Calculate starting index for new questions %>
       <% existing_count = @template.perguntas.select(&:persisted?).count %>
       <% new_question_index = existing_count %>
@@ -40,30 +39,32 @@
               </div>
             <% else %>
               <label>Nova Pergunta</label>
-              <button type="button" class="remove-new-question">× Remover</button>
+              <button type="button" class="remove-new-question" data-action="click->questions#remove">
+                × Remover
+              </button>
             <% end %>
           </div>
           <%= pergunta_fields.text_area :texto, 
                 rows: 2,
                 class: 'form-control question-text',
-                placeholder: 'Digite o texto da pergunta...' %>
+                placeholder: 'Digite o texto da pergunta...',
+                data: { "questions-target": "questionText" } %>
           <%= pergunta_fields.hidden_field :id if pergunta_fields.object.persisted? %>
         </div>
       <% end %>
     </div>
     
-     <%= button_tag type: 'button', 
+    <%= button_tag type: 'button', 
         id: 'add-question',
         class: 'btn btn-outline',
-        data: { 
-          controller: 'questions',
-          action: 'questions#add'
-        } do %>
-           + Adicionar nova pergunta
-      <% end %>
+        data: { action: 'click->questions#add' } do %>
+      + Adicionar nova pergunta
+    <% end %>
     
     <%# Hidden field to track next index %>
-    <input type="hidden" id="next-question-index" value="<%= new_question_index %>">
+    <%= hidden_field_tag 'next_question_index', new_question_index, 
+          id: 'next-question-index',
+          data: { "questions-target": "index" } %>
   </div>
 
   <div class="form-actions">
@@ -232,184 +233,36 @@
   }
 </style>
 
+<%= javascript_include_tag "controllers/templates_controller", type: "module" %>
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const container = document.getElementById('perguntas-container');
     const addButton = document.getElementById('add-question');
-    const nextIndexInput = document.getElementById('next-question-index');
+    const container = document.getElementById('perguntas-container');
     
-    // Initialize index
-    let nextIndex = parseInt(nextIndexInput.value) || 0;
-    
-    // Function to update the hidden index
-    function updateNextIndex() {
-      nextIndexInput.value = nextIndex;
-    }
-    
-    // Function to add a new question
-    function addNewQuestion() {
-      const timestamp = new Date().getTime();
-      const index = nextIndex;
-      
-      const html = `
-        <div class="pergunta-field" data-persisted="false" data-timestamp="${timestamp}">
-          <div class="pergunta-header">
-            <label>Nova Pergunta</label>
-            <button type="button" class="remove-new-question" data-index="${index}">
-              × Remover
-            </button>
+    if (addButton && container) {
+      addButton.addEventListener('click', function() {
+        const questionCount = container.querySelectorAll('.pergunta-field').length;
+        
+        const html = `
+          <div class="pergunta-field" data-persisted="false">
+            <div class="pergunta-header">
+              <label>Nova Pergunta</label>
+              <button type="button" class="remove-new-question" onclick="this.closest('.pergunta-field').remove()">
+                × Remover
+              </button>
+            </div>
+            <textarea 
+              name="template[perguntas_attributes][${questionCount}][texto]" 
+              rows="2"
+              class="form-control question-text"
+              placeholder="Digite o texto da pergunta..."></textarea>
+            <input type="hidden" name="template[perguntas_attributes][${questionCount}][id]" value="">
           </div>
-          <textarea 
-            name="template[perguntas_attributes][${index}][texto]" 
-            rows="2"
-            class="form-control question-text"
-            placeholder="Digite o texto da pergunta..."
-            data-index="${index}"></textarea>
-          <input type="hidden" name="template[perguntas_attributes][${index}][id]" value="">
-        </div>
-      `;
-      
-      container.insertAdjacentHTML('beforeend', html);
-      nextIndex++;
-      updateNextIndex();
-      
-      // Attach remove event to the new button
-      const newField = container.querySelector(`[data-timestamp="${timestamp}"]`);
-      const removeButton = newField.querySelector('.remove-new-question');
-      
-      removeButton.addEventListener('click', function() {
-        const fieldIndex = this.dataset.index;
-        newField.remove();
+        `;
         
-        // Re-index remaining new questions
-        reindexNewQuestions();
-        
-        // Update UI
-        updateQuestionNumbers();
-      });
-      
-      // Focus the new textarea
-      const newTextarea = newField.querySelector('textarea');
-      setTimeout(() => {
-        newTextarea.focus();
-      }, 100);
-      
-      // Update UI
-      updateQuestionNumbers();
-      
-      console.log(`Added question with index ${index}, next index: ${nextIndex}`);
-    }
-    
-    // Function to re-index new questions after removal
-    function reindexNewQuestions() {
-      const newFields = container.querySelectorAll('.pergunta-field[data-persisted="false"]');
-      let currentIndex = nextIndex - newFields.length;
-      
-      newFields.forEach((field, position) => {
-        const textarea = field.querySelector('textarea');
-        const removeButton = field.querySelector('.remove-new-question');
-        const index = currentIndex + position;
-        
-        // Update data attributes
-        field.dataset.timestamp = new Date().getTime() + position;
-        removeButton.dataset.index = index;
-        textarea.dataset.index = index;
-        
-        // Update name attributes
-        textarea.name = `template[perguntas_attributes][${index}][texto]`;
-        
-        // Find and update hidden id field
-        const hiddenId = field.querySelector('input[type="hidden"][name$="[id]"]');
-        if (hiddenId) {
-          hiddenId.name = `template[perguntas_attributes][${index}][id]`;
-        }
-      });
-      
-      // Update nextIndex
-      nextIndex = currentIndex + newFields.length;
-      updateNextIndex();
-      
-      console.log('Re-indexed questions, next index:', nextIndex);
-    }
-    
-    // Function to update question numbers in UI
-    function updateQuestionNumbers() {
-      const allFields = container.querySelectorAll('.pergunta-field');
-      let questionNumber = 1;
-      
-      allFields.forEach((field, index) => {
-        const label = field.querySelector('label');
-        if (label && field.dataset.persisted === 'true') {
-          label.textContent = `Pergunta #${questionNumber}`;
-          questionNumber++;
-        }
+        container.insertAdjacentHTML('beforeend', html);
       });
     }
-    
-    // Attach event to existing "Add question" button
-    addButton.addEventListener('click', addNewQuestion);
-    
-    // Attach remove events to existing new questions
-    document.querySelectorAll('.remove-new-question').forEach(button => {
-      button.addEventListener('click', function() {
-        const field = this.closest('.pergunta-field');
-        field.remove();
-        reindexNewQuestions();
-        updateQuestionNumbers();
-      });
-    });
-    
-    // Handle form submission - clean empty new questions
-    const form = document.getElementById('template-form');
-    form.addEventListener('submit', function(e) {
-      // Find empty new questions
-      const emptyNewQuestions = [];
-      
-      container.querySelectorAll('.pergunta-field[data-persisted="false"]').forEach(field => {
-        const textarea = field.querySelector('.question-text');
-        if (!textarea.value.trim()) {
-          emptyNewQuestions.push(field);
-        }
-      });
-      
-      // Remove empty new questions
-      emptyNewQuestions.forEach(field => {
-        console.log('Removing empty question:', field.dataset.timestamp);
-        field.remove();
-      });
-      
-      // Re-index after removal
-      if (emptyNewQuestions.length > 0) {
-        reindexNewQuestions();
-      }
-      
-      // Check if we have at least one question with content
-      const allTextareas = container.querySelectorAll('.question-text');
-      let hasContent = false;
-      
-      allTextareas.forEach(textarea => {
-        if (textarea.value.trim()) {
-          hasContent = true;
-        }
-      });
-      
-      // If no content and there are textareas, prevent submission
-      if (!hasContent && allTextareas.length > 0) {
-        e.preventDefault();
-        alert('⚠️ Pelo menos uma pergunta deve ter conteúdo!');
-        return false;
-      }
-      
-      // Log final state for debugging
-      console.log('Form submitted with questions:', allTextareas.length);
-    });
-    
-    // Initial UI update
-    updateQuestionNumbers();
-    
-    // Debug: Log initial state
-    console.log('Initial nextIndex:', nextIndex);
-    console.log('Existing persisted questions:', container.querySelectorAll('.pergunta-field[data-persisted="true"]').length);
-    console.log('Existing new questions:', container.querySelectorAll('.pergunta-field[data-persisted="false"]').length);
   });
 </script>
