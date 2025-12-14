@@ -110,6 +110,33 @@ form.button.button--danger    > input[type="submit"] { background: #e74c3c; }
 ">
   <h2>Painel Administrativo</h2>
 
+  <!-- Metrics Cards -->
+  <div style="display: flex; gap: 15px; margin: 20px 0; justify-content: center;">
+    <div style="
+      flex: 1;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 8px;
+      color: white;
+      text-align: center;
+    ">
+      <div style="font-size: 32px; font-weight: bold;"><%= @total_templates %></div>
+      <div style="font-size: 14px; opacity: 0.9;">Templates Criados</div>
+    </div>
+    
+    <div style="
+      flex: 1;
+      padding: 20px;
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      border-radius: 8px;
+      color: white;
+      text-align: center;
+    ">
+      <div style="font-size: 32px; font-weight: bold;"><%= @total_formularios %></div>
+      <div style="font-size: 14px; opacity: 0.9;">Avaliações Criadas</div>
+    </div>
+  </div>
+
   <!-- button_to: visual igual aos links; desabilita Turbo para este submit -->
   <!-- Em Rails 7+, 'class:' abaixo vai para o <button>; em versões mais antigas, vai para o <form>, e o CSS acima cuida do botão interno -->
   <%= button_to "Importar Dados",
