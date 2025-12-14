@@ -233,4 +233,36 @@
   }
 </style>
 
-<%= javascript_include_tag "controllers/questions_controller", type: "module" %>
+<%= javascript_include_tag "controllers/templates_controller", type: "module" %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const addButton = document.getElementById('add-question');
+    const container = document.getElementById('perguntas-container');
+    
+    if (addButton && container) {
+      addButton.addEventListener('click', function() {
+        const questionCount = container.querySelectorAll('.pergunta-field').length;
+        
+        const html = `
+          <div class="pergunta-field" data-persisted="false">
+            <div class="pergunta-header">
+              <label>Nova Pergunta</label>
+              <button type="button" class="remove-new-question" onclick="this.closest('.pergunta-field').remove()">
+                × Remover
+              </button>
+            </div>
+            <textarea 
+              name="template[perguntas_attributes][${questionCount}][texto]" 
+              rows="2"
+              class="form-control question-text"
+              placeholder="Digite o texto da pergunta..."></textarea>
+            <input type="hidden" name="template[perguntas_attributes][${questionCount}][id]" value="">
+          </div>
+        `;
+        
+        container.insertAdjacentHTML('beforeend', html);
+      });
+    }
+  });
+</script>

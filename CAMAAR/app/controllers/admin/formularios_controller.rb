@@ -21,6 +21,7 @@ module Admin
     # GET /admin/formularios/1
     def show
       @perguntas = @formulario.perguntas
+      @respostas = @formulario.respostas
     end
     
     # GET /admin/formularios/1/edit
@@ -36,10 +37,31 @@ module Admin
       @turmas = Turma.all.order(:semestre, :horario)
       
       if @formulario.save
+        # Don't send immediately - just create the form
+        # assign_form_to_students(@formulario)  # REMOVE or COMMENT this line
+        
         redirect_to admin_formulario_path(@formulario), 
-                    notice: 'Formulário criado com sucesso.'
+                    notice: 'Formulário criado com sucesso. Você pode enviá-lo aos alunos quando estiver pronto.'
       else
         render :new, status: :unprocessable_entity
+      end
+    end
+
+  # Add a new action for sending forms to students
+    def send_to_students
+      @formulario = current_administrador.formularios.find(params[:id])
+      
+      if @formulario.turma.alunos.any?
+        @formulario.turma.alunos.each do |aluno|
+          # Add form to student's pending forms
+          aluno.formularios_respostas << @formulario unless aluno.formularios_respostas.include?(@formulario)
+        end
+        
+        redirect_to admin_formulario_path(@formulario), 
+                    notice: 'Formulário enviado para todos os alunos da turma.'
+      else
+        redirect_to admin_formulario_path(@formulario), 
+                    alert: 'Esta turma não tem alunos matriculados.'
       end
     end
     
@@ -72,6 +94,15 @@ module Admin
       @total_students = @formulario.turma&.alunos&.count || 0
       @response_rate = @total_students > 0 ? 
         (@total_responses.to_f / @total_students * 100).round(1) : 0
+
+      #CSV STUFF
+      respond_to do |format|
+        format.html
+        format.csv do
+          headers['Content-Disposition'] = "attachment; filename=\"resultados_formulario_#{@formulario.id}.csv\""
+          headers['Content-Type'] ||= 'text/csv'
+        end
+      end
     end
     
     private

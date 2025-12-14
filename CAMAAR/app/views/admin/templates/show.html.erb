@@ -111,6 +111,84 @@
     border-top: 1px solid #e9ecef;
   }
 
+  /* Action buttons in show page - match index card buttons */
+  .action-buttons .btn-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    }
+
+  .action-buttons .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 0.375rem;
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .action-buttons .btn-outline {
+    background-color: transparent;
+    border-color: #6c757d;
+    color: #6c757d;
+  }
+
+  .action-buttons .btn-outline:hover {
+    background-color: #6c757d;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(108, 117, 125, 0.2);
+  }
+
+  .action-buttons .btn-outline-danger {
+    background-color: transparent;
+    border-color: #dc3545;
+    color: #dc3545;
+  }
+
+  .action-buttons .btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(220, 53, 69, 0.2);
+  }
+
+  /* Fix for button_to form styling */
+  .inline-btn-form {
+    display: inline;
+    margin: 0;
+    padding: 0;
+  }
+
+  .inline-btn-form button {
+    all: unset;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 0.375rem;
+    border: 1px solid transparent;
+    transition: all 0.2s ease-in-out;
+    background-color: transparent;
+    border-color: #dc3545;
+    color: #dc3545;
+  }
+
+  .inline-btn-form button:hover {
+    background-color: #dc3545;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(220, 53, 69, 0.2);
+  }
+
   @media (max-width: 768px) {
     .show-container {
       padding: 1rem;
@@ -143,9 +221,6 @@
       <h1 class="show-title"><%= @template.nome %></h1>
       <p style="color: #6c757d; margin-top: 0.5rem;">ID: <%= @template.id %></p>
     </div>
-    <div>
-      <%= link_to '← Voltar', admin_templates_path, class: 'btn btn-outline' %>
-    </div>
   </div>
 
   <!-- Template Info Card -->
@@ -177,7 +252,6 @@
   <div class="card">
     <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
       <span>Perguntas</span>
-      <%= link_to '✏️ Editar Perguntas', edit_admin_template_path(@template), class: 'btn btn-sm btn-outline' %>
     </div>
     <div class="card-body">
       <% if @perguntas.any? %>
@@ -200,14 +274,28 @@
 
   <!-- Action Buttons -->
   <div class="action-buttons">
-    <%= link_to '✏️ Editar Template', edit_admin_template_path(@template), class: 'btn btn-primary' %>
-    <%= link_to '🗑️ Excluir Template', admin_template_path(@template),
+    <div class="btn-group">
+      <%= link_to edit_admin_template_path(@template), class: "btn btn-outline" do %>
+        <span style="margin-right: 8px;">✏️</span> Editar Template
+      <% end %>
+      
+      <%= button_to admin_template_path(@template),
           method: :delete,
-          data: { 
-            confirm: 'Tem certeza que deseja excluir este template? Esta ação não pode ser desfeita.',
-            turbo_confirm: 'Tem certeza que deseja excluir este template? Esta ação não pode ser desfeita.'
+          form: { 
+            data: { 
+              turbo_confirm: 'Tem certeza que deseja excluir este template? Esta ação não pode ser desfeita.'
+            },
+            class: "inline-btn-form"
           },
-          class: 'btn btn-danger' %>
+          class: "btn btn-outline-danger",
+          title: "Excluir template" do %>
+        <span style="margin-right: 8px;">🗑️</span> Excluir Template
+      <% end %>
+      
+      <%= link_to '← Voltar', admin_templates_path, class: 'btn btn-outline' %>
+
+    </div>
+  </div>
     
     <%# You can add this later when working on forms %>
     <%#= link_to '📄 Criar Formulário', new_admin_formulario_path(template_id: @template.id), class: 'btn btn-success' %>

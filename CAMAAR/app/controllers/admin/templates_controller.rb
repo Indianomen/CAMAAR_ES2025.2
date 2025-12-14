@@ -4,7 +4,7 @@ module Admin
 
     # GET /admin/templates
     def index
-      @templates = current_user.templates.includes(:perguntas).order(created_at: :desc)
+      @templates = current_administrador.templates.includes(:perguntas).order(created_at: :desc)
     end
 
     # GET /admin/templates/1
@@ -56,7 +56,7 @@ module Admin
     private
 
     def set_template
-      @template = current_user.templates.find(params[:id])
+      @template = current_administrador.templates.find(params[:id])
     end
 
     def template_params

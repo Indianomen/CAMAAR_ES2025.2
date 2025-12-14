@@ -282,23 +282,24 @@
 
                 <div class="template-card-footer">
                     <div class="btn-group">
-                        <%= link_to admin_template_path(template), class: "btn btn-outline btn-sm", title: "Visualizar template" do %>
-                            👁️ Visualizar
-                        <% end %>
-                        <%= link_to edit_admin_template_path(template), class: "btn btn-outline btn-sm", title: "Editar template" do %>
-                            ✏️ Editar
-                        <% end %>                    
-                        <%= link_to admin_template_path(template), 
-                            method: :delete,
+                      <%= link_to admin_template_path(template), class: "btn btn-outline btn-sm", title: "Visualizar template" do %>
+                        👁️ Visualizar
+                      <% end %>
+                      <%= link_to edit_admin_template_path(template), class: "btn btn-outline btn-sm", title: "Editar template" do %>
+                        ✏️ Editar
+                      <% end %>                    
+                      <%= button_to admin_template_path(template),
+                          method: :delete,
+                          form: { 
                             data: { 
-                              turbo_method: :delete,
                               turbo_confirm: 'Tem certeza que deseja excluir este template?'
-                            },
-                            class: "btn btn-danger btn-sm",
-                            title: "Excluir template" do %>
-                          🗑️ Excluir
-                        <% end %>
-                        </div>
+                            } 
+                          },
+                          class: "btn btn-danger btn-sm",
+                          title: "Excluir template" do %>
+                        🗑️ Excluir
+                      <% end %>
+                    </div>
                     </div>
                 </div>
             <% end %>

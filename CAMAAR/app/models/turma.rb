@@ -15,4 +15,8 @@ class Turma < ApplicationRecord
   def full_description
     "#{disciplina.nome} (#{disciplina.codigo}) - #{professor.nome} - #{semestre} - #{horario}"
   end
+  
+  def simple_description
+    "#{disciplina.codigo} - #{professor.nome} - #{semestre}"
+  end
 end
