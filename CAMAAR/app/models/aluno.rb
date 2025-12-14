@@ -23,6 +23,13 @@ class Aluno < ApplicationRecord
   end
   
   def formularios_pendentes
-    formularios.where.not(id: formularios_respostas.pluck(:id))
+    # A form is pending if it was sent to the student but has NO responses from them
+    # We need to check for actual Resposta records, not the formularios_respostas association
+    formularios_com_resposta = Formulario.joins(:perguntas => :respostas)
+                                         .where(respostas: { aluno_id: id })
+                                         .distinct
+                                         .pluck(:id)
+    
+    formularios.where.not(id: formularios_com_resposta)
   end
 end
