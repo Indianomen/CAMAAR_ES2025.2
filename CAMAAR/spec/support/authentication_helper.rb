@@ -1,6 +1,7 @@
 module AuthenticationHelper
-  # Generic method to set session
+  # Generic method to set session (only works in controller specs)
   def set_session_for(user)
+    return unless respond_to?(:session)
     session[:user_id] = user.id
     session[:user_type] = user.class.name
   end
@@ -77,21 +78,46 @@ module AuthenticationHelper
   
   # Logout helper
   def logout
-    session[:user_id] = nil
-    session[:user_type] = nil
-    
-    allow(controller).to receive(:current_user).and_return(nil)
-    allow(controller).to receive(:require_login).and_call_original
-    
-    if controller.class.name.start_with?('Admin::')
-      allow(controller).to receive(:current_administrador).and_return(nil)
-      allow(controller).to receive(:authenticate_administrador!).and_call_original
-    else
+    if respond_to?(:session)
+      # Controller specs - use session directly
+      session[:user_id] = nil
+      session[:user_type] = nil
+      
+      allow(controller).to receive(:current_user).and_return(nil)
       allow(controller).to receive(:require_login).and_call_original
+      
+      if controller.class.name.start_with?('Admin::')
+        allow(controller).to receive(:current_administrador).and_return(nil)
+        allow(controller).to receive(:authenticate_administrador!).and_call_original
+      else
+        allow(controller).to receive(:require_login).and_call_original
+      end
+    else
+      # Feature specs - use Capybara to logout
+      visit logout_path if defined?(visit)
+    end
+  end
+  
+  # Capybara helper for feature specs (cannot use session directly)
+  def capybara_login_as(user, password: 'password123')
+    case user.class.name
+    when 'Administrador'
+      # Admin login uses different path and field names
+      visit admin_login_path
+      fill_in 'Usuário', with: user.usuario
+      fill_in 'Senha', with: password
+      click_button 'Entrar'
+    else
+      # Regular user login (Aluno, Professor)
+      visit login_path
+      fill_in 'Email', with: user.email
+      fill_in 'Senha', with: password
+      click_button 'Entrar'
     end
   end
 end
 
 RSpec.configure do |config|
   config.include AuthenticationHelper, type: :controller
+  config.include AuthenticationHelper, type: :feature
 end

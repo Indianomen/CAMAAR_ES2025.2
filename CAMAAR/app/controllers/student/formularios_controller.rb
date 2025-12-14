@@ -61,9 +61,7 @@ module Student
             )
           end
           
-          # Note: We don't need to add to formularios_respostas here
           # The form is already in alunos_formularios (added when admin sent it)
-          # We just created Resposta records which mark it as answered
         end
         
         flash[:notice] = "Respostas enviadas com sucesso! Obrigado por participar da avaliação."
