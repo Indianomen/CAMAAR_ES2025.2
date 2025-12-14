@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe TemplatesController, type: :controller do
+RSpec.describe Admin::TemplatesController, type: :controller do
   let(:admin) { create(:administrador) }
   let(:aluno) { create(:aluno) }
   
