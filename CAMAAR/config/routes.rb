@@ -19,6 +19,18 @@ Rails.application.routes.draw do
 
   get 'dashboard', to: 'pages#dashboard'
 
+  # Student namespace for student-specific routes
+  namespace :student do
+    get 'dashboard', to: 'dashboard#index'
+    root to: 'dashboard#index'
+    
+    resources :formularios, only: [:index, :show] do
+      member do
+        post :submit
+      end
+    end
+  end
+
   # Password Reset
   resources :password_resets, only: [:new, :create, :edit, :update]
 
