@@ -1,0 +1,285 @@
+<style>
+  .form-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .form-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0 0 0.5rem 0;
+  }
+  
+  .form-subtitle {
+    color: #6c757d;
+    margin: 0;
+  }
+  
+  .card {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  
+  .card-header {
+    padding: 1rem 1.5rem;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    font-weight: 600;
+    color: #495057;
+  }
+  
+  .card-body {
+    padding: 1.5rem;
+  }
+  
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .info-item {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .info-label {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-bottom: 0.25rem;
+  }
+  
+  .info-value {
+    font-size: 1rem;
+    color: #2c3e50;
+    font-weight: 500;
+  }
+  
+  .questions-form {
+    margin: 0;
+  }
+  
+  .question-item {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #007bff;
+  }
+  
+  .question-header {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+  
+  .question-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: #007bff;
+    color: white;
+    border-radius: 50%;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-right: 1rem;
+    flex-shrink: 0;
+  }
+  
+  .question-text {
+    flex: 1;
+    color: #2c3e50;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.6;
+  }
+  
+  .question-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 0.9375rem;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  .question-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+  }
+  
+  .required-indicator {
+    color: #dc3545;
+    margin-left: 0.25rem;
+  }
+  
+  .form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e9ecef;
+  }
+  
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-outline {
+    background: transparent;
+    color: #6c757d;
+    border-color: #6c757d;
+  }
+  
+  .btn-outline:hover {
+    background: #6c757d;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(108, 117, 125, 0.2);
+  }
+  
+  .btn-success {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 12px rgba(17, 153, 142, 0.3);
+  }
+  
+  .btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(17, 153, 142, 0.4);
+  }
+  
+  .btn-success:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  .alert {
+    padding: 1rem 1.5rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .alert-danger {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+  }
+</style>
+
+<div class="form-container">
+  <!-- Header -->
+  <div class="form-header">
+    <div>
+      <h1 class="form-title"><%= @formulario.template.nome %></h1>
+      <p class="form-subtitle">
+        <%= @formulario.turma.disciplina.nome %> • <%= @formulario.turma.semestre %>
+      </p>
+    </div>
+    <%= link_to '← Voltar', student_formularios_path, class: 'btn btn-outline' %>
+  </div>
+  
+  <!-- Alert for errors -->
+  <% if flash[:alert] %>
+    <div class="alert alert-danger">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+  
+  <!-- Form Info Card -->
+  <div class="card">
+    <div class="card-header">Informações da Avaliação</div>
+    <div class="card-body">
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">Disciplina</span>
+          <span class="info-value"><%= @formulario.turma.disciplina.nome %></span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Professor</span>
+          <span class="info-value"><%= @formulario.turma.professor.nome %></span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Semestre</span>
+          <span class="info-value"><%= @formulario.turma.semestre %></span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Perguntas</span>
+          <span class="info-value"><%= @perguntas.count %> perguntas</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Questions Form -->
+  <%= form_with url: submit_student_formulario_path(@formulario), method: :post, class: 'questions-form' do |f| %>
+    <div class="card">
+      <div class="card-header">
+        Responda todas as perguntas
+        <span class="required-indicator">* Todas as perguntas são obrigatórias</span>
+      </div>
+      <div class="card-body">
+        <% @perguntas.each_with_index do |pergunta, index| %>
+          <div class="question-item">
+            <div class="question-header">
+              <span class="question-number"><%= index + 1 %></span>
+              <div class="question-text">
+                <%= pergunta.texto %>
+                <span class="required-indicator">*</span>
+              </div>
+            </div>
+            <%= text_area_tag "respostas[#{pergunta.id}]", 
+                              params.dig(:respostas, pergunta.id.to_s),
+                              class: 'question-input',
+                              placeholder: 'Digite sua resposta aqui...',
+                              required: true %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    
+    <!-- Form Actions -->
+    <div class="form-actions">
+      <%= link_to 'Cancelar', student_formularios_path, class: 'btn btn-outline' %>
+      <%= button_tag type: 'submit', class: 'btn btn-success', 
+                     data: { confirm: 'Tem certeza que deseja enviar suas respostas? Você não poderá alterá-las depois.' } do %>
+        <span>📤</span>
+        <span>Enviar Respostas</span>
+      <% end %>
+    </div>
+  <% end %>
+</div>
