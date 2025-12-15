@@ -29,8 +29,6 @@ RSpec.describe Template, type: :model do
     
     it "is invalid without at least one question" do
       template = build(:template, nome: "Template sem perguntas", administrador: admin)
-      # Note: This validation is not currently enforced in the model
-      # Skipping this test until validation is added
       skip "Template validation for minimum questions not implemented"
       expect(template).to be_invalid
       expect(template.errors[:perguntas]).to include("must have at least one question")

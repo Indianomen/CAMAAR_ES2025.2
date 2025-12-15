@@ -10,7 +10,7 @@ FactoryBot.define do
     trait :with_formulario do
       association :formulario
       template_id { nil }
-      resposta { "Resposta exemplo" } # If storing answers in pergunta table
+      resposta { "Resposta exemplo" }
     end
   end
 end

@@ -2,25 +2,20 @@ class AlunosController < ApplicationController
   before_action :require_login
   before_action :set_aluno, only: %i[ show edit update destroy ]
 
-  # GET /alunos or /alunos.json
   def index
     @alunos = Aluno.all
   end
 
-  # GET /alunos/1 or /alunos/1.json
   def show
   end
 
-  # GET /alunos/new
   def new
     @aluno = Aluno.new
   end
 
-  # GET /alunos/1/edit
   def edit
   end
 
-  # POST /alunos or /alunos.json
   def create
     @aluno = Aluno.new(aluno_params)
 
@@ -35,7 +30,6 @@ class AlunosController < ApplicationController
     end
   end
 
-  # PATCH/PUT /alunos/1 or /alunos/1.json
   def update
     respond_to do |format|
       if @aluno.update(aluno_params)
@@ -48,7 +42,6 @@ class AlunosController < ApplicationController
     end
   end
 
-  # DELETE /alunos/1 or /alunos/1.json
   def destroy
     @aluno.destroy!
 
@@ -59,12 +52,10 @@ class AlunosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_aluno
       @aluno = Aluno.find(params.expect(:id))
     end
 
-    # Only allow a list of trusted parameters through.
     def aluno_params
       params.expect(aluno: [ :nome, :curso, :matricula, :departamento, :formacao, :usuario, :email, :ocupacao, :registered, :password_digest ])
     end

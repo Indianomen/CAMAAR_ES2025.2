@@ -1,5 +1,4 @@
 
-# spec/requests/admin_formularios_results_spec.rb
 require 'rails_helper'
 
 RSpec.describe "Admin::Formularios results", type: :request do
@@ -9,7 +8,6 @@ RSpec.describe "Admin::Formularios results", type: :request do
   let(:turma)      { create(:turma, disciplina: disciplina, semestre: "2025.1") }
   let(:formulario) { create(:formulario, administrador: admin, template: template, turma: turma) }
 
-  # ✅ Passa o template junto, para satisfazer o NOT NULL de pergunta.template_id
   let!(:pergunta) do
     create(
       :pergunta,
@@ -33,7 +31,6 @@ RSpec.describe "Admin::Formularios results", type: :request do
   end
 
 
-  # agora a resposta TEM aluno
   let!(:resposta) do
     Resposta.create!(
       pergunta: pergunta,
@@ -45,7 +42,6 @@ RSpec.describe "Admin::Formularios results", type: :request do
 
 
   before do
-    # Stub de autenticação no namespace Admin
     allow_any_instance_of(Admin::ApplicationController)
       .to receive(:current_administrador).and_return(admin)
 
@@ -58,12 +54,10 @@ RSpec.describe "Admin::Formularios results", type: :request do
 
     expect(response).to have_http_status(:ok)
 
-    # Elementos esperados na view results
     expect(response.body).to include("📊 Resultados:")
     expect(response.body).to include("Turma:")
     expect(response.body).to include("Respostas por Pergunta")
 
-    # Conteúdo específico baseado nos dados
     expect(response.body).to include("Como avalia o conteúdo?")
     expect(response.body).to include("Muito bom")
   end

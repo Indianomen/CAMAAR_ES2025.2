@@ -5,7 +5,6 @@ class Pergunta < ApplicationRecord
   
   validates :texto, presence: true
   
-  # Returns the owner
   def owner
     template || formulario
   end

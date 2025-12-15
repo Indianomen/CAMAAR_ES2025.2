@@ -2,30 +2,23 @@ module Admin
   class TemplatesController < Admin::ApplicationController
     before_action :set_template, only: [:show, :edit, :update, :destroy]
 
-    # GET /admin/templates
     def index
       @templates = current_administrador.templates.includes(:perguntas).order(created_at: :desc)
     end
 
-    # GET /admin/templates/1
     def show
       @perguntas = @template.perguntas
     end
 
-    # GET /admin/templates/new
     def new
       @template = current_administrador.templates.new
-      # Add 3 empty questions for the form
       3.times { @template.perguntas.build }
     end
 
-    # GET /admin/templates/1/edit
     def edit
-      # Add an empty question for adding more
       @template.perguntas.build
     end
 
-    # POST /admin/templates
     def create
       @template = current_administrador.templates.new(template_params)
 
@@ -38,7 +31,6 @@ module Admin
       end
     end
 
-    # PATCH/PUT /admin/templates/1
     def update
       if @template.update(template_params)
         redirect_to admin_template_path(@template), notice: 'Template atualizado com sucesso.'
@@ -47,7 +39,6 @@ module Admin
       end
     end
 
-    # DELETE /admin/templates/1
     def destroy
       @template.destroy
       redirect_to admin_templates_url, notice: 'Template excluído com sucesso.'

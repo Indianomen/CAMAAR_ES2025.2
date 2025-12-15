@@ -2,17 +2,16 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = ["container"]
-  
+
   connect() {
     console.log("Templates form controller connected");
   }
-  
+
   addQuestion(event) {
     event.preventDefault();
-    
-    // Get current number of questions
+
     const questionCount = this.containerTarget.querySelectorAll('.pergunta-field').length;
-    
+
     const html = `
       <div class="pergunta-field" data-persisted="false">
         <div class="pergunta-header">
@@ -29,7 +28,7 @@ export default class extends Controller {
         <input type="hidden" name="template[perguntas_attributes][${questionCount}][id]" value="">
       </div>
     `;
-    
+
     this.containerTarget.insertAdjacentHTML('beforeend', html);
   }
 }

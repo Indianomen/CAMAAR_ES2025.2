@@ -1,10 +1,8 @@
 class ApplicationController < ActionController::Base
-  # Make authentication helpers available in views
   helper_method :current_user, :logged_in?, :current_aluno, :current_professor, :current_administrador
   
   private
   
-  # Retorna o usuário atual da sessão
   def current_user
     return nil unless session[:user_id] && session[:user_type]
     
@@ -14,12 +12,10 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  # Verifica se há um usuário logado
   def logged_in?
     current_user.present?
   end
   
-  # Redireciona para login se não estiver autenticado
   def require_login
     unless logged_in?
       flash[:alert] = 'Você precisa fazer login para acessar esta página'
@@ -27,15 +23,12 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  # ADMIN SPECIFIC METHODS
   
-  # Returns current admin if logged in as admin
   def current_administrador
     return nil unless logged_in? && current_user.is_a?(Administrador)
     current_user
   end
   
-  # Authenticate admin
   def authenticate_administrador!
     unless current_administrador
       flash[:alert] = 'Acesso restrito a administradores'
@@ -43,7 +36,6 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  # Similarly for other user types if needed
   def current_aluno
     return nil unless logged_in? && current_user.is_a?(Aluno)
     current_user

@@ -70,7 +70,6 @@
     margin-top: 0.5rem;
   }
   
-  /* Button styles matching templates */
   .btn-group {
     display: flex;
     gap: 0.5rem;
@@ -130,7 +129,6 @@
     box-shadow: 0 4px 8px rgba(40, 167, 69, 0.2);
   }
   
-  /* Alert styles */
   .alert {
     padding: 1rem;
     border-radius: 6px;
@@ -150,7 +148,6 @@
     color: #856404;
   }
   
-  /* Text utilities */
   .text-success {
     color: #28a745;
   }
@@ -166,7 +163,6 @@
 
 
 <div class="results-container">
-  <!-- Header with buttons -->
   <div class="page-header">
     <div>
       <h1 class="page-title">📊 Resultados: <%= @formulario.template.nome %></h1>
@@ -176,13 +172,11 @@
     </div>
     
     <div class="btn-group">
-      <!-- Voltar ao formulário -->
       <%= link_to admin_formulario_path(@formulario), class: 'btn btn-outline' do %>
         <span>←</span>
         <span>Voltar ao Formulário</span>
       <% end %>
 
-      <!-- Exportar CSV -->
       <%= link_to export_csv_admin_formulario_path(@formulario, format: :csv),
                   class: 'btn btn-primary',
                   data: { turbo: false },
@@ -191,7 +185,6 @@
         <span>Exportar CSV</span>
       <% end %>
 
-      <!-- Enviar para alunos (se ainda não enviado) -->
       <% unless @formulario.alunos_respostas.any? %>
         <%= button_to send_to_students_admin_formulario_path(@formulario),
               method: :post,
@@ -209,13 +202,11 @@
     </div>
   </div>
   
-  <!-- Info Alert -->
   <div class="alert alert-info">
     <strong>⚠️ Dados Anônimos:</strong> As respostas são exibidas de forma anônima. 
     Não é possível identificar qual aluno respondeu cada avaliação.
   </div>
   
-  <!-- Statistics Cards -->
   <div class="stats-grid">
     <div class="stat-card">
       <div class="stat-value"><%= @total_students %></div>
@@ -240,7 +231,6 @@
     </div>
   </div>
   
-  <!-- Answers Section -->
   <div class="answers-section">
     <h3>Respostas por Pergunta</h3>
     

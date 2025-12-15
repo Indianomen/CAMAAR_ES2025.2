@@ -1,5 +1,4 @@
 <style>
-  /* ====== Base Styles ====== */
   .admin-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -22,7 +21,6 @@
     margin: 0;
   }
 
-  /* ====== Button Styles ====== */
   .btn {
     display: inline-flex;
     align-items: center;
@@ -78,7 +76,6 @@
     font-size: 0.8125rem;
   }
 
-  /* ====== Template Cards ====== */
   .templates-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -150,7 +147,6 @@
     gap: 0.5rem;
   }
 
-  /* ====== Empty State ====== */
   .empty-state {
     text-align: center;
     padding: 4rem 2rem;
@@ -180,7 +176,6 @@
     margin-right: auto;
   }
 
-  /* ====== Badges ====== */
   .badge {
     display: inline-block;
     padding: 0.25em 0.6em;
@@ -203,7 +198,6 @@
     color: white;
   }
 
-  /* ====== Responsive ====== */
   @media (max-width: 768px) {
     .admin-container {
       padding: 1rem;
@@ -236,7 +230,6 @@
 </style>
 
 <div class="admin-container">
-    <!-- Page Header -->
     <div class="page-header">
         <h1 class="page-title">📋 Templates de Formulário</h1>
         <%= link_to new_admin_template_path, class: "btn btn-primary" do %>
@@ -244,7 +237,6 @@
         <% end %>
     </div>
 
-    <!-- Templates Grid -->
     <% if @templates.any? %>
         <div class="templates-grid">
             <% @templates.each do |template| %>
@@ -305,7 +297,6 @@
             <% end %>
         </div>
   <% else %>
-    <!-- Empty State -->
     <div class="empty-state">
       <div class="empty-state-icon">📋</div>
       <h3 class="empty-state-title">Nenhum template criado</h3>
@@ -320,7 +311,6 @@
 </div>
 
 <script>
-  // Add subtle animation to cards
   document.addEventListener('DOMContentLoaded', function() {
     const cards = document.querySelectorAll('.template-card');
     cards.forEach((card, index) => {

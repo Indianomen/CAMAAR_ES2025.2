@@ -3,10 +3,8 @@
     <h1><%= @template.nome %></h1>
     <div>
       <% if current_user.is_a?(Administrador) && @template.administrador == current_user %>
-        <%# CHANGE THIS: %>
         <%= link_to 'Editar', edit_admin_template_path(@template), class: 'btn btn-warning' %>
       <% end %>
-      <%# CHANGE THIS: templates_path → admin_templates_path %>
       <%= link_to 'Voltar', admin_templates_path, class: 'btn btn-secondary' %>
     </div>
   </div>
@@ -26,7 +24,6 @@
     <div class="card-header d-flex justify-content-between align-items-center">
       <h5 class="mb-0">Perguntas (<%= @perguntas.count %>)</h5>
       <% if current_user.is_a?(Administrador) && @template.administrador == current_user %>
-        <%# CHANGE THIS: %>
         <%= link_to 'Adicionar Pergunta', edit_admin_template_path(@template), class: 'btn btn-sm btn-primary' %>
       <% end %>
     </div>
@@ -47,7 +44,6 @@
 
   <% if current_user.is_a?(Administrador) && @template.administrador == current_user %>
     <div class="mt-4">
-      <%# You'll need to create this route later for forms %>
       <%= link_to 'Usar este template para criar formulário', '#', class: 'btn btn-success' %>
     </div>
   <% end %>

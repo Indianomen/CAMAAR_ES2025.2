@@ -1,11 +1,9 @@
-# Clear existing data
 Template.destroy_all
 Pergunta.destroy_all
 Administrador.destroy_all
 
 puts "🌱 Criando dados de teste..."
 
-# Create an admin
 admin = Administrador.create!(
   nome: "Administrador Teste",
   usuario: "admin",
@@ -19,13 +17,11 @@ admin = Administrador.create!(
 
 puts "✅ Administrador criado: admin / admin123"
 
-# Create some templates
 template1 = Template.create!(
   nome: "Avaliação de Disciplina - 2024.1",
   administrador: admin
 )
 
-# Add questions to template1
 questions1 = [
   "Como você avalia a clareza das explicações do professor?",
   "O material didático foi adequado para o aprendizado?",

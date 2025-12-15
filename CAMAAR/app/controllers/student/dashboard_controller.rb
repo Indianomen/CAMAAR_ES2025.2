@@ -5,8 +5,6 @@ module Student
     def index
       @formularios_pendentes_count = current_aluno.formularios_pendentes.count
       
-      # Count forms that have actual responses from this student
-      # A form is considered "answered" if the student has at least one Resposta for it
       formularios_respondidos = Formulario.joins(:perguntas => :respostas)
                                           .where(respostas: { aluno_id: current_aluno.id })
                                           .distinct

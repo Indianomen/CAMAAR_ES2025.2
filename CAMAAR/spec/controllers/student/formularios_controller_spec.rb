@@ -21,7 +21,6 @@ RSpec.describe Student::FormulariosController, type: :controller do
   let!(:pergunta2) { create(:pergunta, template: template, formulario: formulario, texto: "Pergunta 2") }
   
   before do
-    # Matricular aluno na turma
     turma.alunos << aluno
   end
 
@@ -66,7 +65,6 @@ RSpec.describe Student::FormulariosController, type: :controller do
     end
     
     it "assigns only pending formularios for the student's turmas" do
-      # Criar formulário para outra turma (não deve aparecer)
       formulario_outra_turma = create(:formulario, turma: outra_turma, template: template)
       
       get :index
@@ -75,7 +73,6 @@ RSpec.describe Student::FormulariosController, type: :controller do
     end
     
     it "does not include already answered formularios" do
-      # Marcar formulário como respondido criando respostas
       create(:resposta, aluno: aluno, pergunta: pergunta1, texto: "Resposta 1")
       create(:resposta, aluno: aluno, pergunta: pergunta2, texto: "Resposta 2")
       
@@ -85,7 +82,6 @@ RSpec.describe Student::FormulariosController, type: :controller do
     
     it "includes formularios with perguntas and template" do
       get :index
-      # Check that associations are present instead of checking eager loading
       expect(assigns(:formularios_pendentes).first.perguntas).to be_present
       expect(assigns(:formularios_pendentes).first.template).to be_present
     end
@@ -131,7 +127,6 @@ RSpec.describe Student::FormulariosController, type: :controller do
     
     context "when student already answered the formulario" do
       before do
-        # Create actual responses to mark as answered
         create(:resposta, aluno: aluno, pergunta: pergunta1, texto: "Resposta 1")
         create(:resposta, aluno: aluno, pergunta: pergunta2, texto: "Resposta 2")
       end
@@ -168,7 +163,6 @@ RSpec.describe Student::FormulariosController, type: :controller do
       
       it "marks formulario as answered" do
         post :submit, params: { id: formulario.id, respostas: valid_respostas }
-        # Check that Resposta records were created
         expect(Resposta.where(aluno: aluno, pergunta: [pergunta1, pergunta2]).count).to eq(2)
       end
       
@@ -195,7 +189,6 @@ RSpec.describe Student::FormulariosController, type: :controller do
       let(:incomplete_respostas) do
         {
           pergunta1.id.to_s => "Apenas uma resposta"
-          # pergunta2 não respondida
         }
       end
       
@@ -207,7 +200,6 @@ RSpec.describe Student::FormulariosController, type: :controller do
       
       it "does not mark formulario as answered" do
         post :submit, params: { id: formulario.id, respostas: incomplete_respostas }
-        # Check that no Resposta records were created
         expect(Resposta.where(aluno: aluno).count).to eq(0)
       end
       
@@ -262,7 +254,6 @@ RSpec.describe Student::FormulariosController, type: :controller do
     
     context "when student already answered" do
       before do
-        # Create actual responses to mark as answered
         create(:resposta, aluno: aluno, pergunta: pergunta1, texto: "Resposta anterior 1")
         create(:resposta, aluno: aluno, pergunta: pergunta2, texto: "Resposta anterior 2")
       end
@@ -282,7 +273,6 @@ RSpec.describe Student::FormulariosController, type: :controller do
     
     context "when session expires during submission" do
       it "redirects to login with session expired message" do
-        # Simular sessão expirada
         allow(controller).to receive(:logged_in?).and_return(false)
         
         post :submit, params: { id: formulario.id, respostas: valid_respostas }
@@ -301,7 +291,6 @@ RSpec.describe Student::FormulariosController, type: :controller do
     
     context "transaction rollback on error" do
       it "does not save any respostas if one fails" do
-        # Forçar erro na segunda resposta
         allow(Resposta).to receive(:create!).and_call_original
         allow(Resposta).to receive(:create!).with(
           hash_including(pergunta: pergunta2)
@@ -316,7 +305,6 @@ RSpec.describe Student::FormulariosController, type: :controller do
         allow(Resposta).to receive(:create!).and_raise(ActiveRecord::RecordInvalid.new(Resposta.new))
         
         post :submit, params: { id: formulario.id, respostas: valid_respostas }
-        # Check that no Resposta records were created
         expect(Resposta.where(aluno: aluno).count).to eq(0)
       end
       

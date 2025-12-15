@@ -1,25 +1,20 @@
 class PerguntaController < ApplicationController
   before_action :set_perguntum, only: %i[ show edit update destroy ]
 
-  # GET /pergunta or /pergunta.json
   def index
     @pergunta = Perguntum.all
   end
 
-  # GET /pergunta/1 or /pergunta/1.json
   def show
   end
 
-  # GET /pergunta/new
   def new
     @perguntum = Perguntum.new
   end
 
-  # GET /pergunta/1/edit
   def edit
   end
 
-  # POST /pergunta or /pergunta.json
   def create
     @perguntum = Perguntum.new(perguntum_params)
 
@@ -34,7 +29,6 @@ class PerguntaController < ApplicationController
     end
   end
 
-  # PATCH/PUT /pergunta/1 or /pergunta/1.json
   def update
     respond_to do |format|
       if @perguntum.update(perguntum_params)
@@ -47,7 +41,6 @@ class PerguntaController < ApplicationController
     end
   end
 
-  # DELETE /pergunta/1 or /pergunta/1.json
   def destroy
     @perguntum.destroy!
 
@@ -58,12 +51,10 @@ class PerguntaController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_perguntum
       @perguntum = Perguntum.find(params.expect(:id))
     end
 
-    # Only allow a list of trusted parameters through.
     def perguntum_params
       params.expect(perguntum: [ :template_id, :formulario_id, :texto, :resposta ])
     end

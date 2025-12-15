@@ -2,7 +2,6 @@
   <h2>Definir Senha de Acesso</h2>
   <p>Olá, <%= @user.nome %>. Defina sua senha para ativar sua conta.</p>
 
-  <%# Note que a URL aponta para o update com o token %>
   <%= form_with(model: @user, url: password_setup_path(token: params[:token]), method: :patch, local: true) do |f| %>
     
     <% if @user.errors.any? %>

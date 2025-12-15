@@ -1,5 +1,3 @@
-
-# app/controllers/admin/formularios_controller.rb
 require 'csv'
 
 module Admin
@@ -8,33 +6,28 @@ module Admin
     before_action :authenticate_administrador!
     before_action :set_formulario, only: [:show, :edit, :update, :destroy, :results, :export_csv]
     
-    # GET /admin/formularios
     def index
       @formularios = current_administrador.formularios
                                           .includes(:template, :turma)
                                           .order(created_at: :desc)
     end
     
-    # GET /admin/formularios/new
     def new
       @formulario = current_administrador.formularios.new
       @templates  = current_administrador.templates
       @turmas     = Turma.all.order(:semestre, :horario)
     end
     
-    # GET /admin/formularios/:id
     def show
       @perguntas = @formulario.perguntas
       @respostas = @formulario.respostas.includes(:pergunta)
     end
     
-    # GET /admin/formularios/:id/edit
     def edit
       @templates = current_administrador.templates
       @turmas    = Turma.all.order(:semestre, :horario)
     end
     
-    # POST /admin/formularios
     def create
       @formulario = current_administrador.formularios.new(formulario_params)
       @templates  = current_administrador.templates
@@ -48,13 +41,11 @@ module Admin
       end
     end
 
-    # POST /admin/formularios/:id/send_to_students
     def send_to_students
       @formulario = current_administrador.formularios.find(params[:id])
       
       if @formulario.turma.alunos.any?
         @formulario.turma.alunos.each do |aluno|
-          # Adiciona o formulário aos pendentes do aluno (evita duplicar)
           aluno.formularios_respostas << @formulario unless aluno.formularios_respostas.include?(@formulario)
         end
         
@@ -66,7 +57,6 @@ module Admin
       end
     end
     
-    # PATCH/PUT /admin/formularios/:id
     def update
       if @formulario.update(formulario_params)
         redirect_to admin_formulario_path(@formulario), 
@@ -76,14 +66,12 @@ module Admin
       end
     end
     
-    # DELETE /admin/formularios/:id
     def destroy
       @formulario.destroy
       redirect_to admin_formularios_url, 
                   notice: 'Formulário excluído com sucesso.'
     end
     
-    # GET /admin/formularios/:id/results
     def results
       @respostas = Resposta.joins(:pergunta)
                            .where(pergunta: { formulario_id: @formulario.id })
@@ -91,18 +79,13 @@ module Admin
       
       @answers_by_question = @respostas.group_by(&:pergunta)
       
-      # Calculate statistics
-      # Count DISTINCT students who responded, not total responses
       @total_responses = @respostas.select(:aluno_id).distinct.count
       @total_students = @formulario.turma&.alunos&.count || 0
       @response_rate = @total_students > 0 ? 
         (@total_responses.to_f / @total_students * 100).round(1) : 0
 
-      # Renderiza normalmente HTML; a exportação acontece via export_csv
     end
 
-    # GET /admin/formularios/:id/export_csv
-    # Gera e envia o CSV para download sem trocar de página
     def export_csv
       perguntas = @formulario.perguntas.includes(:respostas)
       turma     = @formulario.turma
@@ -143,7 +126,6 @@ module Admin
       params.require(:formulario).permit(:template_id, :turma_id)
     end
 
-    # Caso volte a usar envio automático pós-criação, mantenha este helper
     def assign_form_to_students(formulario)
       formulario.turma.alunos.each do |aluno|
         aluno.formularios_respostas << formulario

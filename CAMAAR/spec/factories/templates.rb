@@ -5,7 +5,6 @@ FactoryBot.define do
   end
 
   factory :template_with_questions, parent: :template do
-    # Criando template com 3 perguntas como padrao
     transient do
       questions_count { 3 }
     end

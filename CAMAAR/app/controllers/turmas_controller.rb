@@ -1,25 +1,20 @@
 class TurmasController < ApplicationController
   before_action :set_turma, only: %i[ show edit update destroy ]
 
-  # GET /turmas or /turmas.json
   def index
     @turmas = Turma.all
   end
 
-  # GET /turmas/1 or /turmas/1.json
   def show
   end
 
-  # GET /turmas/new
   def new
     @turma = Turma.new
   end
 
-  # GET /turmas/1/edit
   def edit
   end
 
-  # POST /turmas or /turmas.json
   def create
     @turma = Turma.new(turma_params)
 
@@ -34,7 +29,6 @@ class TurmasController < ApplicationController
     end
   end
 
-  # PATCH/PUT /turmas/1 or /turmas/1.json
   def update
     respond_to do |format|
       if @turma.update(turma_params)
@@ -47,7 +41,6 @@ class TurmasController < ApplicationController
     end
   end
 
-  # DELETE /turmas/1 or /turmas/1.json
   def destroy
     @turma.destroy!
 
@@ -58,12 +51,10 @@ class TurmasController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_turma
       @turma = Turma.find(params.expect(:id))
     end
 
-    # Only allow a list of trusted parameters through.
     def turma_params
       params.expect(turma: [ :professor_id, :disciplina_id, :formulario_id, :semestre, :horario ])
     end

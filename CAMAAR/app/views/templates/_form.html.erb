@@ -62,7 +62,6 @@
     const perguntasContainer = document.getElementById('perguntas');
     const addButton = document.getElementById('adicionar-pergunta');
     
-    // Calculate initial index based on existing questions
     let questionIndex = <%= template.persisted? ? template.perguntas.size : 3 %>;
 
     addButton.addEventListener('click', function() {

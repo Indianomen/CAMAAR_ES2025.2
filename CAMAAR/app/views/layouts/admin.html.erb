@@ -74,7 +74,6 @@
       overflow-x: hidden;
     }
 
-    /* ========== TOPBAR ========== */
     .topbar {
       position: fixed;
       top: 0;
@@ -91,7 +90,6 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.08);
     }
 
-    /* Botão/área do menu como botão real (acessível) */
     .menu-area {
       display: flex;
       align-items: center;
@@ -116,8 +114,8 @@
       font-size: 18px;
       font-weight: 700;
       flex: 1;
-      text-align: center; /* mantém título centralizado */
-      margin-right: 36px; /* desalinha ligeiramente para compensar ícone */
+      text-align: center;
+      margin-right: 36px;
     }
 
     .topbar-right {
@@ -138,11 +136,10 @@
       font-weight: 700;
     }
 
-    /* ========== SIDEBAR ========== */
     .sidebar {
       position: fixed;
       top: 64px;
-      left: -220px; /* escondida por padrão */
+      left: -220px;
       width: 220px;
       height: calc(100vh - 64px);
       background: var(--sidebar-bg);
@@ -173,9 +170,8 @@
 
     .sidebar hr { border: none; border-top: 1px solid #eee; margin: 12px 0; }
 
-    /* ========== CONTENT ========== */
     .page-wrap {
-      padding-top: 84px; /* espaço para topbar */
+      padding-top: 84px;
       display: flex;
       justify-content: center;
       min-height: calc(100vh - 84px);
@@ -200,10 +196,8 @@
 </head>
 <body>
 
-  <!-- TOPBAR -->
   <div class="topbar">
     <% if current_administrador %>
-      <!-- Botão do menu (acessível) -->
       <button id="menuTrigger"
               class="menu-area"
               type="button"
@@ -245,7 +239,6 @@
   </div>
 
     <% if current_administrador %>
-      <!-- SIDEBAR (apenas AVALIAÇÕES e GERENCIAMENTO) -->
       <nav id="adminSidebar" class="sidebar" aria-label="Menu lateral admin">
       <a href="<%= admin_avaliacoes_path %>" class="<%= 'active' if controller_name == 'pages' && action_name == 'avaliacoes' %>">
           Avaliações
@@ -258,7 +251,6 @@
     <% end %>
 
 
-  <!-- CONTEÚDO PRINCIPAL -->
   <div class="page-wrap">
     <div id="flash-container" style="position: fixed; top: 80px; right: 20px; z-index: 4000;">
       <% flash.each do |type, message| %>
@@ -277,16 +269,13 @@
       document.addEventListener("turbo:load", () => {
         const flashes = document.querySelectorAll('#flash-container .flash');
         flashes.forEach((flash, index) => {
-          // anima entrada (slide down)
           setTimeout(() => { flash.style.transform = 'translateY(0)'; }, 100);
 
-          // anima saída após 4 segundos
           setTimeout(() => { 
             flash.style.opacity = 0;
             flash.style.transform = 'translateY(-20px)';
           }, 4000 + index * 200);
 
-          // remove do DOM
           setTimeout(() => { flash.remove(); }, 4500 + index * 200);
         });
       });
@@ -296,13 +285,11 @@
     </div>
   </div>
 
-  <!-- JS: abre/fecha sidebar com clique, clique fora e tecla ESC -->
   <script>
     (function() {
       const trigger = document.getElementById('menuTrigger');
       const sidebar = document.getElementById('adminSidebar');
 
-      // Só executa se os elementos existirem (não na página de login)
       if (!trigger || !sidebar) return;
 
       function openSidebar() {
@@ -324,10 +311,8 @@
         }
       }
 
-      // Abre/fecha pelo botão
       trigger.addEventListener('click', toggleSidebar);
 
-      // Fecha ao clicar fora da sidebar e do botão
       document.addEventListener('click', (e) => {
         const clickInside = sidebar.contains(e.target) || trigger.contains(e.target);
         if (!clickInside) {
@@ -335,7 +320,6 @@
         }
       });
 
-      // Fecha com ESC
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
           closeSidebar();

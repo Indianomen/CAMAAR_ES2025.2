@@ -65,7 +65,6 @@
     font-weight: 500;
   }
   
-  /* Button styles matching templates */
   .action-buttons {
     display: flex;
     gap: 1rem;
@@ -141,7 +140,6 @@
     box-shadow: 0 4px 8px rgba(220, 53, 69, 0.2);
   }
   
-  /* For button_to forms */
   .inline-btn-form {
     display: inline;
     margin: 0;
@@ -203,7 +201,6 @@
 </style>
 
 <div class="show-container">
-  <!-- Header -->
   <div class="show-header">
     <div>
       <h1 class="show-title">Formulário: <%= @formulario.template.nome %></h1>
@@ -216,7 +213,6 @@
     </div>
   </div>
 
-  <!-- Form Info Card -->
   <div class="card">
     <div class="card-header">Informações do Formulário</div>
     <div class="card-body">
@@ -268,7 +264,6 @@
     </div>
   </div>
 
-  <!-- Questions Card -->
   <div class="card">
     <div class="card-header">Perguntas do Formulário</div>
     <div class="card-body">
@@ -289,14 +284,12 @@
     </div>
   </div>
 
-  <!-- Action Buttons -->
   <div class="action-buttons">
     <%= link_to results_admin_formulario_path(@formulario), class: 'btn btn-primary' do %>
       <span>📊</span>
       <span>Ver Resultados</span>
     <% end %>
     
-    <%# Send button - only show if not already sent %>
     <% unless @formulario.alunos_respostas.any? %>
       <%= button_to send_to_students_admin_formulario_path(@formulario),
           method: :post,

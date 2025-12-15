@@ -17,7 +17,6 @@ class Admin::PagesController < Admin::BaseController
     end
 
     begin
-      # Passa a STRING do arquivo diretamente
       ImportJson.call(uploaded_file.read)
 
       redirect_to admin_importacoes_path, notice: "Importação concluída com sucesso!"

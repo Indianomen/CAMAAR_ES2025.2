@@ -10,7 +10,6 @@ class AdminTemplatesTest < ApplicationSystemTestCase
       password_confirmation: "password"
     )
     
-    # Login as admin
     visit login_path
     fill_in "Usuário", with: @admin.usuario
     fill_in "Senha", with: "password"
@@ -29,10 +28,8 @@ class AdminTemplatesTest < ApplicationSystemTestCase
     
     fill_in "Nome", with: "Avaliação de Disciplina 2024.1"
     
-    # Add first question
     fill_in "Pergunta 1", with: "Como você avalia a clareza das explicações?"
     
-    # Add more questions
     click_on "Adicionar Pergunta"
     fill_in "Pergunta 2", with: "O material didático foi adequado?"
     

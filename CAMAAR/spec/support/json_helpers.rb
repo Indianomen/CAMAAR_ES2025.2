@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 module JsonHelpers
   def fixture_file(path)
     Rails.root.join('spec', 'fixtures', 'files', path)

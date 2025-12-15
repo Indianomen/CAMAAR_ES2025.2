@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 
 RSpec.describe UserInviteJob, type: :job do
@@ -25,7 +23,7 @@ RSpec.describe UserInviteJob, type: :job do
         email: 'aluno3@test.com', 
         matricula: '190003', 
         usuario: 'aluno3',
-        registered: true) # Já ativo, não deve receber email
+        registered: true) 
     end
     
     let(:professor1) do
@@ -39,7 +37,7 @@ RSpec.describe UserInviteJob, type: :job do
       create(:professor, 
         email: 'prof2@test.com', 
         usuario: 'prof2',
-        registered: true) # Já ativo
+        registered: true)
     end
     
     let(:user_ids) do

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 
 RSpec.describe 'RBAC Authentication Guards', type: :request do
@@ -52,7 +50,6 @@ RSpec.describe 'RBAC Authentication Guards', type: :request do
         token = aluno.signed_id(purpose: :password_setup, expires_in: 48.hours)
         get edit_password_setup_path(token: token)
         
-        # Password setup should work even without login
         expect(response).to have_http_status(:success)
       end
     end
@@ -68,13 +65,10 @@ RSpec.describe 'RBAC Authentication Guards', type: :request do
       it 'allows access to dashboard' do
         get dashboard_path
         
-        # Dashboard redirects to student dashboard
         expect(response).to have_http_status(:redirect)
       end
 
       it "allows access to admin templates" do
-        # Students don't have access to admin templates
-        # This test should be removed or changed
         skip "Students should not access admin templates"
         get admin_templates_path
         
@@ -111,27 +105,18 @@ RSpec.describe 'RBAC Authentication Guards', type: :request do
 
   describe 'Session persistence' do
     it 'maintains authentication across requests' do
-      # Login
       post login_path, params: {
         email: aluno.email,
         password: 'password123'
       }
       
-      # Request 1
       get dashboard_path
       expect(response).to have_http_status(:redirect)
       follow_redirect!
       expect(response).to have_http_status(:success)
-      
-      # Request 2 (mesma sessão)
-      # Skip this - students don't have access to admin templates
-      # get admin_templates_path
-      # expect(response).to have_http_status(:success)
-      
-      # Logout
+
       delete logout_path
       
-      # Request 3 (sem sessão)
       get dashboard_path
       expect(response).to redirect_to(login_path)
     end

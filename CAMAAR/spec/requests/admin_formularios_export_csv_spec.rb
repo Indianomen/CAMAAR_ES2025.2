@@ -1,5 +1,4 @@
 
-# spec/requests/admin_formularios_export_csv_spec.rb
 require 'rails_helper'
 
 RSpec.describe "Admin::Formularios CSV export", type: :request do
@@ -36,7 +35,6 @@ RSpec.describe "Admin::Formularios CSV export", type: :request do
   end
 
 
-  # ✅ Passa o template para satisfazer NOT NULL
   let!(:pergunta) do
     create(
       :pergunta,
@@ -66,7 +64,6 @@ RSpec.describe "Admin::Formularios CSV export", type: :request do
 
 
   before do
-    # Stub de autenticação no namespace Admin
     allow_any_instance_of(Admin::ApplicationController)
       .to receive(:current_administrador).and_return(admin)
 
@@ -84,10 +81,8 @@ RSpec.describe "Admin::Formularios CSV export", type: :request do
 
     csv = response.body
 
-    # Cabeçalho
     expect(csv.lines.first.strip).to eq("Template,Turma,Semestre,Pergunta,Resposta,Respondido em")
 
-    # Linhas (validamos substrings estáveis; o formato exato da data pode variar por I18n)
     expect(csv).to include("Avaliação Docente,Algoritmos,2025.1,Como avalia o conteúdo?,Muito bom")
     expect(csv).to include("Avaliação Docente,Algoritmos,2025.1,Como avalia o conteúdo?,Regular")
   end

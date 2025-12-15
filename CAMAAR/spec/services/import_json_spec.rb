@@ -1,9 +1,6 @@
-
-# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe ImportJson, type: :service do
-  # Helpers de caminho para fixtures
   def fixture_file(path)
     Rails.root.join('spec', 'fixtures', 'files', path)
   end
@@ -23,12 +20,11 @@ RSpec.describe ImportJson, type: :service do
 
         disc = Disciplina.find_by(codigo: 'CIC0097')
         expect(disc).to be_present
-        # Como o roster não tem "name", o service deve garantir nome (fallback), por ex.: igual ao código
         expect(disc.nome).to be_present
 
         turma = Turma.find_by(disciplina: disc, semestre: '2021.2')
         expect(turma).to be_present
-        expect(turma.horario).to be_present # roster não traz "time"; o service deve preencher um default (ex.: 'N/A')
+        expect(turma.horario).to be_present 
 
         prof = turma.professor
         expect(prof).to be_present
@@ -44,15 +40,12 @@ RSpec.describe ImportJson, type: :service do
 
         [m1, m2, m3].each do |al|
           expect(al).to be_present
-          expect(al.usuario).to eq(al.matricula) # conforme JSON
+          expect(al.usuario).to eq(al.matricula)
           expect(al.nome).to be_present
           expect(al.email).to match(URI::MailTo::EMAIL_REGEXP)
           expect(al.curso).to eq('CIÊNCIA DA COMPUTAÇÃO/CIC')
-          # O modelo exige departamento; o service deve preencher (ex.: derivado do curso ou um default coerente)
           expect(al.departamento).to be_present
-          # HABTM: o aluno deve estar associado à turma
           expect(al.turmas).to include(turma)
-          # has_secure_password: deve existir password_digest
           expect(al.password_digest).to be_present
         end
       end
@@ -101,13 +94,11 @@ RSpec.describe ImportJson, type: :service do
 
     context 'integração: processando catálogo e depois roster' do
       it 'mantém o nome da disciplina do catálogo e cria a turma com professor e alunos via roster' do
-        # 1) Catálogo: cria/atualiza as disciplinas
         described_class.call(catalog_path)
 
         bd = Disciplina.find_by(codigo: 'CIC0097')
         expect(bd&.nome).to eq('BANCOS DE DADOS')
 
-        # 2) Roster: cria turma, professor e alunos da oferta correspondente
         expect {
           described_class.call(roster_path)
         }.to change(Turma, :count).by(1)
@@ -116,7 +107,7 @@ RSpec.describe ImportJson, type: :service do
 
         turma = Turma.find_by(disciplina: bd, semestre: '2021.2')
         expect(turma).to be_present
-        expect(turma.horario).to be_present # no roster, o service deve setar um default
+        expect(turma.horario).to be_present 
 
         expect(turma.professor&.usuario).to eq('83807519491')
         expect(turma.alunos.count).to eq(3)
@@ -143,14 +134,12 @@ RSpec.describe ImportJson, type: :service do
 
     context 'verificação de novos registros (new_record?)' do
       it 'identifica corretamente quando um aluno é novo' do
-        # Primeiro import: alunos devem ser novos
         described_class.call(roster_path)
         
         aluno = Aluno.find_by(matricula: '190084006')
         expect(aluno).to be_present
         expect(aluno.persisted?).to be true
         
-        # Segundo import: aluno já existe, não deve ser novo
         initial_count = Aluno.count
         described_class.call(roster_path)
         
@@ -173,14 +162,11 @@ RSpec.describe ImportJson, type: :service do
       end
 
       it 'não altera registered de alunos existentes ao reimportar' do
-        # Primeiro import
         described_class.call(roster_path)
         
-        # Simular que o aluno se registrou
         aluno = Aluno.find_by(matricula: '190084006')
         aluno.update!(registered: true)
         
-        # Segundo import: não deve alterar registered
         described_class.call(roster_path)
         
         aluno.reload
@@ -190,7 +176,6 @@ RSpec.describe ImportJson, type: :service do
 
     context 'normalização da matrícula com strip' do
       it 'normaliza matrícula com espaços em branco antes de buscar/criar' do
-        # Criar um JSON com matrícula contendo espaços
         path = Rails.root.join('spec', 'fixtures', 'files', 'roster_with_spaces.json')
         data = [
           {
@@ -221,7 +206,6 @@ RSpec.describe ImportJson, type: :service do
           described_class.call(path)
         }.to change(Aluno, :count).by(1)
 
-        # Deve encontrar o aluno pela matrícula normalizada (sem espaços)
         aluno = Aluno.find_by(matricula: '190084006')
         expect(aluno).to be_present
         expect(aluno.matricula).to eq('190084006')
@@ -231,11 +215,9 @@ RSpec.describe ImportJson, type: :service do
       end
 
       it 'evita duplicação ao reimportar matrícula com espaços diferentes' do
-        # Primeiro import com matrícula limpa
         described_class.call(roster_path)
         initial_count = Aluno.count
 
-        # Segundo import com mesma matrícula mas com espaços
         path = Rails.root.join('spec', 'fixtures', 'files', 'roster_with_spaces2.json')
         data = [
           {

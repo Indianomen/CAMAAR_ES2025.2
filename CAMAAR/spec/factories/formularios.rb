@@ -4,7 +4,6 @@ FactoryBot.define do
     association :template
     association :turma
     
-    # Cria formulario com perguntas do template
     after(:create) do |formulario|
       formulario.template.perguntas.each do |pergunta_template|
         create(:pergunta, 

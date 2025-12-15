@@ -1,9 +1,6 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 
 RSpec.describe UserInviteMailer, type: :mailer do
-  # Helper para extrair corpo de email decodificado (sem Quoted-Printable)
   def email_body(mail)
     if mail.multipart?
       mail.text_part.body.decoded
@@ -43,20 +40,16 @@ RSpec.describe UserInviteMailer, type: :mailer do
     it 'inclui link de configuração de senha com token' do
       body = email_body(mail)
       expect(body).to include('password_setups')
-      # Token está no path, não como query param: /password_setups/{token}/edit
       expect(body).to match(%r{password_setups/[A-Za-z0-9_-]+/edit})
     end
 
     it 'gera token signed_id com purpose password_setup' do
-      # Extrai o token do corpo do email
       body = email_body(mail)
-      # Formato: http://example.com/password_setups/{TOKEN}/edit
       token_match = body.match(%r{password_setups/([A-Za-z0-9_-]+)/edit})
       expect(token_match).to be_present
       
       token = token_match[1]
       
-      # Verifica se o token é válido
       decoded_user = Aluno.find_signed(token, purpose: :password_setup)
       expect(decoded_user).to eq(aluno)
     end
@@ -123,7 +116,6 @@ RSpec.describe UserInviteMailer, type: :mailer do
       token_match = body.match(%r{password_setups/([A-Za-z0-9_-]+)/edit})
       token = token_match[1]
       
-      # Simula viagem no tempo para 49 horas no futuro
       travel_to 49.hours.from_now do
         decoded_user = Aluno.find_signed(token, purpose: :password_setup)
         expect(decoded_user).to be_nil
@@ -135,7 +127,6 @@ RSpec.describe UserInviteMailer, type: :mailer do
       token_match = body.match(%r{password_setups/([A-Za-z0-9_-]+)/edit})
       token = token_match[1]
       
-      # Simula viagem no tempo para 47 horas no futuro
       travel_to 47.hours.from_now do
         decoded_user = Aluno.find_signed(token, purpose: :password_setup)
         expect(decoded_user).to eq(aluno)

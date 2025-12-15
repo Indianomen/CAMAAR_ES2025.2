@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 
 RSpec.describe 'Session Management', type: :request do
@@ -60,13 +58,11 @@ RSpec.describe 'Session Management', type: :request do
 
     context 'when session has invalid user_id' do
       before do
-        # Cria sessão com ID inexistente
         post login_path, params: {
           email: aluno.email,
           password: 'password123'
         }
         
-        # Deleta o usuário mas mantém a sessão
         aluno.destroy
       end
 
@@ -82,7 +78,6 @@ RSpec.describe 'Session Management', type: :request do
 
   describe 'Session persistence across tabs' do
     it 'maintains session when opening new tab' do
-      # Tab 1: Login
       post login_path, params: {
         email: aluno.email,
         password: 'password123'
@@ -91,13 +86,11 @@ RSpec.describe 'Session Management', type: :request do
       expect(session[:user_id]).to eq(aluno.id)
       expect(session[:user_type]).to eq('Aluno')
       
-      # Tab 2: Acessa dashboard (mesma sessão)
       get dashboard_path
       expect(response).to have_http_status(:redirect)
       follow_redirect!
       expect(response).to have_http_status(:success)
       
-      # Tab 3: Tenta acessar login (deve redirecionar)
       get login_path
       expect(response).to redirect_to(dashboard_path)
     end

@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   get "pages/login"
   get "pages/dashboard"
 
-  # Root path
   root 'sessions#new'
 
   resources :alunos
@@ -12,14 +11,12 @@ Rails.application.routes.draw do
   resources :turmas
   resources :perguntas
 
-  # Sessões
   get    'login',  to: 'sessions#new'
   post   'login',  to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
 
   get 'dashboard', to: 'pages#dashboard'
 
-  # Student namespace for student-specific routes
   namespace :student do
     get 'dashboard', to: 'dashboard#index'
     root to: 'dashboard#index'
@@ -31,10 +28,8 @@ Rails.application.routes.draw do
     end
   end
 
-  # Password Reset
   resources :password_resets, only: [:new, :create, :edit, :update]
 
-  # Password Setup (via invite)
   get   'password_setups/:token/edit', to: 'password_setups#edit',   as: :edit_password_setup
   patch 'password_setups/:token',      to: 'password_setups#update', as: :password_setup
 
@@ -51,7 +46,7 @@ Rails.application.routes.draw do
       member do
         post :send_to_students
         get  :results
-        get  :export_csv   # <- download do CSV para um formulário específico
+        get  :export_csv
       end
     end
 
@@ -60,9 +55,6 @@ Rails.application.routes.draw do
     end
 
     resources :turmas
-
-    # REMOVER esta linha (duplicada):
-    # get 'formularios/:id/results', to: 'formularios#results', as: 'results_formulario'
 
     get "avaliacoes",    to: "pages#avaliacoes"
     get "gerenciamento", to: "pages#gerenciamento"

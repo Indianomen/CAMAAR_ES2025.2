@@ -1,25 +1,20 @@
 class ProfessorsController < ApplicationController
   before_action :set_professor, only: %i[ show edit update destroy ]
 
-  # GET /professors or /professors.json
   def index
     @professors = Professor.all
   end
 
-  # GET /professors/1 or /professors/1.json
   def show
   end
 
-  # GET /professors/new
   def new
     @professor = Professor.new
   end
 
-  # GET /professors/1/edit
   def edit
   end
 
-  # POST /professors or /professors.json
   def create
     @professor = Professor.new(professor_params)
 
@@ -34,7 +29,6 @@ class ProfessorsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /professors/1 or /professors/1.json
   def update
     respond_to do |format|
       if @professor.update(professor_params)
@@ -47,7 +41,6 @@ class ProfessorsController < ApplicationController
     end
   end
 
-  # DELETE /professors/1 or /professors/1.json
   def destroy
     @professor.destroy!
 
@@ -58,12 +51,10 @@ class ProfessorsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_professor
       @professor = Professor.find(params.expect(:id))
     end
 
-    # Only allow a list of trusted parameters through.
     def professor_params
       params.expect(professor: [ :nome, :departamento, :formacao, :usuario, :email, :ocupacao, :password_digest ])
     end

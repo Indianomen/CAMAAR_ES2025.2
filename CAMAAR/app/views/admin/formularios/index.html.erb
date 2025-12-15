@@ -41,7 +41,6 @@
     margin: 0;
   }
   
-  /* Button styles matching templates */
   .btn-group {
     display: flex;
     gap: 0.5rem;
@@ -117,7 +116,6 @@
     transform: translateY(-1px);
   }
   
-  /* For button_to forms */
   .inline-form {
     display: inline;
     margin: 0;
@@ -154,7 +152,6 @@
             <%= link_to '📊 Resultados', results_admin_formulario_path(formulario),
                   class: 'btn btn-sm btn-primary' %>
             
-            <%# Send button %>
             <%= button_to '📤 Enviar', send_to_students_admin_formulario_path(formulario),
                   method: :post,
                   form: { 
@@ -165,7 +162,6 @@
                   },
                   class: "btn btn-sm btn-success" %>
             
-            <%# Delete button %>
             <%= button_to '🗑️ Excluir', admin_formulario_path(formulario),
                   method: :delete,
                   form: { 
@@ -178,7 +174,6 @@
           </div>
         </div>
         
-        <!-- Rest of the card content remains the same -->
         <div class="formulario-meta">
           <div class="meta-item">
             <span class="meta-label">Template</span>

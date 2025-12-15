@@ -139,16 +139,13 @@
     const questionsPreview = document.getElementById('questions-preview');
     const turmaDetails = document.getElementById('turma-details');
     
-    // Template selection handler
     templateSelect.addEventListener('change', function() {
       const templateId = this.value;
       
       if (templateId) {
-        // Fetch template details
         fetch(`/admin/templates/${templateId}.json`)
           .then(response => response.json())
           .then(template => {
-            // Show questions
             let html = '';
             template.perguntas.forEach((pergunta, index) => {
               html += `
@@ -169,12 +166,10 @@
       }
     });
     
-    // Turma selection handler
     turmaSelect.addEventListener('change', function() {
       const turmaId = this.value;
       
       if (turmaId) {
-        // Fetch turma details
         fetch(`/turmas/${turmaId}.json`)
           .then(response => response.json())
           .then(turma => {

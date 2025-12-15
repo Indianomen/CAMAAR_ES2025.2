@@ -24,7 +24,6 @@
     <small class="form-text">Adicione as questões que farão parte deste template</small>
     
     <div id="perguntas-container" data-questions-target="container">
-      <%# Calculate starting index for new questions %>
       <% existing_count = @template.perguntas.select(&:persisted?).count %>
       <% new_question_index = existing_count %>
       
@@ -61,7 +60,6 @@
       + Adicionar nova pergunta
     <% end %>
     
-    <%# Hidden field to track next index %>
     <%= hidden_field_tag 'next_question_index', new_question_index, 
           id: 'next-question-index',
           data: { "questions-target": "index" } %>

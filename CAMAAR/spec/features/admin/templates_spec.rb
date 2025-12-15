@@ -38,7 +38,6 @@ RSpec.describe "Admin Templates", type: :feature do
       
       fill_in "Nome", with: "Avaliação de Disciplina 2024.1"
       
-      # Fill in the question fields that are already rendered
       all("textarea[name*='perguntas_attributes']").each_with_index do |textarea, index|
         textarea.set("Pergunta #{index + 1}?")
       end
@@ -52,10 +51,8 @@ RSpec.describe "Admin Templates", type: :feature do
     it "shows error when template has no name" do
       visit new_admin_template_path
       
-      # Não preenche nome
       click_button "Criar Template"
       
-      # Expect English error message
       expect(page).to have_content("can't be blank")
     end
     
@@ -66,7 +63,6 @@ RSpec.describe "Admin Templates", type: :feature do
       
       fill_in "Nome", with: "Template sem perguntas"
       
-      # Remove all questions would require JavaScript
       click_button "Criar Template"
       
       expect(page).to have_content("template deve ter pelo menos uma pergunta")
@@ -77,10 +73,8 @@ RSpec.describe "Admin Templates", type: :feature do
       
       skip "This test requires JavaScript driver for dynamic form fields"
       
-      # Count initial questions
       initial_count = all("textarea[name*='perguntas_attributes']").count
       
-      # Add a question (requires JavaScript)
       click_button "Adicionar nova pergunta"
       
       expect(page).to have_css("textarea[name*='perguntas_attributes']", count: initial_count + 1)
@@ -113,7 +107,6 @@ RSpec.describe "Admin Templates", type: :feature do
       
       skip "This test requires JavaScript driver for dynamic form fields"
       
-      # Add new question (requires JavaScript)
       click_button "Adicionar nova pergunta"
       
       new_textarea = all("textarea[name*='perguntas_attributes']").last
@@ -128,7 +121,6 @@ RSpec.describe "Admin Templates", type: :feature do
     it "removes a question from template" do
       visit edit_admin_template_path(template)
       
-      # Verifica remover checkbox para a primeira pergunta
       first_checkbox = first('input[type="checkbox"][name*="_destroy"]')
       check(first_checkbox[:id])
       
@@ -150,7 +142,6 @@ RSpec.describe "Admin Templates", type: :feature do
       
       expect(page).to have_content("Template para excluir")
       
-      # Delete the template (requires JavaScript for confirmation)
       accept_confirm do
         click_link "Excluir", href: admin_template_path(template)
       end

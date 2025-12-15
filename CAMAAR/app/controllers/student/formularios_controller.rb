@@ -5,35 +5,26 @@ module Student
     before_action :validate_formulario_access, only: [:show, :submit]
     before_action :validate_not_already_answered, only: [:show, :submit]
     
-    # GET /aluno/formularios
-    # Lista todos os formulários pendentes do aluno
     def index
       @formularios_pendentes = current_aluno.formularios_pendentes
                                             .includes(:template, :turma, :perguntas)
                                             .order(created_at: :desc)
     end
     
-    # GET /aluno/formularios/:id
-    # Exibe o formulário para preenchimento
     def show
       @perguntas = @formulario.perguntas.order(:id)
     end
     
-    # POST /aluno/formularios/:id/submit
-    # Submete as respostas do formulário
     def submit
-      # Validação de sessão
       unless logged_in?
         flash[:alert] = "Sua sessão expirou. Por favor, faça login novamente."
         redirect_to login_path
         return
       end
       
-      # Validação de respostas obrigatórias
       respostas_params = params[:respostas] || {}
       perguntas = @formulario.perguntas
       
-      # Verificar se todas as perguntas foram respondidas
       missing_answers = []
       perguntas.each do |pergunta|
         resposta_texto = respostas_params[pergunta.id.to_s]
@@ -49,10 +40,8 @@ module Student
         return
       end
       
-      # Persistência em transação
       begin
         ActiveRecord::Base.transaction do
-          # Criar respostas para cada pergunta
           perguntas.each do |pergunta|
             Resposta.create!(
               aluno: current_aluno,
@@ -61,7 +50,6 @@ module Student
             )
           end
           
-          # The form is already in alunos_formularios (added when admin sent it)
         end
         
         flash[:notice] = "Respostas enviadas com sucesso! Obrigado por participar da avaliação."
@@ -76,7 +64,6 @@ module Student
     
     private
     
-    # Carrega o formulário pelo ID
     def set_formulario
       @formulario = Formulario.find_by(id: params[:id])
       
@@ -86,7 +73,6 @@ module Student
       end
     end
     
-    # Validação 1: Verifica se o formulário pertence a uma turma do aluno
     def validate_formulario_access
       return unless @formulario
       
@@ -96,12 +82,9 @@ module Student
       end
     end
     
-    # Validação 2: Verifica se o aluno ainda não respondeu o formulário
     def validate_not_already_answered
       return unless @formulario
       
-      # Check if student has actual responses for this form
-      # A form is considered "answered" if there are Resposta records for it
       has_responses = Resposta.joins(:pergunta)
                               .where(pergunta: { formulario_id: @formulario.id }, aluno_id: current_aluno.id)
                               .exists?

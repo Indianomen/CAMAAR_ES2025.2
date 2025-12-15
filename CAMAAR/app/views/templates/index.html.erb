@@ -2,7 +2,6 @@
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h1>Templates de Formulário</h1>
     <% if current_user.is_a?(Administrador) %>
-      <%# CHANGE THIS: new_template_path → new_admin_template_path %>
       <%= link_to 'Novo Template', new_admin_template_path, class: 'btn btn-primary' %>
     <% end %>
   </div>
@@ -23,7 +22,6 @@
               </p>
             </div>
             <div class="card-footer">
-              <%# CHANGE THESE: %>
               <%= link_to 'Ver', admin_template_path(template), class: 'btn btn-sm btn-outline-primary' %>
               <% if current_user.is_a?(Administrador) && template.administrador == current_user %>
                 <%= link_to 'Editar', edit_admin_template_path(template), class: 'btn btn-sm btn-outline-secondary' %>
@@ -41,7 +39,6 @@
     <div class="alert alert-info">
       Nenhum template criado ainda.
       <% if current_user.is_a?(Administrador) %>
-        <%# CHANGE THIS: %>
         <%= link_to 'Criar primeiro template', new_admin_template_path %>
       <% end %>
     </div>

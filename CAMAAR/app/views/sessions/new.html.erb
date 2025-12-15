@@ -1,13 +1,11 @@
 <div class="login-container">
   <div class="login-card">
-    <!-- Logo/Header -->
     <div class="login-header">
       <div class="logo">📊</div>
       <h1 class="login-title">CAMAAR</h1>
       <p class="login-subtitle">Sistema de Avaliação Acadêmica</p>
     </div>
 
-    <!-- Flash Messages -->
     <% if flash[:notice] %>
       <div class="alert alert-success">
         <span class="alert-icon">✓</span>
@@ -29,7 +27,6 @@
       </div>
     <% end %>
 
-    <!-- Login Form -->
     <%= form_with(url: login_path, method: :post, local: true, class: "login-form") do |f| %>
       <div class="form-group">
         <label for="email" class="form-label">
@@ -59,7 +56,6 @@
       </div>
     <% end %>
 
-    <!-- Footer Links -->
     <div class="login-footer">
       <%= link_to new_password_reset_path, class: "footer-link" do %>
         <span class="link-icon">🔑</span>
@@ -74,7 +70,6 @@
       <% end %>
     </div>
 
-    <!-- Info Box -->
     <div class="info-box">
       <p class="info-text">
         <strong>Primeiro acesso?</strong><br>
@@ -83,7 +78,6 @@
     </div>
   </div>
 
-  <!-- Background Animation -->
   <div class="bg-animation">
     <div class="shape shape-1"></div>
     <div class="shape shape-2"></div>
@@ -312,7 +306,6 @@
     color: #2d3748;
   }
 
-  /* Background Animation */
   .bg-animation {
     position: absolute;
     width: 100%;

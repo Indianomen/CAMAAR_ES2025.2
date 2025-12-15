@@ -1,11 +1,4 @@
-# features/step_definitions/authentication_steps.rb
-
-# ==========================================
-# GIVEN (Contextos)
-# ==========================================
-
 Given('that I am on the login screen as an {string}') do |user_type|
-  # Mapeia "student" ou "admin"
   if user_type.downcase == 'admin'
     visit new_admin_session_path rescue visit '/admin/login'
   else
@@ -25,10 +18,8 @@ Given('that I am on the password reset page') do
   visit new_password_reset_path rescue visit '/password_resets/new'
 end
 
-# Setup para Password Setup (Issue: Configurar senha inicial)
 Given('that the user {string} was imported and has {string} status') do |email, status|
   is_registered = (status.downcase == 'active')
-  # Cria o usuário no banco
   @user = Aluno.find_by(email: email) || FactoryBot.create(:aluno, 
     email: email, 
     registered: is_registered,
@@ -39,13 +30,10 @@ end
 
 Given('a valid password setup link was sent to {string}') do |email|
   @user ||= Aluno.find_by(email: email)
-  # Gera o token usando signed_id (o mesmo logic do controller)
   token = @user.signed_id(purpose: :password_setup, expires_in: 48.hours)
-  # Simula a URL (ajuste a rota conforme seu routes.rb)
   @setup_link = "/password_setups/#{token}/edit" 
 end
 
-# Setup para Password Reset (Issue: Esqueci minha senha)
 Given('that I requested password reset on the login screen') do
   visit login_path
   click_link "Esqueci minha senha" rescue click_link "Forgot Password"
@@ -54,20 +42,16 @@ Given('that I requested password reset on the login screen') do
 end
 
 Given('that I received an email containing the {string}') do |link_type|
-  # Verifica se email chegou
   email = ActionMailer::Base.deliveries.last
   expect(email).to be_present
   expect(email.to).to include(@user.email)
   
-  # Extrai link do corpo
   email_body = email.body.encoded
-  # Regex genérica para pegar links http
   link_match = email_body.match(/href="(?<url>http:\/\/.*?)"/)
   
   if link_match
     @extracted_link = link_match[:url]
   else
-    # Fallback para testes sem host configurado corretamente
     @extracted_link = email_body.match(/(password_resets\/.*?\/edit)/)[1]
   end
 end
@@ -81,33 +65,26 @@ Given('that the user accesses the password setup link received previously') do
 end
 
 Given('And the link is expired') do
-  # Requer config.include ActiveSupport::Testing::TimeHelpers no env.rb
   travel 3.days 
 end
 
-# ==========================================
-# WHEN (Ações)
-# ==========================================
-
-# Login
 When('filling with valid and matching email\/registration and password') do
   @user ||= FactoryBot.create(:aluno, password: 'password123', registered: true)
   fill_in 'Email', with: @user.email
-  fill_in 'Senha', with: 'password123' # Ajuste o label conforme sua view
+  fill_in 'Senha', with: 'password123'
 end
 
 When('filling with valid email\/registration but incompatible password') do
   @user ||= FactoryBot.create(:aluno, password: 'password123', registered: true)
   fill_in 'Email', with: @user.email
   fill_in 'Senha', with: 'wrongpassword'
-  click_button 'Entrar' rescue click_button 'Log in'  # Submete o form para ver o erro
+  click_button 'Entrar' rescue click_button 'Log in'
 end
 
 When('clicking the login button') do
   click_button 'Entrar' rescue click_button 'Log in'
 end
 
-# Acesso a links
 When('I access the link') do
   visit @extracted_link
 end
@@ -117,7 +94,6 @@ When('I try to access the link after the validity period') do
   visit @extracted_link
 end
 
-# Preenchimento de Senhas
 When('the user enters a new password that meets the requirements') do
   fill_in 'Nova Senha', with: 'NewSecurePass123!'
 end
@@ -146,7 +122,6 @@ When('And click confirm') do
   click_button 'Salvar Senha'
 end
 
-# Cenários de erro de senha
 When('the user enters a password that doesn\'t meet security rules') do
   fill_in 'Nova Senha', with: '123'
   fill_in 'Confirmar Senha', with: '123'
@@ -167,22 +142,15 @@ When('the user tries to set a new password') do
 end
 
 When('the user tries to create the initial password') do
-  # Tenta submeter o form mesmo estando logado ou ativo
   fill_in 'Nova Senha', with: 'NewPass123!'
   click_button 'Salvar Senha'
 end
 
-# ==========================================
-# THEN (Verificações)
-# ==========================================
-
-# Verificação visual da tela de login (estava faltando no seu arquivo)
 Then('I am presented with {int} input fields, one for email\/registration and another for password') do |count|
-  expect(page).to have_field('Email') # ou name="email"
-  expect(page).to have_field('Senha') # ou name="password"
+  expect(page).to have_field('Email') 
+  expect(page).to have_field('Senha') 
 end
 
-# Redirecionamentos
 Then('I should be redirected to the Evaluations screen, with a sidebar and available evaluations') do
   expect(current_path).to eq(evaluations_path) rescue expect(page).to have_content("Avaliações")
   expect(page).to have_css('.sidebar')
@@ -194,7 +162,6 @@ Then('I should be redirected to the Evaluations screen, with a sidebar showing t
 end
 
 Then('I am presented with a message that user or password is incorrect') do
-  # Procura pela mensagem de erro na página (pode estar em flash ou @error_message)
   expect(page).to have_content(/inválido|incorreto|Email ou senha inválidos/i)
 end
 
@@ -208,7 +175,6 @@ end
 
 # Sucesso
 Then('the password must be successfully registered') do
-  # Verifica se consegue logar com a nova senha
   @user.reload
   expect(@user.authenticate('NewSecurePass123!')).to be_truthy
 end
@@ -232,7 +198,6 @@ Then('must display a message informing that the password was successfully reset'
   expect(page).to have_content(/sucesso|atualizada/i)
 end
 
-# Erros e Bloqueios
 Then('the system must display a message informing that the link has expired') do
   expect(page).to have_content(/expirado|inválido/i)
 end
@@ -260,12 +225,10 @@ Then('the password must not be saved') do
 end
 
 Then('the system must prevent the reset') do
-  # Verifica se ainda está na mesma página ou mostra erro
   expect(page).to have_button('Salvar Senha') 
 end
 
 Then('the system must prevent saving the new password') do
-   # Mesma lógica acima
    expect(page).to have_button('Salvar Senha')
 end
 
@@ -281,13 +244,10 @@ Then('must suggest the user use the {string} flow') do |text|
   expect(page).to have_content(text)
 end
 
-# Missing steps for password setup
 Given('the link is valid and within the deadline') do
-  # Link já foi gerado no Background, não precisa fazer nada
 end
 
 Given('the link is still valid') do
-  # Link já foi gerado, não precisa fazer nada
 end
 
 Given('that the user accesses the password setup link received by email') do
@@ -306,23 +266,18 @@ When('I enter the new password') do
   fill_in 'Nova Senha', with: 'ValidPassword123!'
 end
 
-# Missing steps for login scenarios
 Given('that I am on the login screen as an student') do
   visit login_path
 end
 
 Given('that I am on the login screen as a admin') do
-  # Admin usa o mesmo login por enquanto (admin namespace não implementado completamente)
   visit login_path
 end
 
 Then('I should be redirected to the Evaluations screen, with a sidebar showing the evaluations and management sections.') do
-  # Admin dashboard
   expect(page).to have_content(/painel|dashboard|gerenciamento/i)
 end
 
-# Missing steps for password reset
 Given('the link is expired') do
-  # Avança o tempo para expirar o link
   travel 3.days
 end
