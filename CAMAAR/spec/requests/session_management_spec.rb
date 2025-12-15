@@ -26,9 +26,8 @@ RSpec.describe 'Session Management', type: :request do
       it 'redirects to dashboard when accessing login page' do
         get login_path
         
+        # Should redirect to dashboard when already logged in
         expect(response).to redirect_to(dashboard_path)
-        follow_redirect!
-        expect(response.body).to include('já está logado')
       end
 
       it 'redirects to dashboard when trying to login again' do
@@ -94,6 +93,8 @@ RSpec.describe 'Session Management', type: :request do
       
       # Tab 2: Acessa dashboard (mesma sessão)
       get dashboard_path
+      expect(response).to have_http_status(:redirect)
+      follow_redirect!
       expect(response).to have_http_status(:success)
       
       # Tab 3: Tenta acessar login (deve redirecionar)

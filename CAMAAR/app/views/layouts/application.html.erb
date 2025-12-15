@@ -255,6 +255,146 @@
       </div>
     </nav>
 
+    <!-- Flash Messages -->
+    <% if flash[:notice] || flash[:alert] %>
+      <div class="flash-container">
+        <% if flash[:notice] %>
+          <div class="flash-message flash-success">
+            <div class="flash-icon">✅</div>
+            <div class="flash-content">
+              <div class="flash-title">Sucesso!</div>
+              <div class="flash-text"><%= flash[:notice] %></div>
+            </div>
+            <button class="flash-close" onclick="this.parentElement.remove()">×</button>
+          </div>
+        <% end %>
+        
+        <% if flash[:alert] %>
+          <div class="flash-message flash-error">
+            <div class="flash-icon">⚠️</div>
+            <div class="flash-content">
+              <div class="flash-title">Atenção!</div>
+              <div class="flash-text"><%= flash[:alert] %></div>
+            </div>
+            <button class="flash-close" onclick="this.parentElement.remove()">×</button>
+          </div>
+        <% end %>
+      </div>
+      
+      <style>
+        .flash-container {
+          position: fixed;
+          top: 80px;
+          right: 20px;
+          z-index: 9999;
+          max-width: 400px;
+        }
+        
+        .flash-message {
+          display: flex;
+          align-items: flex-start;
+          gap: 15px;
+          padding: 20px;
+          border-radius: 12px;
+          box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+          margin-bottom: 15px;
+          animation: slideIn 0.5s ease-out, fadeOut 0.5s ease-out 4.5s forwards;
+          backdrop-filter: blur(10px);
+        }
+        
+        @keyframes slideIn {
+          from {
+            transform: translateX(400px);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+        
+        @keyframes fadeOut {
+          from {
+            opacity: 1;
+            transform: translateX(0);
+          }
+          to {
+            opacity: 0;
+            transform: translateX(400px);
+          }
+        }
+        
+        .flash-success {
+          background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+          color: white;
+        }
+        
+        .flash-error {
+          background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+          color: white;
+        }
+        
+        .flash-icon {
+          font-size: 32px;
+          flex-shrink: 0;
+        }
+        
+        .flash-content {
+          flex: 1;
+        }
+        
+        .flash-title {
+          font-size: 18px;
+          font-weight: 700;
+          margin-bottom: 5px;
+        }
+        
+        .flash-text {
+          font-size: 14px;
+          line-height: 1.5;
+          opacity: 0.95;
+        }
+        
+        .flash-close {
+          background: rgba(255,255,255,0.2);
+          border: none;
+          color: white;
+          font-size: 24px;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.2s ease;
+          flex-shrink: 0;
+        }
+        
+        .flash-close:hover {
+          background: rgba(255,255,255,0.3);
+          transform: scale(1.1);
+        }
+        
+        @media (max-width: 768px) {
+          .flash-container {
+            right: 10px;
+            left: 10px;
+            max-width: none;
+          }
+        }
+      </style>
+      
+      <script>
+        // Auto-dismiss flash messages after 5 seconds
+        setTimeout(() => {
+          document.querySelectorAll('.flash-message').forEach(msg => {
+            msg.remove();
+          });
+        }, 5000);
+      </script>
+    <% end %>
+
     <!-- Main Content -->
     <%= yield %>
   </body>

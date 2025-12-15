@@ -91,11 +91,12 @@ module Admin
       
       @answers_by_question = @respostas.group_by(&:pergunta)
       
-      # Estatísticas
-      @total_responses = @respostas.count
-      @total_students  = @formulario.turma&.alunos&.count || 0
-      @response_rate   = @total_students > 0 ? 
-                           (@total_responses.to_f / @total_students * 100).round(1) : 0
+      # Calculate statistics
+      # Count DISTINCT students who responded, not total responses
+      @total_responses = @respostas.select(:aluno_id).distinct.count
+      @total_students = @formulario.turma&.alunos&.count || 0
+      @response_rate = @total_students > 0 ? 
+        (@total_responses.to_f / @total_students * 100).round(1) : 0
 
       # Renderiza normalmente HTML; a exportação acontece via export_csv
     end

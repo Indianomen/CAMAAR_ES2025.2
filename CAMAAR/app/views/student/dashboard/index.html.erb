@@ -1,0 +1,119 @@
+<div class="container">
+  <!-- Welcome Card -->
+  <div class="welcome-card">
+    <h1 class="welcome-title">
+      Bem-vindo, <%= current_aluno.nome %>! 👋
+    </h1>
+    <p class="welcome-subtitle">
+      Aqui você pode visualizar e responder às avaliações disponíveis
+    </p>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">📝</div>
+      <div class="stat-value"><%= @formularios_pendentes_count %></div>
+      <div class="stat-label">Avaliações Pendentes</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-icon">✅</div>
+      <div class="stat-value"><%= @formularios_respondidos_count %></div>
+      <div class="stat-label">Avaliações Concluídas</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-icon">📊</div>
+      <div class="stat-value"><%= @total_formularios %></div>
+      <div class="stat-label">Total de Avaliações</div>
+    </div>
+  </div>
+
+  <!-- Evaluations Section -->
+  <div class="evaluations-section">
+    <h2 class="section-title">
+      <span>📋</span>
+      <span>Avaliações Disponíveis</span>
+    </h2>
+    
+    <% if @formularios_pendentes_count > 0 %>
+      <div class="action-card">
+        <p class="action-text">
+          Você tem <strong><%= @formularios_pendentes_count %></strong> 
+          <%= @formularios_pendentes_count == 1 ? 'avaliação pendente' : 'avaliações pendentes' %>
+        </p>
+        <%= link_to student_formularios_path, class: 'action-button' do %>
+          <span>📝</span>
+          <span>Ver Avaliações Pendentes</span>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="empty-state">
+        <div class="empty-icon">📭</div>
+        <p class="empty-text">Nenhuma avaliação disponível no momento</p>
+        <p style="color: #cbd5e0; font-size: 14px; margin-top: 10px;">
+          Novas avaliações aparecerão aqui quando forem criadas
+        </p>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<style>
+  /* Animações suaves */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .welcome-card,
+  .stat-card,
+  .evaluations-section {
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  .stat-card:nth-child(1) { animation-delay: 0.1s; }
+  .stat-card:nth-child(2) { animation-delay: 0.2s; }
+  .stat-card:nth-child(3) { animation-delay: 0.3s; }
+  .evaluations-section { animation-delay: 0.4s; }
+  
+  .action-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .action-text {
+    font-size: 1.1rem;
+    color: #2d3748;
+    margin-bottom: 1.5rem;
+  }
+  
+  .action-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  }
+  
+  .action-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  }
+</style>

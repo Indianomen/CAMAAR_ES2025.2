@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe TemplatesController, type: :controller do
+RSpec.describe Admin::TemplatesController, type: :controller do
   let(:admin) { create(:administrador) }
   let(:aluno) { create(:aluno) }
   
@@ -8,8 +8,8 @@ RSpec.describe TemplatesController, type: :controller do
     context "without authentication" do
       it "redirects to root with unauthorized message" do
         get :new
-        expect(response).to redirect_to('/login')
-        expect(flash[:alert]).to eq("Você precisa fazer login para acessar esta página")
+        expect(response).to redirect_to(admin_login_path)
+        expect(flash[:alert]).to eq("Acesso restrito a administradores")
       end
     end
     
@@ -27,8 +27,8 @@ RSpec.describe TemplatesController, type: :controller do
     context "without authentication" do
       it "redirects to root with unauthorized message" do
         get :new
-        expect(response).to redirect_to('/login')
-        expect(flash[:alert]).to eq("Você precisa fazer login para acessar esta página")
+        expect(response).to redirect_to(admin_login_path)
+        expect(flash[:alert]).to eq("Acesso restrito a administradores")
       end
     end
     
@@ -51,8 +51,8 @@ RSpec.describe TemplatesController, type: :controller do
       
       it "redirects with unauthorized message" do
         get :new
-        expect(response).to redirect_to('/')
-        expect(flash[:alert]).to eq("Acesso não autorizado.")
+        expect(response).to redirect_to(admin_login_path)
+        expect(flash[:alert]).to eq("Acesso restrito a administradores")
       end
     end
   end
@@ -109,7 +109,7 @@ RSpec.describe TemplatesController, type: :controller do
             }
           }
         }
-        expect(response).to redirect_to(Template.last)
+        expect(response).to redirect_to(admin_template_path(Template.last))
         expect(flash[:notice]).to eq("Template criado com sucesso.")
       end
       
@@ -131,8 +131,8 @@ RSpec.describe TemplatesController, type: :controller do
     context "without authentication" do
       it "redirects to login page" do
         get :show, params: { id: template.id }
-        expect(response).to redirect_to('/login')
-        expect(flash[:alert]).to eq('Você precisa fazer login para acessar esta página')
+        expect(response).to redirect_to(admin_login_path)
+        expect(flash[:alert]).to eq("Acesso restrito a administradores")
       end
     end
   end
@@ -188,7 +188,7 @@ RSpec.describe TemplatesController, type: :controller do
           id: template.id, 
           template: { nome: "Updated Name" } 
         }
-        expect(response).to redirect_to(template)
+        expect(response).to redirect_to(admin_template_path(template))
         expect(flash[:notice]).to eq("Template atualizado com sucesso.")
       end
     end
@@ -216,7 +216,7 @@ RSpec.describe TemplatesController, type: :controller do
       
       it "redirects to templates list" do
         delete :destroy, params: { id: template.id }
-        expect(response).to redirect_to(templates_path)
+        expect(response).to redirect_to(admin_templates_path)
         expect(flash[:notice]).to eq("Template excluído com sucesso.")
       end
     end

@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_user, :logged_in?, :current_administrador
+  # Make authentication helpers available in views
+  helper_method :current_user, :logged_in?, :current_aluno, :current_professor, :current_administrador
   
   private
   
