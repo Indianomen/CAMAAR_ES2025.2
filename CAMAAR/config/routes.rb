@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get   'password_setups/:token/edit', to: 'password_setups#edit',   as: :edit_password_setup
   patch 'password_setups/:token',      to: 'password_setups#update', as: :password_setup
 
+
   namespace :admin do
     root to: "dashboard#index"
 
@@ -33,20 +34,23 @@ Rails.application.routes.draw do
     resources :alunos
     resources :professors
     resources :disciplinas
+
     resources :formularios do
       member do
         post :send_to_students
-        get :results
-        get :export_csv
+        get  :results
+        get  :export_csv   # <- download do CSV para um formulário específico
       end
     end
+
     resources :templates do
       resources :perguntas, only: [:new, :create]
     end
+
     resources :turmas
 
-  
-    get 'formularios/:id/results', to: 'formularios#results', as: 'results_formulario'
+    # REMOVER esta linha (duplicada):
+    # get 'formularios/:id/results', to: 'formularios#results', as: 'results_formulario'
 
     get "avaliacoes",    to: "pages#avaliacoes"
     get "gerenciamento", to: "pages#gerenciamento"
@@ -56,7 +60,6 @@ Rails.application.routes.draw do
     delete "logout", to: "sessions#destroy"
 
     post "importacoes", to: "importacoes#create"
-
-    get "resultados", to: "pages#resultados"
+    get  "resultados",  to: "pages#resultados"
   end
 end

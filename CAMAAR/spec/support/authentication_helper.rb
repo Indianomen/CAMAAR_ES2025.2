@@ -5,6 +5,33 @@ module AuthenticationHelper
     session[:user_type] = user.class.name
   end
   
+  # ---- NOVO: helper para request specs ----
+  def stub_admin_auth_request(admin = nil)
+    admin ||= create(:administrador)
+
+    # Stub nos métodos do Admin::ApplicationController
+    allow_any_instance_of(Admin::ApplicationController)
+      .to receive(:current_administrador).and_return(admin)
+
+    allow_any_instance_of(Admin::ApplicationController)
+      .to receive(:administrador_signed_in?).and_return(true)
+
+    # Se existir require_login neste controller, garanta que não bloqueie
+    if Admin::ApplicationController.method_defined?(:require_login)
+      allow_any_instance_of(Admin::ApplicationController)
+        .to receive(:require_login).and_return(true)
+    end
+
+    admin
+  end
+
+  # Inclua o helper também em request specs
+  RSpec.configure do |config|
+    config.include AuthenticationHelper, type: :controller
+    config.include AuthenticationHelper, type: :request
+  end
+
+
   # For admin authentication
   def login_as_admin(admin = nil)
     admin ||= create(:administrador)
