@@ -2,7 +2,7 @@
 source "https://rubygems.org"
 
 # Core Rails
-gem "rails"
+gem 'rails', '~> 8.0.0'
 gem "propshaft"
 gem "sqlite3"
 gem "puma"
