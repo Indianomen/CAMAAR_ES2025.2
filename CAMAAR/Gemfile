@@ -2,10 +2,10 @@
 source "https://rubygems.org"
 
 # Core Rails
-gem "rails", "~> 8.0.4"
+gem "rails"
 gem "propshaft"
-gem "sqlite3", ">= 2.1"
-gem "puma", ">= 5.0"
+gem "sqlite3"
+gem "puma"
 gem "importmap-rails"
 gem "turbo-rails"
 gem "stimulus-rails"
@@ -24,7 +24,14 @@ gem "thruster", require: false
 gem "rspec-rails"
 gem "factory_bot_rails"
 gem "faker"
-gem "shoulda-matchers", "~> 5.0"
+gem "shoulda-matchers"
+
+#Verificações
+gem 'simplecov', require: false, group: :test
+gem "rubycritic", require: false
+gem "rdoc", require: false
+gem "metric_fu-Saikuro", require: false
+gem "flog"
 
 group :development, :test do
   gem "debug", platforms: %i[mri windows], require: "debug/prelude"
