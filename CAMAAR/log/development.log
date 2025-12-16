@@ -35168,3 +35168,24 @@ Processing by Admin::FormulariosController#index as HTML
 Completed 200 OK in 6ms (Views: 1.9ms | ActiveRecord: 0.4ms (2 queries, 0 cached) | GC: 0.0ms)
 
 
+Started GET "/" for 127.0.0.1 at 2025-12-15 23:53:48 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Camaar'*/[0m
+Processing by SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (Duration: 2.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 6.3ms | GC: 0.0ms)
+Completed 200 OK in 114ms (Views: 7.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 34.2ms)
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2025-12-15 23:53:49 -0300
+Processing by Admin::SessionsController#new as HTML
+  Rendering layout layouts/admin.html.erb
+  Rendering admin/sessions/new.html.erb within layouts/admin
+  Rendered admin/sessions/new.html.erb within layouts/admin (Duration: 1.2ms | GC: 0.0ms)
+  [1m[36mAdministrador Load (0.1ms)[0m  [1m[34mSELECT "administradors".* FROM "administradors" WHERE "administradors"."id" = 2 LIMIT 1 /*action='new',application='Camaar',controller='sessions'*/[0m
+  ↳ app/controllers/admin/application_controller.rb:37:in `current_administrador'
+  Rendered layout layouts/admin.html.erb (Duration: 10.3ms | GC: 0.0ms)
+Completed 200 OK in 13ms (Views: 9.7ms | ActiveRecord: 1.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
