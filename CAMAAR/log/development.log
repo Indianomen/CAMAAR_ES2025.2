@@ -35189,3 +35189,63 @@ Processing by Admin::SessionsController#new as HTML
 Completed 200 OK in 13ms (Views: 9.7ms | ActiveRecord: 1.2ms (1 query, 0 cached) | GC: 0.0ms)
 
 
+Started GET "/" for 127.0.0.1 at 2025-12-15 23:56:01 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Camaar'*/[0m
+Processing by SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (Duration: 1.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.7ms | GC: 0.0ms)
+Completed 200 OK in 111ms (Views: 7.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 32.3ms)
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2025-12-15 23:56:03 -0300
+Processing by Admin::SessionsController#new as HTML
+  Rendering layout layouts/admin.html.erb
+  Rendering admin/sessions/new.html.erb within layouts/admin
+  Rendered admin/sessions/new.html.erb within layouts/admin (Duration: 1.3ms | GC: 0.0ms)
+  [1m[36mAdministrador Load (0.1ms)[0m  [1m[34mSELECT "administradors".* FROM "administradors" WHERE "administradors"."id" = 2 LIMIT 1 /*action='new',application='Camaar',controller='sessions'*/[0m
+  ↳ app/controllers/admin/application_controller.rb:37:in `current_administrador'
+  Rendered layout layouts/admin.html.erb (Duration: 9.5ms | GC: 0.0ms)
+Completed 200 OK in 13ms (Views: 9.0ms | ActiveRecord: 1.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/admin/login" for 127.0.0.1 at 2025-12-15 23:56:10 -0300
+Processing by Admin::SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "usuario"=>"admin", "password"=>"[FILTERED]", "commit"=>"Entrar"}
+  [1m[36mAdministrador Load (0.2ms)[0m  [1m[34mSELECT "administradors".* FROM "administradors" WHERE "administradors"."usuario" = 'admin' LIMIT 1 /*action='create',application='Camaar',controller='sessions'*/[0m
+  ↳ app/controllers/admin/sessions_controller.rb:38:in `create'
+Redirected to http://127.0.0.1:3000/admin
+Completed 302 Found in 141ms (ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2025-12-15 23:56:10 -0300
+Processing by Admin::DashboardController#index as HTML
+  [1m[36mAdministrador Load (0.1ms)[0m  [1m[34mSELECT "administradors".* FROM "administradors" WHERE "administradors"."id" = 2 LIMIT 1 /*action='index',application='Camaar',controller='dashboard'*/[0m
+  ↳ app/controllers/admin/application_controller.rb:37:in `current_administrador'
+  [1m[36mFormulario Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "formularios" WHERE "formularios"."administrador_id" = 2 /*action='index',application='Camaar',controller='dashboard'*/[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:21:in `index'
+  [1m[36mTemplate Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates" WHERE "templates"."administrador_id" = 2 /*action='index',application='Camaar',controller='dashboard'*/[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:22:in `index'
+  Rendering layout layouts/admin.html.erb
+  Rendering admin/dashboard/index.html.erb within layouts/admin
+  Rendered admin/dashboard/index.html.erb within layouts/admin (Duration: 0.5ms | GC: 0.0ms)
+  Rendered layout layouts/admin.html.erb (Duration: 1.2ms | GC: 0.0ms)
+Completed 200 OK in 14ms (Views: 1.5ms | ActiveRecord: 0.4ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2025-12-15 23:56:15 -0300
+Processing by Admin::DashboardController#index as HTML
+  [1m[36mAdministrador Load (0.2ms)[0m  [1m[34mSELECT "administradors".* FROM "administradors" WHERE "administradors"."id" = 2 LIMIT 1 /*action='index',application='Camaar',controller='dashboard'*/[0m
+  ↳ app/controllers/admin/application_controller.rb:37:in `current_administrador'
+  [1m[36mFormulario Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "formularios" WHERE "formularios"."administrador_id" = 2 /*action='index',application='Camaar',controller='dashboard'*/[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:21:in `index'
+  [1m[36mTemplate Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "templates" WHERE "templates"."administrador_id" = 2 /*action='index',application='Camaar',controller='dashboard'*/[0m
+  ↳ app/controllers/admin/dashboard_controller.rb:22:in `index'
+  Rendering layout layouts/admin.html.erb
+  Rendering admin/dashboard/index.html.erb within layouts/admin
+  Rendered admin/dashboard/index.html.erb within layouts/admin (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/admin.html.erb (Duration: 0.7ms | GC: 0.0ms)
+Completed 200 OK in 5ms (Views: 0.9ms | ActiveRecord: 0.2ms (3 queries, 0 cached) | GC: 0.0ms)
+
+

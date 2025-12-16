@@ -240,9 +240,6 @@
 
     <% if current_administrador %>
       <nav id="adminSidebar" class="sidebar" aria-label="Menu lateral admin">
-      <a href="<%= admin_avaliacoes_path %>" class="<%= 'active' if controller_name == 'pages' && action_name == 'avaliacoes' %>">
-          Avaliações
-      </a>
 
       <a href="<%= admin_root_path %>" class="<%= 'active' if controller_name == 'pages' && action_name == 'gerenciamento' %>">
           Gerenciamento
