@@ -22,8 +22,6 @@ Rails.application.configure do
 
   config.cache_store = :memory_store
 
-  config.active_storage.service = :local
-
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.perform_caching = false
